@@ -41,7 +41,7 @@ export function UserCard() {
 						{linksIcons.map((Icon, index) => (
 							<button
 								key={index}
-								className="bg-background-card-button hover:bg-background-card-button-hover rounded-xl p-3 transition-colors"
+								className="rounded-xl bg-background-card-button p-3 transition-colors hover:bg-background-card-button-hover"
 							>
 								<Icon />
 							</button>
@@ -55,7 +55,7 @@ export function UserCard() {
 					<div className="flex w-full flex-col items-center gap-3">
 						<Button className="w-full">Confira meu template SaaS</Button>
 
-						<button className="bg-background-card-button hover:bg-background-card-button-hover rounded-xl p-3">
+						<button className="rounded-xl bg-background-card-button p-3 hover:bg-background-card-button-hover">
 							<Plus />
 						</button>
 					</div>
