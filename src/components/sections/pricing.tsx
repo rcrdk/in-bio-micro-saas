@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
-import { TRIAL_DAYS } from '@/config'
+import { env } from '@/lib/env'
 
 export function Pricing() {
 	return (
@@ -15,8 +15,10 @@ export function Pricing() {
 					<Text variant="body-lg">
 						Junte-se à comunidade de criadores e profissionais que já estão
 						elevando sua presença online. Teste gratuitamente por{' '}
-						<strong className="text-accent-pink">{TRIAL_DAYS} dias</strong>, sem
-						compromisso!
+						<strong className="text-accent-pink">
+							{env.NEXT_PUBLIC_TRIAL_DAYS} dias
+						</strong>
+						, sem compromisso!
 					</Text>
 				</div>
 

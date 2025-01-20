@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
-import { TRIAL_DAYS } from '@/config'
+import { env } from '@/lib/env'
 
 export function Hero() {
 	return (
@@ -14,7 +14,7 @@ export function Hero() {
 					as="span"
 					className="rounded-3xl border border-border-primary bg-background-primary px-4 py-2 font-bold uppercase leading-tight text-white"
 				>
-					{TRIAL_DAYS} dias grátis
+					{env.NEXT_PUBLIC_TRIAL_DAYS} dias grátis
 				</Text>
 
 				<Text
