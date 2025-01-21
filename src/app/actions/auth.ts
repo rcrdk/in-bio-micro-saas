@@ -7,7 +7,7 @@ export async function authActions() {
 
 	if (!session) {
 		return await signIn('google', {
-			redirectTo: '/criar',
+			redirectTo: '/create',
 		})
 	}
 

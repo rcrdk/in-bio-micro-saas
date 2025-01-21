@@ -12,6 +12,7 @@
   "dependencies": {
     "@auth/firebase-adapter": "^2.7.4",
     "@t3-oss/env-nextjs": "^0.11.1",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
     "firebase-admin": "^12.0.0",
     "lucide-react": "^0.473.0",

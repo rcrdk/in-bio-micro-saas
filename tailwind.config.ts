@@ -9,6 +9,7 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				'background-modal': '#191919',
 				'background-primary': '#050505',
 				'background-secondary': '#0F0F10',
 				'background-tertiary': '#19191A',

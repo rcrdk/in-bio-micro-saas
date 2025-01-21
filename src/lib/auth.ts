@@ -8,7 +8,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	adapter: FirestoreAdapter({
 		credential: firebaseCertificate,
 	}),
-	debug: true,
 	providers: [Google],
 	events: {},
 	callbacks: {},

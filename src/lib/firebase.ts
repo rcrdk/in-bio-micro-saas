@@ -23,3 +23,16 @@ if (isFirebaseNotInitialized) {
 
 export const DB = getFirestore()
 export const Storage = getStorage().bucket()
+
+export async function getDownloadUrlFromPath(path?: string) {
+	if (!path) return null
+
+	const file = Storage.file(path)
+
+	const [url] = await file.getSignedUrl({
+		action: 'read',
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+	})
+
+	return url
+}
