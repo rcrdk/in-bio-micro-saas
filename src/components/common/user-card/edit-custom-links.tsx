@@ -39,7 +39,7 @@ export function EditCustomLinks({ customLinks }: Props) {
 	)
 
 	const router = useRouter()
-	const { profileId } = useParams()
+	const { pageSlug } = useParams()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
@@ -48,10 +48,10 @@ export function EditCustomLinks({ customLinks }: Props) {
 	async function handleEditLinks() {
 		setIsSubmitting(true)
 
-		if (!profileId) return
+		if (!pageSlug) return
 
 		await createCustomLinks({
-			profileId: String(profileId),
+			pageSlug: String(pageSlug),
 			link1,
 			link2,
 			link3,

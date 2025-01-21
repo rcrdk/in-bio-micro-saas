@@ -14,9 +14,9 @@ export type ProjectData = {
 	updatedAt: number
 }
 
-export async function getProjects(profileId: string) {
+export async function getProjects(slug: string) {
 	const snapshot = await DB.collection('profiles')
-		.doc(profileId)
+		.doc(slug)
 		.collection('projects')
 		.get()
 

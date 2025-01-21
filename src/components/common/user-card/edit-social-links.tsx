@@ -18,7 +18,7 @@ export function EditSocialLinks({ socialMedia }: Props) {
 	const [isSubmitting, setIsSubmitting] = useState(false)
 
 	const router = useRouter()
-	const { profileId } = useParams()
+	const { pageSlug } = useParams()
 
 	const [github, setGithub] = useState(socialMedia?.github ?? '')
 	const [linkedin, setLinkedin] = useState(socialMedia?.linkedin ?? '')
@@ -32,10 +32,10 @@ export function EditSocialLinks({ socialMedia }: Props) {
 	async function handleEditLinks() {
 		setIsSubmitting(true)
 
-		if (!profileId) return
+		if (!pageSlug) return
 
 		await createSocialLinks({
-			profileId: String(profileId),
+			pageSlug: String(pageSlug),
 			github,
 			linkedin,
 			twitter,

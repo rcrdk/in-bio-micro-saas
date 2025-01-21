@@ -7,11 +7,11 @@ import { auth } from '@/lib/auth'
 import { DB } from '@/lib/firebase'
 
 type Props = Record<ProfileCustomLinks, ProfileLinkProps> & {
-	profileId: string
+	pageSlug: string
 }
 
 export async function createCustomLinks({
-	profileId,
+	pageSlug,
 	link1,
 	link2,
 	link3,
@@ -21,7 +21,7 @@ export async function createCustomLinks({
 	if (!session) return false
 
 	try {
-		await DB.collection('profiles').doc(profileId).update({
+		await DB.collection('profiles').doc(pageSlug).update({
 			customLinks: {
 				link1,
 				link2,

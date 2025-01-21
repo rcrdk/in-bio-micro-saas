@@ -6,7 +6,7 @@ import { auth } from '@/lib/auth'
 import { DB } from '@/lib/firebase'
 
 type Props = {
-	profileId: string
+	pageSlug: string
 	github: string
 	linkedin: string
 	twitter: string
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export async function createSocialLinks({
-	profileId,
+	pageSlug,
 	github,
 	linkedin,
 	twitter,
@@ -25,7 +25,7 @@ export async function createSocialLinks({
 	if (!session) return false
 
 	try {
-		await DB.collection('profiles').doc(profileId).update({
+		await DB.collection('profiles').doc(pageSlug).update({
 			socialMedia: {
 				github,
 				linkedin,

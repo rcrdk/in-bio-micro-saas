@@ -1,6 +1,7 @@
 'use client'
 
 import { Upload, User, UserPen, X } from 'lucide-react'
+import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
@@ -16,7 +17,7 @@ import { compressFiles } from '@/utils/compress-files'
 
 type Props = {
 	initialData: Pick<ProfileData, 'name' | 'description' | 'imagePath'>
-	currentProfilePicture: string | null
+	currentProfilePicture: string | null | StaticImageData
 }
 
 export function EditUserCard({ initialData, currentProfilePicture }: Props) {
@@ -30,7 +31,7 @@ export function EditUserCard({ initialData, currentProfilePicture }: Props) {
 	const [profileImage, setProfileImage] = useState<string | null>(null)
 
 	const router = useRouter()
-	const { profileId } = useParams()
+	const { pageSlug } = useParams()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
@@ -50,11 +51,11 @@ export function EditUserCard({ initialData, currentProfilePicture }: Props) {
 	async function handleSaveProfile() {
 		setIsSubmitting(true)
 
-		if (!profileId) return
+		if (!pageSlug) return
 
 		const formData = new FormData()
 
-		formData.append('profileId', String(profileId))
+		formData.append('pageSlug', String(pageSlug))
 		formData.append('name', profileName)
 		formData.append('description', profileDescription)
 

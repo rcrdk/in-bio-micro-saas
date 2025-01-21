@@ -7,10 +7,12 @@ export function compressImage(file: File): Promise<File> {
 			maxSizeMB: 0.2,
 			maxWidthOrHeight: 900,
 			useWebWorker: true,
-			fileType: 'image/png'
+			fileType: 'image/png',
 		}
 
-		imageCompression(file, options).then((compressedFile) => resolve(compressedFile))
+		imageCompression(file, options).then((compressedFile) =>
+			resolve(compressedFile),
+		)
 	})
 }
 

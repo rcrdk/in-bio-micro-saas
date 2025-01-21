@@ -13,8 +13,8 @@ export async function updateProfile(data: FormData) {
 	if (!session?.user) return false
 
 	try {
-		const [profileId, name, description, file] = [
-			data.get('profileId') as string,
+		const [pageSlug, name, description, file] = [
+			data.get('pageSlug') as string,
 			data.get('name') as string,
 			data.get('description') as string,
 			data.get('file') as File | undefined,
@@ -25,9 +25,7 @@ export async function updateProfile(data: FormData) {
 		const hasFile = file && file.size > 0
 
 		if (hasFile) {
-			const currentProfile = await DB.collection('profiles')
-				.doc(profileId)
-				.get()
+			const currentProfile = await DB.collection('profiles').doc(pageSlug).get()
 			const currentImagePath = currentProfile?.data()?.imagePath
 
 			if (currentImagePath) {
@@ -37,7 +35,7 @@ export async function updateProfile(data: FormData) {
 			}
 
 			const storageRef = Storage.file(
-				`profiles/${profileId}/${randomUUID()}-${file.name}`,
+				`profiles/${pageSlug}/${randomUUID()}-${file.name}`,
 			)
 			const arrayBuffer = await file.arrayBuffer()
 			const buffer = Buffer.from(arrayBuffer)
@@ -48,7 +46,7 @@ export async function updateProfile(data: FormData) {
 		}
 
 		await DB.collection('profiles')
-			.doc(profileId)
+			.doc(pageSlug)
 			.update({
 				name,
 				description,

@@ -12,8 +12,8 @@ export async function createProject(data: FormData) {
 
 	if (!session?.user) return false
 
-	const [profileId, projectName, projectDescription, projectUrl, file] = [
-		data.get('profileId') as string,
+	const [pageSlug, projectName, projectDescription, projectUrl, file] = [
+		data.get('pageSlug') as string,
 		data.get('name') as string,
 		data.get('description') as string,
 		data.get('url') as string,
@@ -22,7 +22,7 @@ export async function createProject(data: FormData) {
 
 	const generateId = randomUUID()
 	const storageRef = Storage.file(
-		`projects/${profileId}/${generateId}-${file.name}`,
+		`projects/${pageSlug}/${generateId}-${file.name}`,
 	)
 	const arrayBuffer = await file.arrayBuffer()
 	const buffer = Buffer.from(arrayBuffer)
@@ -33,7 +33,7 @@ export async function createProject(data: FormData) {
 
 	try {
 		await DB.collection('profiles')
-			.doc(profileId)
+			.doc(pageSlug)
 			.collection('projects')
 			.doc(generateId)
 			.set({

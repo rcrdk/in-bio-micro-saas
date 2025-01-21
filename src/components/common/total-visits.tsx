@@ -1,4 +1,7 @@
 import { TrendingUp } from 'lucide-react'
+import Link from 'next/link'
+
+import { authActions } from '@/app/actions/auth'
 
 type Props = {
 	counter: number
@@ -16,11 +19,20 @@ export function TotalVisits({ counter = 0 }: Props) {
 				<TrendingUp />
 			</div>
 
-			{/* <div className="flex items-center gap-2">
-				<button>Portal</button>
+			<div className="flex items-center gap-4 border-l border-border-secondary pl-5">
+				<Link
+					href="/"
+					className="text-base text-content-placeholder hover:text-white"
+				>
+					Portal
+				</Link>
 
-				<button>Sair</button>
-			</div> */}
+				<form action={authActions}>
+					<button className="text-base text-content-placeholder hover:text-white">
+						Sair
+					</button>
+				</form>
+			</div>
 		</div>
 	)
 }

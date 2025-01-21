@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { NewProject } from '@/app/(pages)/[profileId]/new-project'
+import { NewProject } from '@/app/(pages)/[pageSlug]/new-project'
 import { increaseProfileVisits } from '@/app/actions/increase-profile-visits'
 import { ProjectCard } from '@/components/common/project-card'
 import { TotalVisits } from '@/components/common/total-visits'
@@ -12,7 +12,7 @@ import { auth } from '@/lib/auth'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 
 type ParamsProps = {
-	profileId: string
+	pageSlug: string
 }
 
 type Props = {
@@ -20,20 +20,20 @@ type Props = {
 }
 
 export default async function ProfilePage({ params }: Props) {
-	const { profileId } = await params
+	const { pageSlug } = await params
 
-	const profileData = await getProfile(profileId)
+	const profileData = await getProfile(pageSlug)
 
 	if (!profileData) {
 		return notFound()
 	}
 
-	const projects = await getProjects(profileId)
+	const projects = await getProjects(pageSlug)
 	const session = await auth()
 
 	const isProfileOwner = profileData.userId === session?.user?.id
 
-	if (!isProfileOwner) await increaseProfileVisits(profileId)
+	if (!isProfileOwner) await increaseProfileVisits(pageSlug)
 
 	// check user active subscription
 
@@ -42,7 +42,7 @@ export default async function ProfilePage({ params }: Props) {
 			<div className="sticky left-0 right-0 top-0 z-10 gap-1 bg-background-tertiary py-2 text-center shadow-sm">
 				<span>Você está usando a versão trial</span>{' '}
 				<Link
-					href={`/${profileId}/upgrade`}
+					href={`/${pageSlug}/upgrade`}
 					className="font-bold text-accent-green"
 				>
 					Faça o upgrade agora!
@@ -64,7 +64,7 @@ export default async function ProfilePage({ params }: Props) {
 						/>
 					))}
 
-					{isProfileOwner && <NewProject profileId={profileId} />}
+					{isProfileOwner && <NewProject profileId={pageSlug} />}
 				</div>
 			</div>
 

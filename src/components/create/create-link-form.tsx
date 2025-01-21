@@ -29,6 +29,12 @@ export function CreateLinkForm() {
 			return setError('Informe um link para prosseguir.')
 		}
 
+		if (link === 'create') {
+			return setError('Esse link já está em uso')
+		}
+
+		// check if the user already have an page or allow multiple pages in the future.
+
 		const linkAlreadyInUse = await verifyLink(link)
 
 		if (linkAlreadyInUse) {
@@ -55,11 +61,13 @@ export function CreateLinkForm() {
 					placeholder="Seu link"
 					value={link}
 					onChange={handleLinkChange}
+					className="flex-grow"
 				/>
 
-				<Button className="w-40">Criar</Button>
+				<Button className="w-40">Criar agora</Button>
 			</form>
 
+			{/* create better error handling */}
 			<div>
 				<Text className="text-red-500">{error}</Text>
 			</div>

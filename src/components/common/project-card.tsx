@@ -1,6 +1,7 @@
 'use client'
 
 import { ImageIcon } from 'lucide-react'
+import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -11,16 +12,17 @@ import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {
 	data: ProjectData
-	image?: string | null
+	image?: string | null | StaticImageData
 	isOwner: boolean
+	demo?: boolean
 }
 
-export function ProjectCard({ data, image, isOwner }: Props) {
-	const { profileId } = useParams()
+export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
+	const { pageSlug } = useParams()
 
 	async function handleClickProject() {
-		if (!profileId || !profileId || isOwner) return
-		await increaseProjectClicks(String(profileId), data.id)
+		if (!pageSlug || !data.id || isOwner) return
+		await increaseProjectClicks(String(pageSlug), data.id)
 	}
 
 	return (
@@ -28,6 +30,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 			href={httpUrlParser(data.projectUrl)}
 			target="_blank"
 			onClick={handleClickProject}
+			tabIndex={demo ? -1 : undefined}
 		>
 			<div className="flex w-[340px] gap-5 rounded-2xl border border-transparent bg-background-secondary p-3 hover:border-border-secondary">
 				<div className="flex size-24 flex-shrink-0 overflow-hidden rounded-md bg-background-tertiary">

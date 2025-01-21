@@ -2,8 +2,8 @@
 
 import { DB } from '@/lib/firebase'
 
-export async function verifyLink(link: string) {
-	const snapshot = await DB.collection('profiles').doc(link).get()
+export async function verifyLink(slug: string) {
+	const snapshot = await DB.collection('profiles').doc(slug).get()
 
 	return snapshot.exists
 }

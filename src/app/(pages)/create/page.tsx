@@ -1,24 +1,17 @@
-import { Rocket } from 'lucide-react'
-
-import { CreateLinkForm } from '@/components/create/create-link-form'
+import { Hero } from '@/components/project/hero'
+import { Faq } from '@/components/sections/faq'
 import { Header } from '@/components/sections/header'
-import { Text } from '@/components/ui/text'
+import { Pricing } from '@/components/sections/pricing'
+import { VideoPresentation } from '@/components/sections/video-presentation'
 
 export default function Create() {
 	return (
 		<>
 			<Header />
-
-			<div className="mx-auto flex min-h-svh max-w-xl flex-col items-center justify-center gap-10">
-				<div className="flex items-center gap-4">
-					<Text as="h1" variant="heading-md">
-						Escolha o seu link
-					</Text>
-					<Rocket className="size-10" />
-				</div>
-
-				<CreateLinkForm />
-			</div>
+			<Hero />
+			<VideoPresentation />
+			<Pricing />
+			<Faq />
 		</>
 	)
 }

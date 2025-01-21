@@ -5,21 +5,22 @@ import { Timestamp } from 'firebase-admin/firestore'
 import { auth } from '@/lib/auth'
 import { DB } from '@/lib/firebase'
 
-export async function createLink(link: string) {
+export async function createLink(slug: string) {
 	const session = await auth()
 
+	// when there is no session, redirect user to login or think about something better
 	if (!session?.user) return false
 
 	try {
 		await DB.collection('profiles')
-			.doc(link)
+			.doc(slug)
 			.set({
 				userId: session.user.id,
 				name: session.user.name ?? '',
 				description: '',
 				imagePath: null,
 				totalVisits: 0,
-				link,
+				slug,
 				socialMedia: {
 					github: '',
 					linkedin: '',

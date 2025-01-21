@@ -2,6 +2,7 @@ import { Github, Instagram, Linkedin, Twitter, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import placeholderUserPicture from '@/assets/demo-user.jpg'
 import { EditCustomLinks } from '@/components/common/user-card/edit-custom-links'
 import { EditSocialLinks } from '@/components/common/user-card/edit-social-links'
 import { EditUserCard } from '@/components/common/user-card/edit-user-card'
@@ -15,9 +16,10 @@ import { httpUrlParser } from '@/utils/http-url-parser'
 type Props = {
 	data: ProfileData
 	isOwner: boolean
+	demo?: boolean
 }
 
-export async function UserCard({ data, isOwner }: Props) {
+export async function UserCard({ data, isOwner, demo = false }: Props) {
 	const session = await auth()
 
 	// eslint-disable-next-line prettier/prettier
@@ -39,6 +41,7 @@ export async function UserCard({ data, isOwner }: Props) {
 	}
 
 	const currentProfilePicture =
+		(demo ? placeholderUserPicture : undefined) ??
 		(await getDownloadUrlFromPath(data.imagePath)) ??
 		session?.user?.image ??
 		null
@@ -51,7 +54,7 @@ export async function UserCard({ data, isOwner }: Props) {
 			<div className="relative flex size-48 items-center justify-center rounded-full bg-background-tertiary">
 				{currentProfilePicture ? (
 					<Image
-						src={currentProfilePicture}
+						src={demo ? placeholderUserPicture : currentProfilePicture}
 						width={460}
 						height={460}
 						alt=""
@@ -61,7 +64,7 @@ export async function UserCard({ data, isOwner }: Props) {
 					<User className="size-16 opacity-30" />
 				)}
 
-				{isOwner && (
+				{isOwner && !demo && (
 					<EditUserCard
 						initialData={data}
 						currentProfilePicture={currentProfilePicture}
@@ -105,13 +108,16 @@ export async function UserCard({ data, isOwner }: Props) {
 											target="_blank"
 											className="rounded-xl bg-background-card-button p-3 transition-colors hover:bg-background-card-button-hover"
 											key={network}
+											tabIndex={demo ? -1 : undefined}
 										>
 											{icon}
 										</Link>
 									)
 								})}
 
-								{isOwner && <EditSocialLinks socialMedia={data.socialMedia} />}
+								{isOwner && !demo && (
+									<EditSocialLinks socialMedia={data.socialMedia} />
+								)}
 							</div>
 						</div>
 					</>
@@ -129,16 +135,21 @@ export async function UserCard({ data, isOwner }: Props) {
 										href={httpUrlParser(url)}
 										className="w-full"
 										key={index}
+										tabIndex={demo ? -1 : undefined}
 									>
 										{title}
 									</Button>
 								))}
 
-								{isOwner && <EditCustomLinks customLinks={data.customLinks} />}
+								{isOwner && !demo && (
+									<EditCustomLinks customLinks={data.customLinks} />
+								)}
 							</div>
 						</div>
 					</>
 				)}
+
+				{demo && <div className="h-4" />}
 			</div>
 		</div>
 	)
