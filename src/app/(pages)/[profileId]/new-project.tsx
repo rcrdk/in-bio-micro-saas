@@ -1,6 +1,7 @@
 'use client'
 
-import { Plus, Upload, X } from 'lucide-react'
+import { ImageIcon, Plus, Upload, X } from 'lucide-react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
 
@@ -97,12 +98,13 @@ export function NewProject({ profileId }: Props) {
 				</div>
 
 				<div className="flex gap-8">
-					<div className="flex flex-col items-center gap-3 text-xs">
-						<div className="size-[100px] overflow-hidden rounded-xl bg-background-tertiary">
+					<div className="flex flex-col items-center gap-3 text-sm">
+						<div className="size-32 flex-shrink-0 overflow-hidden rounded-xl bg-background-tertiary">
 							{projectImage ? (
-								// eslint-disable-next-line @next/next/no-img-element
-								<img
+								<Image
 									src={projectImage}
+									width={500}
+									height={500}
 									className="size-full object-cover"
 									alt=""
 								/>
@@ -111,7 +113,7 @@ export function NewProject({ profileId }: Props) {
 									className="flex size-full cursor-pointer items-center justify-center"
 									htmlFor="imageInput"
 								>
-									100 x 100
+									<ImageIcon className="size-10 opacity-30" />
 								</label>
 							)}
 						</div>
@@ -120,7 +122,7 @@ export function NewProject({ profileId }: Props) {
 							className="flex cursor-pointer items-center gap-1 text-white"
 							htmlFor="imageInput"
 						>
-							<Upload className="size-4" />
+							<Upload className="size-3" />
 							<span>{projectImage ? 'Alterar' : 'Adicionar'} imagem</span>
 						</label>
 

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { NewProject } from '@/app/(pages)/[profileId]/new-project'
+import { increaseProfileVisits } from '@/app/actions/increase-profile-visits'
 import { ProjectCard } from '@/components/common/project-card'
 import { TotalVisits } from '@/components/common/total-visits'
 import { UserCard } from '@/components/common/user-card'
@@ -28,12 +29,12 @@ export default async function ProfilePage({ params }: Props) {
 	}
 
 	const projects = await getProjects(profileId)
-
 	const session = await auth()
 
 	const isProfileOwner = profileData.userId === session?.user?.id
 
-	// page views
+	if (!isProfileOwner) await increaseProfileVisits(profileId)
+
 	// check user active subscription
 
 	return (
@@ -48,9 +49,9 @@ export default async function ProfilePage({ params }: Props) {
 				</Link>
 			</div>
 
-			<div className="relative flex min-h-svh overflow-hidden py-20">
+			<div className="flex min-h-svh overflow-hidden py-20">
 				<div className="flex h-min w-1/2 justify-center">
-					<UserCard data={profileData} />
+					<UserCard data={profileData} isOwner={isProfileOwner} />
 				</div>
 
 				<div className="flex w-full flex-wrap content-start justify-center gap-4">
@@ -65,11 +66,13 @@ export default async function ProfilePage({ params }: Props) {
 
 					{isProfileOwner && <NewProject profileId={profileId} />}
 				</div>
-
-				<div className="absolute bottom-4 left-0 right-0 mx-auto w-min">
-					<TotalVisits />
-				</div>
 			</div>
+
+			{isProfileOwner && (
+				<div className="pointer-events-none sticky bottom-0 flex items-center justify-center pb-4">
+					<TotalVisits counter={profileData.totalVisits} />
+				</div>
+			)}
 		</>
 	)
 }

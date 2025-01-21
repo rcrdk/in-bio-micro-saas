@@ -32,17 +32,20 @@ export async function createProject(data: FormData) {
 	const imagePath = storageRef.name
 
 	try {
-		await DB.collection('projects')
+		await DB.collection('profiles')
 			.doc(profileId)
 			.collection('projects')
 			.doc(generateId)
 			.set({
+				id: generateId,
 				userId: session.user.id,
 				projectName,
 				projectDescription,
 				projectUrl,
 				imagePath,
+				totalClicks: 0,
 				createdAt: Timestamp.now().toMillis(),
+				updatedAt: Timestamp.now().toMillis(),
 			})
 
 		return true

@@ -24,8 +24,8 @@ if (isFirebaseNotInitialized) {
 export const DB = getFirestore()
 export const Storage = getStorage().bucket()
 
-export async function getDownloadUrlFromPath(path?: string) {
-	if (!path) return null
+export async function getDownloadUrlFromPath(path?: string | null) {
+	if (!path) return
 
 	const file = Storage.file(path)
 

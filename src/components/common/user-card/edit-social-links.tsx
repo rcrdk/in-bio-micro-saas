@@ -44,10 +44,7 @@ export function EditSocialLinks({ socialMedia }: Props) {
 
 		startTransition(() => {
 			setIsSubmitting(false)
-
 			handleToggleModal()
-
-			// to do
 
 			router.refresh()
 		})

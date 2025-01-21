@@ -9,12 +9,13 @@ export type ProjectData = {
 	projectDescription: string
 	projectUrl: string
 	imagePath: string
+	totalClicks: number
 	createdAt: number
-	totalVisits?: number
+	updatedAt: number
 }
 
 export async function getProjects(profileId: string) {
-	const snapshot = await DB.collection('projects')
+	const snapshot = await DB.collection('profiles')
 		.doc(profileId)
 		.collection('projects')
 		.get()

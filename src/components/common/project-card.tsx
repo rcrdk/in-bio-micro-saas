@@ -3,27 +3,32 @@
 import { ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
+import { increaseProjectClicks } from '@/app/actions/increase-project-clicks'
 import type { ProjectData } from '@/http/get-projects'
+import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {
 	data: ProjectData
-	image: string | null
+	image?: string | null
 	isOwner: boolean
 }
 
 export function ProjectCard({ data, image, isOwner }: Props) {
+	const { profileId } = useParams()
+
 	async function handleClickProject() {
-		'use client'
-		// to do
+		if (!profileId || !profileId || isOwner) return
+		await increaseProjectClicks(String(profileId), data.id)
 	}
 
-	const parsedUrl = data.projectUrl.startsWith('http')
-		? data.projectUrl
-		: `https://${data.projectUrl}`
-
 	return (
-		<Link href={parsedUrl} target="_blank" onClick={handleClickProject}>
+		<Link
+			href={httpUrlParser(data.projectUrl)}
+			target="_blank"
+			onClick={handleClickProject}
+		>
 			<div className="flex w-[340px] gap-5 rounded-2xl border border-transparent bg-background-secondary p-3 hover:border-border-secondary">
 				<div className="flex size-24 flex-shrink-0 overflow-hidden rounded-md bg-background-tertiary">
 					{image ? (
@@ -42,9 +47,9 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 				<div className="flex flex-col gap-2">
 					{isOwner && (
 						<span className="text-xs font-bold uppercase text-accent-green">
-							{data.totalVisits === 1
+							{data.totalClicks === 1
 								? '1 clique'
-								: `${data.totalVisits ?? 0} cliques`}
+								: `${data.totalClicks ?? 0} cliques`}
 						</span>
 					)}
 
