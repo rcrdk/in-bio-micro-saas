@@ -33,11 +33,11 @@ export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
 			onClick={handleClickProject}
 			tabIndex={demo ? -1 : undefined}
 			className={cn(
-				'bg-card-background hover:border-card-border focus-themed flex gap-5 rounded-2xl border border-transparent p-3 transition-colors',
+				'focus-themed flex gap-5 rounded-2xl border border-transparent bg-card-background p-3 transition-colors hover:border-card-border',
 				demo && 'w-[340px]',
 			)}
 		>
-			<div className="bg-image-background flex size-24 flex-shrink-0 overflow-hidden rounded-md">
+			<div className="flex size-24 flex-shrink-0 overflow-hidden rounded-md bg-image-background">
 				{image ? (
 					<Image
 						src={image}

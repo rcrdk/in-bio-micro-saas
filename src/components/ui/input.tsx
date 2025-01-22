@@ -1,8 +1,11 @@
 import { cn } from '@/utils/tailwind-cn'
 
-type Props = React.InputHTMLAttributes<HTMLInputElement>
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+	focusAccent?: boolean
+	ref?: React.RefObject<HTMLInputElement | null>
+}
 
-export function Input(props: Props) {
+export function Input({ focusAccent = false, ...props }: Props) {
 	return (
 		<input
 			{...props}
@@ -11,6 +14,9 @@ export function Input(props: Props) {
 				'placeholder:text-input-placeholder',
 				'hover:border-input-border-hover',
 				'focus:border-input-border-focus focus:ring-4 focus:ring-white/10',
+				focusAccent
+					? 'focus:border-accent-purple focus:ring-4 focus:ring-accent-purple/50'
+					: 'focus:border-input-border-focus focus:ring-4 focus:ring-white/10',
 				props.className,
 			)}
 		/>

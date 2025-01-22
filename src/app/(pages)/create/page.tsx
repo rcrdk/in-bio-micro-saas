@@ -8,8 +8,12 @@ export default function Create() {
 	return (
 		<>
 			<Header />
-			<Hero />
-			<VideoPresentation />
+
+			<div className="w-full overflow-hidden">
+				<Hero />
+				<VideoPresentation />
+			</div>
+
 			<Pricing />
 			<Faq />
 		</>

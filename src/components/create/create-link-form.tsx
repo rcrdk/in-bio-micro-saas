@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { createLink } from '@/app/actions/create-link'
 import { verifyLink } from '@/app/actions/verify-link'
@@ -11,6 +11,7 @@ import { Text } from '@/components/ui/text'
 import { generateSlug } from '@/utils/generate-slug'
 
 export function CreateLinkForm() {
+	const inputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
 
 	const [link, setLink] = useState('')
@@ -50,6 +51,10 @@ export function CreateLinkForm() {
 		router.push(`/${link}`)
 	}
 
+	useEffect(() => {
+		inputRef.current?.focus()
+	}, [])
+
 	return (
 		<>
 			<form
@@ -60,7 +65,7 @@ export function CreateLinkForm() {
 					<Text
 						variant="body-md"
 						as="span"
-						className="pointer-events-none absolute top-0 flex h-full items-center whitespace-nowrap text-nowrap pb-1 pl-4"
+						className="pointer-events-none absolute top-0 flex h-full items-center whitespace-nowrap text-nowrap pl-4"
 					>
 						projectinbio.com/
 					</Text>
@@ -70,6 +75,8 @@ export function CreateLinkForm() {
 						value={link}
 						onChange={handleLinkChange}
 						className="w-full pl-[142px]"
+						ref={inputRef}
+						focusAccent
 					/>
 				</div>
 

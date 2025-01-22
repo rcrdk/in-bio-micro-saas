@@ -1,4 +1,4 @@
-import '@/app/globals.css'
+import '@/styles/globals.css'
 
 import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 
@@ -13,7 +13,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="pt-BR" className="bg-background-primary">
+		<html lang="pt-br" className="bg-background-primary">
 			<body
 				className={`bg-background-primary text-content-body antialiased ${redHatDisplay.className}`}
 			>
