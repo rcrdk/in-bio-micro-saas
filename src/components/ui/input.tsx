@@ -1,4 +1,4 @@
-import { cn } from '@/utils/tailwind-merge'
+import { cn } from '@/utils/tailwind-cn'
 
 type Props = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -7,10 +7,10 @@ export function Input(props: Props) {
 		<input
 			{...props}
 			className={cn(
-				'w-full rounded-xl border border-transparent bg-background-secondary px-4 py-2 text-white outline-none',
-				'placeholder:text-content-placeholder',
-				'hover:border-border-secondary hover:text-content-body',
-				'focus:border-border-tertiary',
+				'min-h-12 w-full rounded-xl border border-transparent bg-background-secondary px-4 py-3 text-base text-white outline-none transition-colors',
+				'placeholder:text-input-placeholder',
+				'hover:border-input-border-hover',
+				'focus:border-input-border-focus focus:ring-4 focus:ring-white/10',
 				props.className,
 			)}
 		/>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Upload, User, UserPen, X } from 'lucide-react'
+import { Loader, Upload, User, UserPen, X } from 'lucide-react'
 import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import { useParams, useRouter } from 'next/navigation'
@@ -80,27 +80,32 @@ export function EditUserCard({ initialData, currentProfilePicture }: Props) {
 
 	return (
 		<>
-			<button
-				className="absolute right-0 top-0 rounded-full border border-border-secondary bg-background-card-button p-3 transition-colors hover:bg-background-card-button-hover"
-				onClick={handleToggleModal}
-			>
-				<UserPen />
-			</button>
+			<div className="absolute right-0 top-0 rounded-full">
+				<Button variant="secondary" onClick={handleToggleModal} icon="rounded">
+					<UserPen />
+				</Button>
+			</div>
 
 			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between gap-4">
 					<Text as="h5" variant="heading-sm">
 						Alterar informações do perfil
 					</Text>
 
-					<Button variant="ghost" onClick={handleToggleModal}>
+					<Button
+						size="sm"
+						variant="ghost"
+						onClick={handleToggleModal}
+						aria-label="Fechar"
+						icon
+					>
 						<X />
 					</Button>
 				</div>
 
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="flex size-40 flex-shrink-0 overflow-hidden rounded-full bg-background-tertiary">
+						<div className="bg-image-background flex size-40 flex-shrink-0 overflow-hidden rounded-full">
 							{profileImage && (
 								<Image
 									src={profileImage}
@@ -177,13 +182,21 @@ export function EditUserCard({ initialData, currentProfilePicture }: Props) {
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end">
+				<div className="flex items-center justify-end gap-4">
 					<Button variant="ghost" type="button" onClick={handleToggleModal}>
 						Cancelar
 					</Button>
 
-					<Button disabled={isSubmitting} onClick={handleSaveProfile}>
-						Salvar informações
+					<Button
+						disabled={isSubmitting}
+						onClick={handleSaveProfile}
+						className="min-w-52"
+					>
+						{isSubmitting ? (
+							<Loader size={20} className="animate-spin" />
+						) : (
+							'Salvar informaçõoes'
+						)}
 					</Button>
 				</div>
 			</Modal>

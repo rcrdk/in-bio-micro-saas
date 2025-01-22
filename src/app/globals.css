@@ -2,21 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  /* border: 1px solid #253341; */
-  -webkit-text-fill-color: white;
-  box-shadow: 0 0 0px 1000px #0F0F10 inset;
-  transition: background-color 5000s ease-in-out 0s;
+@layer base {
+	input:-webkit-autofill,
+	input:-webkit-autofill:hover,
+	input:-webkit-autofill:focus,
+	textarea:-webkit-autofill,
+	textarea:-webkit-autofill:hover,
+	textarea:-webkit-autofill:focus,
+	select:-webkit-autofill,
+	select:-webkit-autofill:hover,
+	select:-webkit-autofill:focus {
+		-webkit-text-fill-color: white;
+		box-shadow: 0 0 0px 1000px #0F0F10 inset;
+		transition: background-color 5000s ease-in-out 0s;
+	}
 }
 
-/* * {
-	border: 1px solid #fff !important;
-} */
+@layer components {
+	.focus-themed {
+		@apply outline-none rounded-lg;
+	}
+
+	.focus-themed:focus-visible {
+		@apply ring-4 ring-white/20;
+	}
+}
+
+@layer utilities {
+	.animate-spin {
+		animation-duration: 1500ms;
+	}
+}

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
 
 type ParamsProps = {
-	profileId: string
+	pageSlug: string
 }
 
 type Props = {
@@ -11,14 +11,14 @@ type Props = {
 }
 
 export default async function Upgrade({ params }: Props) {
-	const { profileId } = await params
+	const { pageSlug } = await params
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center gap-4">
 			<Header />
 
 			<Text as="h1" variant="heading-md">
-				Escolha o plano
+				Escolha o plano ({pageSlug})
 			</Text>
 
 			<div className="flex gap-4">

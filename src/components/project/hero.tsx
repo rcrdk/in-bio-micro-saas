@@ -67,8 +67,8 @@ export function Hero() {
 
 	return (
 		<Container>
-			<div className="flex items-center">
-				<div className="flex flex-col gap-4 pb-16 pr-10 pt-40">
+			<div className="flex flex-col items-center text-center lg:flex-row lg:text-left">
+				<div className="flex flex-col gap-4 pb-32 pt-32 lg:pb-16 lg:pr-10 lg:pt-40">
 					<Text variant="heading-lg" as="h1">
 						Seus projetos e redes sociais em um unico link
 					</Text>
@@ -78,12 +78,12 @@ export function Hero() {
 						Acompanhe o engajamento com Analytics de cliques.
 					</Text>
 
-					<div className="mt-16 flex w-full flex-col items-center gap-2">
+					<div className="mt-8 flex w-full flex-col items-center gap-2 self-center sm:max-w-[500px] lg:mt-16 lg:max-w-full">
 						<CreateLinkForm />
 					</div>
 				</div>
 
-				<div className="pointer-events-none relative z-[1] my-32 flex w-full select-none items-center justify-center">
+				<div className="pointer-events-none relative z-[1] mb-32 flex w-full max-w-screen-md select-none items-center justify-center lg:my-32 lg:min-w-[530px] lg:max-w-none">
 					<div className="absolute bottom-0 right-0 z-[3] translate-y-1/2">
 						<TotalVisits counter={12453} />
 					</div>

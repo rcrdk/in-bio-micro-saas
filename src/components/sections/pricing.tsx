@@ -22,7 +22,7 @@ export function Pricing() {
 					</Text>
 				</div>
 
-				<div className="flex items-end gap-9">
+				<div className="flex flex-col items-end gap-8 md:flex-row md:gap-9">
 					<div className="flex w-[304px] flex-col gap-7 rounded-2xl border border-background-card-divider bg-background-primary p-8">
 						<div className="flex flex-col">
 							<Text as="span" variant="heading-sm">

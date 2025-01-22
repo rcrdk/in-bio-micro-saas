@@ -6,6 +6,7 @@ import { increaseProfileVisits } from '@/app/actions/increase-profile-visits'
 import { ProjectCard } from '@/components/common/project-card'
 import { TotalVisits } from '@/components/common/total-visits'
 import { UserCard } from '@/components/common/user-card'
+import { Container } from '@/components/ui/container'
 import { getProfile } from '@/http/get-profile'
 import { getProjects } from '@/http/get-projects'
 import { auth } from '@/lib/auth'
@@ -39,40 +40,42 @@ export default async function ProfilePage({ params }: Props) {
 
 	return (
 		<>
-			<div className="sticky left-0 right-0 top-0 z-10 gap-1 bg-background-tertiary py-2 text-center shadow-sm">
+			<div className="sticky left-0 right-0 top-0 z-10 gap-1 border-b border-sticky-border bg-sticky-background py-3 text-center shadow-sm">
 				<span>Você está usando a versão trial</span>{' '}
 				<Link
 					href={`/${pageSlug}/upgrade`}
-					className="font-bold text-accent-green"
+					className="focus-themed font-bold text-accent-green"
 				>
 					Faça o upgrade agora!
 				</Link>
 			</div>
 
-			<div className="flex min-h-svh overflow-hidden py-20">
-				<div className="flex h-min w-1/2 justify-center">
-					<UserCard data={profileData} isOwner={isProfileOwner} />
+			<Container>
+				<div className="flex items-start gap-10 py-16">
+					<div className="flex justify-center">
+						<UserCard data={profileData} isOwner={isProfileOwner} />
+					</div>
+
+					<div className="grid w-full grid-cols-2 gap-4">
+						{projects.map(async (project) => (
+							<ProjectCard
+								key={project.id}
+								data={project}
+								image={await getDownloadUrlFromPath(project.imagePath)}
+								isOwner={isProfileOwner}
+							/>
+						))}
+
+						{isProfileOwner && <NewProject pageSlug={pageSlug} />}
+					</div>
 				</div>
 
-				<div className="flex w-full flex-wrap content-start justify-center gap-4">
-					{projects.map(async (project) => (
-						<ProjectCard
-							key={project.id}
-							data={project}
-							image={await getDownloadUrlFromPath(project.imagePath)}
-							isOwner={isProfileOwner}
-						/>
-					))}
-
-					{isProfileOwner && <NewProject profileId={pageSlug} />}
-				</div>
-			</div>
-
-			{isProfileOwner && (
-				<div className="pointer-events-none sticky bottom-0 flex items-center justify-center pb-4">
-					<TotalVisits counter={profileData.totalVisits} />
-				</div>
-			)}
+				{isProfileOwner && (
+					<div className="pointer-events-none sticky bottom-0 flex items-center justify-center pb-4">
+						<TotalVisits counter={profileData.totalVisits} showActions />
+					</div>
+				)}
+			</Container>
 		</>
 	)
 }

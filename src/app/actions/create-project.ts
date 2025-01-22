@@ -50,6 +50,6 @@ export async function createProject(data: FormData) {
 
 		return true
 	} catch (error) {
-		return false
+		return error
 	}
 }

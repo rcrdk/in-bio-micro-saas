@@ -1,6 +1,14 @@
 'use client'
 
-import { Github, Instagram, Linkedin, Plus, Twitter, X } from 'lucide-react'
+import {
+	Github,
+	Instagram,
+	Linkedin,
+	Loader,
+	Plus,
+	Twitter,
+	X,
+} from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
 
@@ -52,73 +60,89 @@ export function EditSocialLinks({ socialMedia }: Props) {
 
 	return (
 		<>
-			<button
-				className="rounded-xl bg-background-card-button p-3 transition-colors hover:bg-background-card-button-hover"
-				onClick={handleToggleModal}
+			<Button
+				variant="secondary"
+				onClick={handleEditLinks}
+				aria-label="Adicionar link"
+				icon
 			>
 				<Plus />
-			</button>
+			</Button>
 
 			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between gap-4">
 					<Text as="h5" variant="heading-sm">
 						Adicionar links
 					</Text>
 
-					<Button variant="ghost" onClick={handleToggleModal}>
+					<Button
+						size="sm"
+						variant="ghost"
+						onClick={handleToggleModal}
+						aria-label="Fechar"
+						icon
+					>
 						<X />
 					</Button>
 				</div>
 
 				<div className="flex flex-col gap-4">
-					<div className="flex items-center gap-2">
-						<Github />
-						<span className="text-white/30">/</span>
+					<div className="relative">
+						<Github className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
 						<Input
-							placeholder="usuario"
+							placeholder="nome de usuário"
 							value={github}
 							onChange={(e) => setGithub(e.target.value)}
+							className="pl-14"
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<Linkedin />
-						<span className="text-white/30">/</span>
+					<div className="relative">
+						<Linkedin className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
 						<Input
-							placeholder="usuario"
+							placeholder="nome de usuário"
 							value={linkedin}
 							onChange={(e) => setLinkedin(e.target.value)}
+							className="pl-14"
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<Twitter />
-						<span className="text-white/30">/</span>
+					<div className="relative">
+						<Twitter className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
 						<Input
-							placeholder="usuario"
+							placeholder="nome de usuário"
 							value={twitter}
 							onChange={(e) => setTwitter(e.target.value)}
+							className="pl-14"
 						/>
 					</div>
 
-					<div className="flex items-center gap-2">
-						<Instagram />
-						<span className="text-white/30">/</span>
+					<div className="relative">
+						<Instagram className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
 						<Input
-							placeholder="usuario"
+							placeholder="nome de usuário"
 							value={instagram}
 							onChange={(e) => setInstagram(e.target.value)}
+							className="pl-14"
 						/>
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end">
+				<div className="flex items-center justify-end gap-4">
 					<Button variant="ghost" type="button" onClick={handleToggleModal}>
 						Cancelar
 					</Button>
 
-					<Button disabled={isSubmitting} onClick={handleEditLinks}>
-						Salvar links
+					<Button
+						disabled={isSubmitting}
+						onClick={handleEditLinks}
+						className="min-w-40"
+					>
+						{isSubmitting ? (
+							<Loader size={20} className="animate-spin" />
+						) : (
+							'Salvar links'
+						)}
 					</Button>
 				</div>
 			</Modal>

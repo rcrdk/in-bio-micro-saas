@@ -1,6 +1,6 @@
 'use client'
 
-import { Plus, X } from 'lucide-react'
+import { Loader, Plus, X } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
 
@@ -68,20 +68,29 @@ export function EditCustomLinks({ customLinks }: Props) {
 
 	return (
 		<>
-			<button
-				className="rounded-xl bg-background-card-button p-3 hover:bg-background-card-button-hover"
+			<Button
+				variant="secondary"
 				onClick={handleEditLinks}
+				aria-label="Adicionar link"
+				className="w-full"
 			>
 				<Plus />
-			</button>
+				Adicionar links
+			</Button>
 
 			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between gap-4">
 					<Text as="h5" variant="heading-sm">
 						Adicionar links personalizados
 					</Text>
 
-					<Button variant="ghost" onClick={handleToggleModal}>
+					<Button
+						size="sm"
+						variant="ghost"
+						onClick={handleToggleModal}
+						aria-label="fechar"
+						icon
+					>
 						<X />
 					</Button>
 				</div>
@@ -175,13 +184,21 @@ export function EditCustomLinks({ customLinks }: Props) {
 					</div>
 				</div>
 
-				<div className="flex items-center justify-end">
+				<div className="flex items-center justify-end gap-4">
 					<Button variant="ghost" type="button" onClick={handleToggleModal}>
 						Cancelar
 					</Button>
 
-					<Button disabled={isSubmitting} onClick={handleEditLinks}>
-						Salvar links
+					<Button
+						disabled={isSubmitting}
+						onClick={handleEditLinks}
+						className="min-w-40"
+					>
+						{isSubmitting ? (
+							<Loader size={20} className="animate-spin" />
+						) : (
+							'Salvar links'
+						)}
 					</Button>
 				</div>
 			</Modal>

@@ -52,19 +52,28 @@ export function CreateLinkForm() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit} className="flex items-center gap-2">
-				<Text variant="body-lg" as="span" className="leading-none text-white">
-					projectinbio.com/
-				</Text>
+			<form
+				onSubmit={handleSubmit}
+				className="flex w-full flex-col gap-1 sm:flex-row sm:items-center"
+			>
+				<div className="relative flex-grow">
+					<Text
+						variant="body-md"
+						as="span"
+						className="pointer-events-none absolute top-0 flex h-full items-center whitespace-nowrap text-nowrap pb-1 pl-4"
+					>
+						projectinbio.com/
+					</Text>
 
-				<Input
-					placeholder="Seu link"
-					value={link}
-					onChange={handleLinkChange}
-					className="flex-grow"
-				/>
+					<Input
+						placeholder="seu-link"
+						value={link}
+						onChange={handleLinkChange}
+						className="w-full pl-[142px]"
+					/>
+				</div>
 
-				<Button className="w-40">Criar agora</Button>
+				<Button className="ml-1 w-full sm:w-auto">Criar agora</Button>
 			</form>
 
 			{/* create better error handling */}

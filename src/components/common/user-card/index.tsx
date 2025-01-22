@@ -12,6 +12,7 @@ import type { ProfileData, ProfileSocialMedia } from '@/http/get-profile'
 import { auth } from '@/lib/auth'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 import { httpUrlParser } from '@/utils/http-url-parser'
+import { cn } from '@/utils/tailwind-cn'
 
 type Props = {
 	data: ProfileData
@@ -50,8 +51,13 @@ export async function UserCard({ data, isOwner, demo = false }: Props) {
 	const shouldDisplaySocialMediaLinks = socialMedia.length || isOwner
 
 	return (
-		<div className="flex w-[348px] flex-col items-center gap-5 rounded-3xl border border-white border-opacity-10 bg-background-card p-5 text-white">
-			<div className="relative flex size-48 items-center justify-center rounded-full bg-background-tertiary">
+		<div
+			className={cn(
+				'border-card-border flex w-[348px] flex-col items-center gap-5 rounded-3xl border p-5 text-white',
+				demo ? 'bg-card-background/85 backdrop-blur-sm' : 'bg-card-background',
+			)}
+		>
+			<div className="bg-image-background relative flex size-48 items-center justify-center rounded-full">
 				{currentProfilePicture ? (
 					<Image
 						src={demo ? placeholderUserPicture : currentProfilePicture}
@@ -87,7 +93,7 @@ export async function UserCard({ data, isOwner, demo = false }: Props) {
 
 				{shouldDisplaySocialMediaLinks && (
 					<>
-						<div className="mx-4 h-px bg-background-card-divider" />
+						<div className="from-card-background via-card-border to-card-background h-px bg-gradient-to-r" />
 
 						<div className="flex flex-col gap-2">
 							<Text
@@ -103,15 +109,17 @@ export async function UserCard({ data, isOwner, demo = false }: Props) {
 									const { icon, url } = renderSocialNetwork(network)
 
 									return (
-										<Link
+										<Button
+											as={Link}
+											variant="secondary"
 											href={`${url}/${slug}`}
 											target="_blank"
-											className="rounded-xl bg-background-card-button p-3 transition-colors hover:bg-background-card-button-hover"
 											key={network}
 											tabIndex={demo ? -1 : undefined}
+											icon
 										>
 											{icon}
-										</Link>
+										</Button>
 									)
 								})}
 
@@ -125,7 +133,7 @@ export async function UserCard({ data, isOwner, demo = false }: Props) {
 
 				{shouldDisplayCustomLinks && (
 					<>
-						<div className="mx-4 h-px bg-background-card-divider" />
+						<div className="from-card-background via-card-border to-card-background h-px bg-gradient-to-r" />
 
 						<div className="flex w-full flex-col">
 							<div className="flex w-full flex-col items-center gap-3">

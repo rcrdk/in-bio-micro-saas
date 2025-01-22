@@ -16,11 +16,12 @@ export function compressImage(file: File): Promise<File> {
 	})
 }
 
-export async function compressFiles(files: File[]) {
+export async function compressFiles(files: File[]): Promise<File[]> {
 	const compressPromises = files.map(async (file) => {
 		try {
 			return await compressImage(file)
 		} catch (error) {
+			console.error(error)
 			return null
 		}
 	})

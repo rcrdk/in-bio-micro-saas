@@ -1,6 +1,6 @@
 'use client'
 
-import { ImageIcon, Plus, Upload, X } from 'lucide-react'
+import { ImageIcon, Loader, Plus, Upload, X } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
@@ -14,10 +14,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { compressFiles } from '@/utils/compress-files'
 
 type Props = {
-	profileId: string
+	pageSlug: string
 }
 
-export function NewProject({ profileId }: Props) {
+export function NewProject({ pageSlug }: Props) {
 	const [open, setOpen] = useState(false)
 	const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -55,7 +55,7 @@ export function NewProject({ profileId }: Props) {
 		const formData = new FormData()
 
 		formData.append('file', compressedFile[0])
-		formData.append('profileId', profileId)
+		formData.append('pageSlug', pageSlug)
 		formData.append('name', projectName)
 		formData.append('url', projectUrl)
 		formData.append('description', projectDescription)
@@ -79,27 +79,33 @@ export function NewProject({ profileId }: Props) {
 	return (
 		<>
 			<button
-				className="flex h-[122px] w-[340px] items-center justify-center gap-5 rounded-2xl border border-dashed border-border-primary bg-background-secondary p-3 hover:border-border-secondary"
+				className="focus-themed flex min-h-[100px] flex-grow items-center justify-center gap-5 rounded-2xl border border-dashed border-button-ghost p-3 transition-colors hover:border-button-ghost-hover"
 				onClick={handleToggleModal}
 			>
-				<Plus className="size-10 text-accent-purple" />
-				<span>Novo projeto</span>
+				<Plus className="size-8" />
+				<span className="font-medium">Novo projeto</span>
 			</button>
 
 			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between">
+				<div className="flex items-center justify-between gap-4">
 					<Text as="h5" variant="heading-sm">
 						Criar projeto
 					</Text>
 
-					<Button variant="ghost" onClick={handleToggleModal}>
+					<Button
+						size="sm"
+						variant="ghost"
+						onClick={handleToggleModal}
+						aria-label="Fechar"
+						icon
+					>
 						<X />
 					</Button>
 				</div>
 
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="size-32 flex-shrink-0 overflow-hidden rounded-xl bg-background-tertiary">
+						<div className="size-36 flex-shrink-0 overflow-hidden rounded-xl bg-image-background">
 							{projectImage ? (
 								<Image
 									src={projectImage}
@@ -176,17 +182,25 @@ export function NewProject({ profileId }: Props) {
 								onChange={(e) => setProjectDescription(e.target.value)}
 							/>
 						</div>
-
-						<div className="flex items-center justify-end">
-							<Button variant="ghost" type="button" onClick={handleToggleModal}>
-								Cancelar
-							</Button>
-
-							<Button disabled={isSubmitting} onClick={handleCreateProject}>
-								Adicionar projeto
-							</Button>
-						</div>
 					</div>
+				</div>
+
+				<div className="flex items-center justify-end gap-4">
+					<Button variant="ghost" type="button" onClick={handleToggleModal}>
+						Cancelar
+					</Button>
+
+					<Button
+						disabled={isSubmitting}
+						onClick={handleCreateProject}
+						className="min-w-52"
+					>
+						{isSubmitting ? (
+							<Loader size={20} className="animate-spin" />
+						) : (
+							'Adicionar projeto'
+						)}
+					</Button>
 				</div>
 			</Modal>
 		</>
