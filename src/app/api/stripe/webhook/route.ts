@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 							?.hosted_voucher_url
 
 					if (hostedVoucherUrl) {
-						const userEmail = event.data.object.customer_details?.email
+						// const userEmail = event.data.object.customer_details?.email
 						console.log('Enviar e-mail para o cliente por e-mail.')
 					}
 				}
