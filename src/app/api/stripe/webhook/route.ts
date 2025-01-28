@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
 		const secret = env.STRIPE_WEBHOOK_SECRET
 
 		if (!signature || !secret) {
-			throw new Error('Stripe webhook secret or signature not found.')
+			return new NextResponse('Stripe webhook secret or signature not found.', {
+				status: 400,
+			})
 		}
 
 		const event = Stripe.webhooks.constructEvent(body, signature, secret)
@@ -91,6 +93,6 @@ export async function POST(req: NextRequest) {
 		return new NextResponse(null, { status: 200 })
 	} catch (error) {
 		console.error('Stripe webhook error', error)
-		return new NextResponse(null, { status: 500 })
+		return new NextResponse('Internal server error.', { status: 500 })
 	}
 }

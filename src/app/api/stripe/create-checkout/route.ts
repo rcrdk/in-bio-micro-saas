@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 		!userSession.user?.email ||
 		!userSession.user?.name
 	) {
-		return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
+		return new NextResponse('Unauthorized.', { status: 401 })
 	}
 
 	const userId = userSession.user.id
@@ -64,7 +64,10 @@ export async function POST(req: Request) {
 		client_reference_id: userId,
 	})
 
-	return NextResponse.json({
-		sessionId: session.id,
-	})
+	return NextResponse.json(
+		{
+			sessionId: session.id,
+		},
+		{ status: 200 },
+	)
 }

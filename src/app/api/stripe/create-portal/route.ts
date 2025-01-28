@@ -7,7 +7,7 @@ export async function POST(request: Request) {
 	const session = await auth()
 
 	if (!session?.user.customerId) {
-		return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 })
+		return new NextResponse('Unauthorized.', { status: 401 })
 	}
 
 	try {
@@ -19,9 +19,6 @@ export async function POST(request: Request) {
 		return NextResponse.json({ url: portalSession.url }, { status: 200 })
 	} catch (error) {
 		console.error(error)
-		return NextResponse.json(
-			{ error: 'Internal server error.' },
-			{ status: 500 },
-		)
+		return new NextResponse('Internal server error.', { status: 500 })
 	}
 }
