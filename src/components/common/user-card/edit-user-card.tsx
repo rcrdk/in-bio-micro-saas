@@ -105,7 +105,7 @@ export function EditUserCard({ initialData, currentProfilePicture }: Props) {
 
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="bg-image-background flex size-40 flex-shrink-0 overflow-hidden rounded-full">
+						<div className="flex size-40 flex-shrink-0 overflow-hidden rounded-full bg-image-background">
 							{profileImage && (
 								<Image
 									src={profileImage}

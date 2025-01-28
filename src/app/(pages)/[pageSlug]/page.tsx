@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { NewProject } from '@/app/(pages)/[pageSlug]/new-project'
 import { increaseProfileVisits } from '@/app/actions/increase-profile-visits'
@@ -34,23 +34,35 @@ export default async function ProfilePage({ params }: Props) {
 
 	const isProfileOwner = profileData.userId === session?.user?.id
 
+	// make page accessible to everyone if:
+	// or: is on trial
+	// or: is paid
+
 	if (!isProfileOwner) await increaseProfileVisits(pageSlug)
 
-	// check user active subscription
+	const isOnTrial = session?.user.isTrial && !session.user.isPaid
+	const isNotPaid =
+		isProfileOwner && !session?.user.isPaid && !session?.user.isTrial
+
+	if (isNotPaid) {
+		return redirect(`/${profileData.slug}/upgrade`)
+	}
 
 	return (
-		<>
-			<div className="sticky left-0 right-0 top-0 z-10 gap-1 border-b border-sticky-border bg-sticky-background py-3 text-center shadow-sm">
-				<span>Você está usando a versão trial</span>{' '}
-				<Link
-					href={`/${pageSlug}/upgrade`}
-					className="focus-themed font-bold text-accent-green"
-				>
-					Faça o upgrade agora!
-				</Link>
-			</div>
+		<div className="flex min-h-svh flex-col">
+			{isOnTrial && (
+				<div className="sticky left-0 right-0 top-0 z-10 gap-1 border-b border-sticky-border bg-sticky-background py-3 text-center shadow-sm">
+					<span>Você está usando a versão trial</span>{' '}
+					<Link
+						href={`/${pageSlug}/upgrade`}
+						className="focus-themed font-bold text-accent-green"
+					>
+						Faça o upgrade agora!
+					</Link>
+				</div>
+			)}
 
-			<Container>
+			<Container className="flex-grow">
 				<div className="flex items-start gap-10 py-16">
 					<div className="flex justify-center">
 						<UserCard data={profileData} isOwner={isProfileOwner} />
@@ -69,13 +81,13 @@ export default async function ProfilePage({ params }: Props) {
 						{isProfileOwner && <NewProject pageSlug={pageSlug} />}
 					</div>
 				</div>
-
-				{isProfileOwner && (
-					<div className="pointer-events-none sticky bottom-0 flex items-center justify-center pb-4">
-						<TotalVisits counter={profileData.totalVisits} showActions />
-					</div>
-				)}
 			</Container>
-		</>
+
+			{isProfileOwner && (
+				<div className="pointer-events-none sticky bottom-0 flex items-center justify-center pb-6">
+					<TotalVisits counter={profileData.totalVisits} showActions />
+				</div>
+			)}
+		</div>
 	)
 }

@@ -1,21 +1,22 @@
-import { Hero } from '@/components/project/hero'
-import { Faq } from '@/components/sections/faq'
+import { CreateNow } from '@/app/(pages)/create/create-now'
 import { Header } from '@/components/sections/header'
-import { Pricing } from '@/components/sections/pricing'
-import { VideoPresentation } from '@/components/sections/video-presentation'
+import { Container } from '@/components/ui/container'
+import { Text } from '@/components/ui/text'
 
-export default function Create() {
+export default function Home() {
 	return (
 		<>
-			<Header />
+			<Header hidePageButton />
 
-			<div className="w-full overflow-hidden">
-				<Hero />
-				<VideoPresentation />
-			</div>
+			<Container className="flex min-h-svh items-center py-24">
+				<div className="flex flex-col gap-6">
+					<Text variant="heading-md" className="text-center">
+						Escolha um link
+					</Text>
 
-			<Pricing />
-			<Faq />
+					<CreateNow />
+				</div>
+			</Container>
 		</>
 	)
 }

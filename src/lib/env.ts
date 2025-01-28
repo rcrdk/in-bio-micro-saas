@@ -14,9 +14,14 @@ export const env = createEnv({
 			.string()
 			.transform((value) => value.split(String.raw`\n`).join('\n')),
 		FIREBASE_STORAGE_BUCKET: z.string(),
+		STRIPE_SECRET_KEY: z.string(),
+		STRIPE_WEBHOOK_SECRET: z.string(),
+		STRIPE_PRICE_ID: z.string(),
+		STRIPE_SUBSCRIPTION_PRICE_ID: z.string(),
 	},
 
 	shared: {
+		NEXT_PUBLIC_STRIPE_PUBLIC_KEY: z.string(),
 		NEXT_PUBLIC_TRIAL_DAYS: z.coerce.number(),
 	},
 
@@ -29,5 +34,10 @@ export const env = createEnv({
 		FIREBASE_PRIVATE_KEY: process.env.FIREBASE_PRIVATE_KEY,
 		FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
 		NEXT_PUBLIC_TRIAL_DAYS: process.env.NEXT_PUBLIC_TRIAL_DAYS,
+		NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY,
+		STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+		STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+		STRIPE_PRICE_ID: process.env.STRIPE_PRICE_ID,
+		STRIPE_SUBSCRIPTION_PRICE_ID: process.env.STRIPE_SUBSCRIPTION_PRICE_ID,
 	},
 })

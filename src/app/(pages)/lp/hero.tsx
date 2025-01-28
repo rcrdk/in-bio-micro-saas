@@ -3,10 +3,10 @@
 
 import { animated, useSpring } from '@react-spring/web'
 
+import { CreateLinkForm } from '@/app/(pages)/lp/create-link-form'
 import { ProjectCardDemo } from '@/components/common/project-card/demo'
-import { TotalVisits } from '@/components/common/total-visits'
+import { TotalVisitsDemo } from '@/components/common/total-visits/demo'
 import { UserCardDemo } from '@/components/common/user-card/demo'
-import { CreateLinkForm } from '@/components/create/create-link-form'
 import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
 
@@ -53,7 +53,7 @@ export function Hero() {
 				<div className="pointer-events-none relative z-[1] mb-32 flex w-full max-w-screen-md select-none items-center justify-center lg:my-32 lg:min-w-[530px] lg:max-w-none">
 					<div className="absolute bottom-0 right-0 z-[3] translate-y-1/2">
 						<Animated style={{ transform: parallaxProps.xy.to(translationTwo) }}>
-							<TotalVisits counter={12453} />
+							<TotalVisitsDemo />
 						</Animated>
 					</div>
 

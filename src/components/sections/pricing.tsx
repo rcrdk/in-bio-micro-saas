@@ -23,7 +23,7 @@ export function Pricing() {
 				</div>
 
 				<div className="flex flex-col items-end gap-8 md:flex-row md:gap-9">
-					<div className="flex w-[304px] flex-col gap-7 rounded-2xl border border-background-card-divider bg-background-primary p-8">
+					<div className="flex w-[334px] flex-col gap-7 rounded-2xl border border-background-card-divider bg-background-primary p-8">
 						<div className="flex flex-col">
 							<Text as="span" variant="heading-sm">
 								Mensal
@@ -33,7 +33,7 @@ export function Pricing() {
 							</Text>
 						</div>
 
-						<div className="flex items-center gap-1">
+						<div className="flex items-center gap-2">
 							<Text variant="heading-lg" as="span">
 								R$ 9,99
 							</Text>
@@ -49,7 +49,7 @@ export function Pricing() {
 						<Button variant="secondary">Assinar</Button>
 					</div>
 
-					<div className="flex w-[304px] flex-col items-center rounded-2xl bg-gradient-to-r from-accent-purple to-accent-pink p-[1.6px]">
+					<div className="flex w-[334px] flex-col items-center rounded-2xl bg-gradient-to-r from-accent-purple to-accent-pink p-[1.6px]">
 						<span className="p-2 text-xs font-bold uppercase text-white">
 							Recomendado
 						</span>
@@ -64,9 +64,9 @@ export function Pricing() {
 								</Text>
 							</div>
 
-							<div className="flex items-center gap-1">
+							<div className="flex items-center gap-2">
 								<Text variant="heading-lg" as="span">
-									R$ 99
+									R$ 99,90
 								</Text>
 								<Text
 									variant="body-lg"

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { createLink } from '@/app/actions/create-link'
@@ -10,50 +10,60 @@ import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
 import { generateSlug } from '@/utils/generate-slug'
 
-export function CreateLinkForm() {
+export function CreateNow() {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
 
-	const [link, setLink] = useState('')
+	const searchParams = useSearchParams()
+
+	const [slug, setSlug] = useState('')
 	const [error, setError] = useState('')
 
-	function handleLinkChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleSlugChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const sanitizeValue = generateSlug(e.target.value)
-		setLink(sanitizeValue)
+		setSlug(sanitizeValue)
 		setError('')
 	}
 
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault()
 
-		if (!link.length) {
+		if (!slug.length) {
 			return setError('Informe um link para prosseguir.')
 		}
 
-		if (link === 'create') {
+		if (slug === 'create') {
 			return setError('Esse link já está em uso')
 		}
 
 		// check if the user already have an page or allow multiple pages in the future.
 
-		const linkAlreadyInUse = await verifyLink(link)
+		const linkAlreadyInUse = await verifyLink(slug)
 
 		if (linkAlreadyInUse) {
 			return setError('Esse link já está em uso')
 		}
 
-		const isLinkCreated = await createLink(link)
+		const isLinkCreated = await createLink(slug)
 
 		if (!isLinkCreated) {
 			return setError('Ocorreu um erro ao criar o link')
 		}
 
-		router.push(`/${link}`)
+		router.push(`/${slug}`)
 	}
 
 	useEffect(() => {
 		inputRef.current?.focus()
 	}, [])
+
+	useEffect(() => {
+		const slugParam = searchParams.get('slug')
+
+		if (slugParam) {
+			setSlug(generateSlug(slugParam))
+		}
+	}, [searchParams])
 
 	return (
 		<>
@@ -72,11 +82,12 @@ export function CreateLinkForm() {
 
 					<Input
 						placeholder="seu-link"
-						value={link}
-						onChange={handleLinkChange}
+						value={slug}
+						onChange={handleSlugChange}
 						className="w-full pl-[142px]"
 						ref={inputRef}
 						focusAccent
+						autoCorrect="off"
 					/>
 				</div>
 

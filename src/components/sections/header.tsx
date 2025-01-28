@@ -10,7 +10,11 @@ import { Container } from '@/components/ui/container'
 import { checkUserProfile } from '@/http/check-user-profile'
 import { auth } from '@/lib/auth'
 
-export async function Header() {
+type Props = {
+	hidePageButton?: boolean
+}
+
+export async function Header({ hidePageButton = false }: Props) {
 	const session = await auth()
 
 	const profile =
@@ -30,13 +34,13 @@ export async function Header() {
 				</Link>
 
 				<div className="hidden flex-1 flex-grow justify-end gap-4 sm:flex">
-					{profile && session?.user && (
+					{profile && session?.user && !hidePageButton && (
 						<Button as={Link} size="sm" href={`/${profile.slug}`}>
 							Minha página
 						</Button>
 					)}
 
-					{!profile && session?.user && (
+					{!profile && session?.user && !hidePageButton && (
 						<Button as={Link} size="sm" href="create">
 							Criar uma página
 						</Button>
@@ -65,13 +69,13 @@ export async function Header() {
 							align="end"
 							className="flex flex-col gap-3 rounded-xl bg-background-primary p-4"
 						>
-							{profile && session?.user && (
+							{profile && session?.user && !hidePageButton && (
 								<Button as={Link} size="sm" href={`/${profile.slug}`}>
 									Minha página
 								</Button>
 							)}
 
-							{!profile && session?.user && (
+							{!profile && session?.user && !hidePageButton && (
 								<Button as={Link} size="sm" href="create">
 									Criar uma página
 								</Button>

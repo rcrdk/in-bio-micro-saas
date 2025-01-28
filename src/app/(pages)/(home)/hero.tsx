@@ -30,7 +30,7 @@ export function Hero() {
 					online com uma plataforma fácil e personalizável.
 				</Text>
 
-				<Button as={Link} size="lg" href="/create" className="mt-12">
+				<Button as={Link} size="lg" href="/lp" className="mt-12">
 					Quero fazer minha Bio
 					<ArrowRight />
 				</Button>
