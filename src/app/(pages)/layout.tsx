@@ -1,6 +1,9 @@
 import '@/styles/globals.css'
 
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
+
+import { env } from '@/lib/env'
 
 const redHatDisplay = RedHatDisplay({
 	subsets: ['latin'],
@@ -19,6 +22,10 @@ export default function RootLayout({
 			>
 				{children}
 			</body>
+
+			{env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+				<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+			)}
 		</html>
 	)
 }

@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { DB } from '@/lib/firebase'
+import { trackServerEvent } from '@/lib/mixpanel'
 import { Stripe } from '@/lib/stripe'
 
 export async function POST(req: Request) {
@@ -52,7 +53,7 @@ export async function POST(req: Request) {
 			{
 				price: isSubscription
 					? env.STRIPE_SUBSCRIPTION_PRICE_ID
-					: env.STRIPE_PRICE_ID,
+					: env.STRIPE_PAYMENT_PRICE_ID,
 				quantity: 1,
 			},
 		],
@@ -62,6 +63,14 @@ export async function POST(req: Request) {
 		cancel_url: `${req.headers.get('origin')}/${metadata.pageSlug}/upgrade`,
 		payment_method_types: isSubscription ? ['card'] : ['card', 'boleto'],
 		client_reference_id: userId,
+	})
+
+	trackServerEvent('checkout_created', {
+		userId,
+		price: isSubscription
+			? env.STRIPE_SUBSCRIPTION_PRICE_ID
+			: env.STRIPE_PAYMENT_PRICE_ID,
+		isSubscription,
 	})
 
 	return NextResponse.json(

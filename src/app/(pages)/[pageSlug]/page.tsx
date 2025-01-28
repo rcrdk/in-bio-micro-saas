@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 
@@ -18,6 +19,11 @@ type ParamsProps = {
 
 type Props = {
 	params: Promise<ParamsProps>
+}
+
+export const metadata: Metadata = {
+	title: 'Perfil - ProjectInBio',
+	description: '',
 }
 
 export default async function ProfilePage({ params }: Props) {

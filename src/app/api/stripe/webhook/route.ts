@@ -4,6 +4,7 @@ import StripePackage from 'stripe'
 
 import { env } from '@/lib/env'
 import { DB } from '@/lib/firebase'
+import { Resend } from '@/lib/resend'
 import { Stripe } from '@/lib/stripe'
 
 export async function POST(req: NextRequest) {
@@ -48,9 +49,15 @@ export async function POST(req: NextRequest) {
 						paymentIntend.next_action?.boleto_display_details
 							?.hosted_voucher_url
 
-					if (hostedVoucherUrl) {
-						// const userEmail = event.data.object.customer_details?.email
-						console.log('Enviar e-mail para o cliente por e-mail.')
+					const userEmail = event.data.object.customer_details?.email
+
+					if (hostedVoucherUrl && userEmail) {
+						Resend.emails.send({
+							from: 'ricardo@rcrdk.dev',
+							to: userEmail,
+							subject: 'Seu boleto para pagamento',
+							text: `Aqui está o seu boleto: ${hostedVoucherUrl}`,
+						})
 					}
 				}
 				break

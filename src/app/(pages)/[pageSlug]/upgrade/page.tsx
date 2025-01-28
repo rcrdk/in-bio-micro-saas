@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
+
 import { Header } from '@/components/sections/header'
 import { Text } from '@/components/ui/text'
 import { PlansButtons } from '@/components/upgrade/plans-buttons'
+
+export const metadata: Metadata = {
+	title: 'Escolha um plano - ProjectInBio',
+	description: '',
+}
 
 export default async function Upgrade() {
 	return (
