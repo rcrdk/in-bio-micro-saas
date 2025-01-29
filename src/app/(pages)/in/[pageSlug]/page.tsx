@@ -12,18 +12,28 @@ import { getProfile } from '@/http/get-profile'
 import { getProjects } from '@/http/get-projects'
 import { auth } from '@/lib/auth'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
-
-type ParamsProps = {
-	pageSlug: string
-}
+import { trackServerEvent } from '@/lib/mixpanel'
+import { getSeoTags } from '@/lib/seo'
 
 type Props = {
-	params: Promise<ParamsProps>
+	params: Promise<{ pageSlug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export const metadata: Metadata = {
-	title: 'Perfil - ProjectInBio',
-	description: '',
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { pageSlug } = await params
+	const profileData = await getProfile(pageSlug)
+
+	if (!profileData) {
+		return notFound()
+	}
+
+	return getSeoTags({
+		title: `${profileData.name} - Perfil na ProjectInBio`,
+		description: profileData.description,
+		keywords: [],
+		canonicalUrlRelative: `/in/${profileData.slug}`,
+	})
 }
 
 export default async function ProfilePage({ params }: Props) {
@@ -44,7 +54,21 @@ export default async function ProfilePage({ params }: Props) {
 	// or: is on trial
 	// or: is paid
 
-	if (!isProfileOwner) await increaseProfileVisits(pageSlug)
+	if (!isProfileOwner) {
+		await increaseProfileVisits(pageSlug)
+
+		trackServerEvent('page_view', {
+			page: 'profile',
+			slug: pageSlug,
+			owner: 'no',
+		})
+	} else {
+		trackServerEvent('page_view', {
+			page: 'profile',
+			slug: pageSlug,
+			owner: 'yes',
+		})
+	}
 
 	const isNotPaid =
 		isProfileOwner && !session?.user.isPaid && !session?.user.isTrial

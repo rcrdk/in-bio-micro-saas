@@ -1,4 +1,4 @@
-## 🪪 ProjectInBio Micro SaaS
+# 🪪 ProjectInBio Micro SaaS
 ProjectInBio serves as a micro SaaS boilerplate, in this case users can create their own shareble page to use on social media such as Linkedin, GitHub, Instagram and others. This app was developed during my studies about micro SaaS app at [Rocketseat](https://www.rocketseat.com.br/).
 
 <img alt="ProjectInBio Micro SaaS App Preview" src="https://github.com/rcrdk/in-bio-micro-saas/blob/main/public/app-preview.png?raw=true" />

@@ -1,39 +1,60 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Hero } from '@/app/(pages)/recursos/[slug]/hero'
 import { Faq } from '@/components/common/faq'
+import { Footer } from '@/components/common/footer'
 import { Header } from '@/components/common/header'
 import { Pricing } from '@/components/common/pricing'
 import { VideoPresentation } from '@/components/common/video-presentation'
+import { trackServerEvent } from '@/lib/mixpanel'
+import { getSeoTags } from '@/lib/seo'
 import { getTextsBySlug } from '@/utils/get-texts-by-slug'
 
-type ParamsProps = {
-	slug: string
+type Props = {
+	params: Promise<{ slug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-type Props = {
-	params: Promise<ParamsProps>
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const { slug } = await params
+	const content = await getTextsBySlug(slug)
+
+	if (!content) {
+		return notFound()
+	}
+
+	return getSeoTags({
+		title: `ProjectInBio: ${content.title}`,
+		description: content.description,
+		keywords: [],
+		canonicalUrlRelative: `/recursos/${slug}`,
+	})
 }
 
 export default async function LinkInBio({ params }: Props) {
-	// O objetivo é criar uma peagina com conteúdo diferente, essa diferenciaçnao melhora o rank no google
-
 	const { slug } = await params
-	const text = await getTextsBySlug(slug)
+	const content = await getTextsBySlug(slug)
 
-	if (!text) {
+	if (!content) {
 		return notFound()
 	}
+
+	trackServerEvent('page_view', {
+		page: 'resouces',
+		slug,
+	})
 
 	return (
 		<>
 			<Header />
 
-			<Hero title={text.title} description={text.description} />
+			<Hero title={content.title} description={content.description} />
 
 			<VideoPresentation />
 			<Pricing />
 			<Faq />
+			<Footer />
 		</>
 	)
 }

@@ -4,13 +4,22 @@ import { AvailablePlans } from '@/app/(pages)/in/[pageSlug]/upgrade/components/a
 import { Header } from '@/components/common/header'
 import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
+import { auth } from '@/lib/auth'
+import { trackServerEvent } from '@/lib/mixpanel'
+import { getSeoTags } from '@/lib/seo'
 
-export const metadata: Metadata = {
-	title: 'Escolha um plano - ProjectInBio',
-	description: '',
-}
+export const metadata: Metadata = getSeoTags({
+	title: 'Upgrade da página ProjectInBio',
+})
 
 export default async function Upgrade() {
+	const session = await auth()
+
+	trackServerEvent('page_view', {
+		page: 'upgrade',
+		user: session?.user.id ?? '',
+	})
+
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center">
 			<Header />

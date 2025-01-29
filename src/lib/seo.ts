@@ -1,22 +1,19 @@
 import type { Metadata } from 'next'
 
+import { env } from '@/lib/env'
+
 type Props = {
 	title: string
-	description: string
-	keywords: string[]
-	siteName: string
-	domain: string
-	canonicalUrlRelative: string
+	description?: string
+	keywords?: string[]
+	canonicalUrlRelative?: string
 	extraTags?: Metadata
-	locale?: string
 }
 
 export function getSeoTags({
 	title,
 	description,
 	keywords,
-	siteName,
-	domain,
 	canonicalUrlRelative,
 	extraTags,
 }: Props): Metadata {
@@ -24,19 +21,30 @@ export function getSeoTags({
 		title,
 		description,
 		keywords,
-		applicationName: siteName,
-		metadataBase: new URL(domain),
+		applicationName: 'ProjectInBio',
+		metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
 		openGraph: {
 			title,
 			description,
-			url: domain,
-			siteName,
+			siteName: 'ProjectInBio',
 			type: 'website',
+			images: {
+				url: '/opengraph-image.png',
+				width: '1200',
+				height: '630',
+				type: 'image/png',
+			},
 		},
 		twitter: {
 			title,
 			description,
 			card: 'summary_large_image',
+			images: {
+				url: '/twitter-image.png',
+				width: '1200',
+				height: '630',
+				type: 'image/png',
+			},
 		},
 		alternates: {
 			canonical: canonicalUrlRelative,
