@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 1,
 		},
 		{
-			url: `${env.NEXT_PUBLIC_APP_URL}/lp`,
+			url: `${env.NEXT_PUBLIC_APP_URL}/crie-sua-pagina`,
 			lastModified: new Date().toISOString(),
 			changeFrequency: 'monthly',
 			priority: 1,

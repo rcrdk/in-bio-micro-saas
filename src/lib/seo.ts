@@ -19,7 +19,6 @@ export function getSeoTags({
 	domain,
 	canonicalUrlRelative,
 	extraTags,
-	locale,
 }: Props): Metadata {
 	return {
 		title,

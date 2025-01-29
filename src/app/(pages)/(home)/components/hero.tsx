@@ -6,18 +6,14 @@ import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
 import { env } from '@/lib/env'
 
-type Props = {
-	title?: string
-	description?: string
-}
-
-export function Hero({ title, description }: Props) {
+export function Hero() {
 	return (
-		<Container className="relative z-0 pb-20 pt-40 text-center">
+		<Container className="relative z-0 pb-20 pt-32 text-center md:pt-40">
 			<div className="flex flex-col items-center">
 				<Text
+					variant="label"
 					as="span"
-					className="rounded-3xl border border-border-primary bg-background-primary px-4 py-2 font-bold uppercase leading-tight text-white"
+					className="mb-2 rounded-3xl border border-border-primary bg-background-primary px-4 py-2 font-bold uppercase leading-tight text-white"
 				>
 					{env.NEXT_PUBLIC_TRIAL_DAYS} dias grátis
 				</Text>
@@ -27,12 +23,12 @@ export function Hero({ title, description }: Props) {
 					variant="heading-xl"
 					className="bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent"
 				>
-					{title || 'Crie Seu Portfólio e Links em Minutos'}
+					Crie Seu Portfólio e Links em Minutos
 				</Text>
 
 				<Text variant="body-lg" className="mt-6 max-w-screen-md">
-					{description ||
-						'Mostre seu trabalho de forma profissional e simplifique sua presença online com uma plataforma fácil e personalizável.'}
+					Mostre seu trabalho de forma profissional e simplifique sua presença
+					online com uma plataforma fácil e personalizável.
 				</Text>
 
 				<Button as={Link} size="lg" href="/crie-sua-pagina" className="mt-12">

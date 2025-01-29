@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { Loader } from 'lucide-react'
+
 import { cn } from '@/utils/tailwind-cn'
 
 type Props<T extends React.ElementType> = {
@@ -6,14 +8,17 @@ type Props<T extends React.ElementType> = {
 	variant?: 'primary' | 'secondary' | 'ghost'
 	size?: 'sm' | 'md' | 'lg'
 	icon?: boolean | 'rounded'
+	loading?: boolean
 }
 
-export function Button<T extends React.ElementType = 'button'>({ as, variant = 'primary', size = 'md', icon = false, ...props }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
+export function Button<T extends React.ElementType = 'button'>({ as, variant = 'primary', size = 'md', icon = false, loading = false, ...props }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
 	const Component = as || 'button'
 
 	return (
 		<Component
 			{...props}
+			// eslint-disable-next-line react/no-children-prop
+			children={loading ? <Loader className='animate-spin' /> : props.children}
 			className={cn(
 				'flex flex-shrink-0 items-center gap-4 justify-center text-center select-none whitespace-nowrap rounded-xl border font-bold text-white transition-all outline-none border-transparent',
 				'hover:opacity-90',
@@ -26,7 +31,7 @@ export function Button<T extends React.ElementType = 'button'>({ as, variant = '
 
 				size === 'sm' && !icon && 'px-4 h-10',
 				size === 'md' && !icon && 'px-6 h-12',
-				size === 'lg' && !icon && 'px-8 h-16 text-lg',
+				size === 'lg' && !icon && 'px-8 h-14 sm:h-16 text-lg',
 
 				size === 'sm' && icon && 'px-0 size-10',
 				size === 'md' && icon && 'px-0 size-12',

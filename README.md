@@ -1,5 +1,10 @@
-## 🪪 In Bio Micro SaaS
-This project was developed for learning case at [Rocketseat](https://www.rocketseat.com.br/).
+## 🪪 ProjectInBio Micro SaaS
+ProjectInBio serves as a micro SaaS boilerplate, in this case users can create their own shareble page to use on social media such as Linkedin, GitHub, Instagram and others. This app was developed during my studies about micro SaaS app at [Rocketseat](https://www.rocketseat.com.br/).
+
+<img alt="ProjectInBio Micro SaaS App Preview" src="https://github.com/rcrdk/in-bio-micro-saas/blob/main/public/app-preview.png?raw=true" />
+
+## 💻 Project
+[TBD]
 
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;
@@ -22,17 +27,13 @@ This project was developed for learning case at [Rocketseat](https://www.rockets
 <img alt="Google Analytics" src="https://img.shields.io/badge/-Google%20Analytics-05122A?style=flat&logo=googleanalytics" />&nbsp;
 <img alt="Mixpanel" src="https://img.shields.io/badge/-Mixpanel-05122A?style=flat&logo=mixpanel" />&nbsp;
 
-## 💻 Project
-Lorem ipsum...
-
 ## 🔮 Usage
 
-### 1️⃣ Setup External Providers
----
+### Setup External Providers
 
 <details>
-	<summary>Stripe</summary>
-  
+	<summary style="font-weight:bold;">1️⃣ Stripe</summary>
+
    1. [Create and setup](https://dashboard.stripe.com/) your account.
    2. Set test mode on.
    3. Create a product with two prices: a recurring by month and a one-off (charge a one-time fee).
@@ -41,8 +42,10 @@ Lorem ipsum...
    6. Access `Developers / API Keys` and copy both publishable and secret key and paste it respectively on `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` and `STRIPE_SECRET_KEY` env variables. 
 </details>
 
+---
+
 <details>
-	<summary>Google Cloud API and Services (Auth)</summary>
+	<summary style="font-weight:bold;">2️⃣ Google Cloud API and Services (Auth)</summary>
   
    1. Create or use an existent [project](https://console.cloud.google.com/apis)
    2. Setup the [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent): on authorized domains, add a domain that you own or use vercel.com in case you are deploying and using their domain.
@@ -52,8 +55,10 @@ Lorem ipsum...
    4. Copy both Client ID and Client Secret and paste it respectively on `AUTH_GOOGLE_ID`  and `AUTH_GOOGLE_SECRET` env variables.
 </details>
 
+---
+
 <details>
-	<summary>Firebase Firestore Database and Storage</summary>
+	<summary style="font-weight:bold;">3️⃣ Firebase Firestore Database and Storage</summary>
   
    1. Create or use a existent [project](https://console.firebase.google.com)
    2. Setup Firebase Database and Storage, this last one needs a Google Billing account attached.
@@ -64,32 +69,31 @@ Lorem ipsum...
    4. Access the Storage section and copy the bucket base url, something like `gs://in-bio-micro-saas.firebasestorage.app` and paste on `FIREBASE_STORAGE_BUCKET` env variable without `gs://`
 </details>
 
+---
+
 <details>
-	<summary>Google Analytics and Mixpanel</summary>
+	<summary style="font-weight:bold;">4️⃣ Google Analytics and Mixpanel</summary>
   
    1. `NEXT_PUBLIC_GOOGLE_ANALYTICS`
    2. `MIXPANEL_SECRET`
 </details>
 
-<details>
-	<summary>TBD</summary>
-  
-   1. TBD
-</details>
+---
 
 <details>
-	<summary>Misc env</summary>
+	<summary style="font-weight:bold;">5️⃣ Misc env</summary>
   
    1. `NEXT_PUBLIC_APP_URL`: define your base domain or simply `http://localhost:3000`
    2. `NEXT_PUBLIC_TRIAL_DAYS`: define the number of days that new users can get free access.
    3. `AUTH_SECRET` define a random UUID used on Auth.js.
 </details>
 
-### 2️⃣ Listen to Stripe events
 ---
 
+### Listen to Stripe events
+
 <details>
-	<summary>Localhost</summary>
+	<summary style="font-weight:bold;">1️⃣ Localhost</summary>
 
    1. Install [Stripe CLI](https://docs.stripe.com/stripe-cli#install).
    2. Sign in with your account and follow th steps: `stripe login`
@@ -97,13 +101,17 @@ Lorem ipsum...
    4. After running the last command, you will receive on terminal a webhook secret key that you can paste on `STRIPE_WEBHOOK_SECRET` env variable.
 </details>
 
+---
+
 <details>
-	<summary>Production</summary>
+	<summary style="font-weight:bold;">2️⃣ Production</summary>
 
    1. Access `Developers / Webhooks`
    2. Add an endpoint `https://<YOUR_DOMAIN>/api/stripe/webhook`
    3. Set `STRIPE_WEBHOOK_SECRET` env with 'Signing secret' on endpoint details page.
 </details>
+
+---
 
 ## 🎨 Figma
 The UI design was provided by Rocketseat, [check it out](https://www.figma.com/community/file/1456727135365574424).

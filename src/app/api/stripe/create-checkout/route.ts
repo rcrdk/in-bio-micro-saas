@@ -59,8 +59,8 @@ export async function POST(req: Request) {
 		],
 		mode: isSubscription ? 'subscription' : 'payment',
 		metadata,
-		success_url: `${req.headers.get('origin')}/${metadata.pageSlug}`,
-		cancel_url: `${req.headers.get('origin')}/${metadata.pageSlug}/upgrade`,
+		success_url: `${req.headers.get('origin')}/in/${metadata.pageSlug}`,
+		cancel_url: `${req.headers.get('origin')}/in/${metadata.pageSlug}/upgrade`,
 		payment_method_types: isSubscription ? ['card'] : ['card', 'boleto'],
 		client_reference_id: userId,
 	})

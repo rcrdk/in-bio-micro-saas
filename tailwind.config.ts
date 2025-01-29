@@ -12,6 +12,40 @@ export default {
 				xs: '410px',
 			},
 
+			boxShadow: {
+				toast:
+					'0 -10px 15px -3px rgb(0 0 0 / 0.1), 0 -4px 6px -4px rgb(0 0 0 / 0.1)',
+			},
+
+			animation: {
+				accordionOpen: 'accordionSlideDown 300ms ease-out',
+				accordionClose: 'accordionSlideUp 300ms ease-out',
+				collapsibleOpen: 'collapsibleSlideDown 300ms ease-out',
+				collapsibleClose: 'collapsibleSlideUp 300ms ease-out',
+			},
+
+			keyframes: {
+				accordionSlideDown: {
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' },
+				},
+
+				accordionSlideUp: {
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' },
+				},
+
+				collapsibleSlideDown: {
+					from: { height: '0' },
+					to: { height: 'var(--radix-collapsible-content-height)' },
+				},
+
+				collapsibleSlideUp: {
+					from: { height: 'var(--radix-collapsible-content-height)' },
+					to: { height: '0' },
+				},
+			},
+
 			colors: {
 				'accent-purple': '#4B2DBB',
 				'accent-purple-hover': '#482BB2',

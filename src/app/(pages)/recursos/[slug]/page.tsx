@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 
 import { Hero } from '@/app/(pages)/recursos/[slug]/hero'
-import { Faq } from '@/components/sections/faq'
-import { Header } from '@/components/sections/header'
-import { Pricing } from '@/components/sections/pricing'
-import { VideoPresentation } from '@/components/sections/video-presentation'
+import { Faq } from '@/components/common/faq'
+import { Header } from '@/components/common/header'
+import { Pricing } from '@/components/common/pricing'
+import { VideoPresentation } from '@/components/common/video-presentation'
 import { getTextsBySlug } from '@/utils/get-texts-by-slug'
 
 type ParamsProps = {
