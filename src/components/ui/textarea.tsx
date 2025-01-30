@@ -7,7 +7,7 @@ export function Textarea(props: Props) {
 		<textarea
 			{...props}
 			className={cn(
-				'w-full resize-none rounded-xl border border-transparent bg-background-secondary px-4 py-3 text-white outline-none',
+				'bg-background-secondary w-full resize-none rounded-xl border border-transparent px-4 py-3 text-white outline-hidden',
 				'placeholder:text-content-placeholder',
 				'hover:border-input-border-hover',
 				'focus:border-input-border-focus focus:ring-4 focus:ring-white/10',

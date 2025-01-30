@@ -21,7 +21,7 @@ export async function Header({ hidePageButton = false }: Props) {
 		session?.user?.id && (await checkUserProfile(session.user?.id))
 
 	return (
-		<Container className="absolute left-0 right-0 top-0 z-50">
+		<Container className="absolute top-0 right-0 left-0 z-50">
 			<header className="flex items-center justify-between py-6 sm:py-8 xl:py-10">
 				<Link href="/" className="focus-themed block w-[167px] sm:w-[187px]">
 					<Image
@@ -33,7 +33,7 @@ export async function Header({ hidePageButton = false }: Props) {
 					/>
 				</Link>
 
-				<div className="hidden flex-1 flex-grow justify-end gap-4 sm:flex">
+				<div className="hidden flex-1 grow justify-end gap-4 sm:flex">
 					{profile && session?.user && !hidePageButton && (
 						<Button as={Link} size="sm" href={`/in/${profile.slug}`}>
 							Minha página
@@ -72,7 +72,7 @@ export async function Header({ hidePageButton = false }: Props) {
 
 						<DropdownMenu.Content
 							align="end"
-							className="flex flex-col gap-3 rounded-xl border border-button-ghost bg-background-primary p-4 shadow-2xl"
+							className="border-button-ghost bg-background-primary flex flex-col gap-3 rounded-xl border p-4 shadow-2xl"
 							sideOffset={8}
 						>
 							{profile && session?.user && !hidePageButton && (

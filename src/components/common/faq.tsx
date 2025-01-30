@@ -40,9 +40,9 @@ export function Faq() {
 
 	return (
 		<Container>
-			<div className="border-t border-background-card-divider" />
+			<div className="border-background-card-divider border-t" />
 
-			<div className="flex flex-col items-center gap-8 pb-20 pt-12 sm:gap-12 sm:pt-20">
+			<div className="flex flex-col items-center gap-8 pt-12 pb-20 sm:gap-12 sm:pt-20">
 				<Text variant="heading-md" as="h3">
 					Perguntas frequentes
 				</Text>
@@ -50,7 +50,7 @@ export function Faq() {
 				<Accordion.Root
 					type="single"
 					defaultValue="item-0"
-					className="w-full max-w-screen-md gap-4 divide-y divide-border-secondary rounded-lg border border-border-secondary"
+					className="divide-border-secondary border-border-secondary w-full max-w-(--breakpoint-md) gap-4 divide-y rounded-lg border"
 					collapsible
 				>
 					{content.map((item, index) => (
@@ -58,12 +58,12 @@ export function Faq() {
 							<Accordion.Trigger className="flex w-full items-center justify-between gap-6 px-6 py-4 text-left [&[data-state=open]_svg]:rotate-180">
 								<Text variant="heading-sm">{item.title}</Text>
 								<ChevronDown
-									className="flex-shrink-0 transition-transform"
+									className="shrink-0 transition-transform"
 									size={28}
 								/>
 							</Accordion.Trigger>
 
-							<Accordion.Content className="overflow-hidden data-[state=closed]:animate-accordionClose data-[state=open]:animate-accordionOpen">
+							<Accordion.Content className="data-[state=closed]:animate-accordion-close data-[state=open]:animate-accordion-open overflow-hidden">
 								<div className="px-6 pb-6">
 									<Text>{item.description}</Text>
 								</div>

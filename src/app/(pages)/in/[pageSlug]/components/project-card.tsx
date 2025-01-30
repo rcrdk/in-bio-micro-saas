@@ -33,11 +33,11 @@ export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
 			onClick={handleClickProject}
 			tabIndex={demo ? -1 : undefined}
 			className={cn(
-				'focus-themed flex gap-5 rounded-2xl border border-transparent bg-card-background p-3 transition-colors hover:border-card-border',
+				'focus-themed bg-card-background hover:border-card-border flex gap-5 rounded-2xl border border-transparent p-3 transition-colors',
 				demo && 'w-[340px]',
 			)}
 		>
-			<div className="flex size-24 flex-shrink-0 overflow-hidden rounded-md bg-image-background">
+			<div className="bg-image-background flex size-24 shrink-0 overflow-hidden rounded-md">
 				{image ? (
 					<Image
 						src={image}
@@ -53,7 +53,7 @@ export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
 
 			<div className="flex flex-col gap-2">
 				{isOwner && (
-					<span className="text-xs font-bold uppercase text-accent-green">
+					<span className="text-accent-green text-xs font-bold uppercase">
 						{data.totalClicks === 1
 							? '1 clique'
 							: `${data.totalClicks ?? 0} cliques`}
@@ -62,7 +62,7 @@ export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
 
 				<div className="flex flex-col gap-1">
 					<span className="font-bold text-white">{data.projectName}</span>
-					<span className="text-sm text-content-body">
+					<span className="text-content-body text-sm">
 						{data.projectDescription}
 					</span>
 				</div>

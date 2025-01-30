@@ -81,13 +81,13 @@ export default async function ProfilePage({ params }: Props) {
 		<div className="flex min-h-svh flex-col">
 			<UpgradeMessage pageSlug={pageSlug} />
 
-			<Container className="flex-grow">
+			<Container className="grow">
 				<div className="flex flex-col gap-6 py-6 sm:gap-10 sm:py-10 lg:flex-row lg:items-start">
 					<div className="flex justify-center">
 						<UserCard data={profileData} isOwner={isProfileOwner} />
 					</div>
 
-					<div className="grid w-full flex-grow gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+					<div className="grid w-full grow gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
 						{projects.map(async (project) => (
 							<ProjectCard
 								key={project.id}

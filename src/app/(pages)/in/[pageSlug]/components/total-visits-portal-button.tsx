@@ -7,7 +7,7 @@ export function TotalVisitsPortalButton() {
 
 	return (
 		<button
-			className="focus-themed flex-grow py-1 text-base text-content-placeholder transition-colors hover:text-white sm:flex-grow-0"
+			className="focus-themed text-content-placeholder grow py-1 text-base transition-colors hover:text-white sm:grow-0"
 			onClick={createStripePortal}
 		>
 			Portal

@@ -7,8 +7,8 @@ import { Text } from '@/components/ui/text'
 
 export function UserCardDemo() {
 	return (
-		<div className="mx-auto flex w-full max-w-[348px] flex-col items-center gap-5 rounded-3xl border border-card-border bg-card-background/85 p-5 text-white backdrop-blur-sm sm:w-[348px]">
-			<div className="relative flex size-40 items-center justify-center rounded-full bg-image-background sm:size-48">
+		<div className="border-card-border bg-card-background/85 mx-auto flex w-full max-w-[348px] flex-col items-center gap-5 rounded-3xl border p-5 text-white backdrop-blur-xs sm:w-[348px]">
+			<div className="bg-image-background relative flex size-40 items-center justify-center rounded-full sm:size-48">
 				<Image
 					src={placeholderUserPicture}
 					width={460}
@@ -29,7 +29,7 @@ export function UserCardDemo() {
 					</Text>
 				</div>
 
-				<div className="h-px bg-gradient-to-r from-card-background via-card-border to-card-background" />
+				<div className="from-card-background via-card-border to-card-background h-px bg-linear-to-r" />
 
 				<div className="flex flex-col gap-2">
 					<Text as="span" variant="body-sm" className="font-medium uppercase">
@@ -52,7 +52,7 @@ export function UserCardDemo() {
 					</div>
 				</div>
 
-				<div className="h-px bg-gradient-to-r from-card-background via-card-border to-card-background" />
+				<div className="from-card-background via-card-border to-card-background h-px bg-linear-to-r" />
 
 				<div className="flex w-full flex-col">
 					<div className="flex w-full flex-col items-center gap-3">

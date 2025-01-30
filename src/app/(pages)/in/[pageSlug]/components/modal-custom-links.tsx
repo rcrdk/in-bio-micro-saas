@@ -110,7 +110,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 							/>
 						</div>
 
-						<div className="flex flex-grow flex-col gap-1">
+						<div className="flex grow flex-col gap-1">
 							<Text as="label" variant="label">
 								URL:
 							</Text>
@@ -139,7 +139,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 							/>
 						</div>
 
-						<div className="flex flex-grow flex-col gap-1">
+						<div className="flex grow flex-col gap-1">
 							<Text as="label" variant="label" hidden>
 								URL:
 							</Text>
@@ -168,7 +168,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 							/>
 						</div>
 
-						<div className="flex flex-grow flex-col gap-1">
+						<div className="flex grow flex-col gap-1">
 							<Text as="label" variant="label" hidden>
 								URL:
 							</Text>

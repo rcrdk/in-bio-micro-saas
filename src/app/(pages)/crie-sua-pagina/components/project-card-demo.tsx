@@ -9,8 +9,8 @@ type Props = {
 
 export function ProjectCardDemo({ variant = '1' }: Props) {
 	return (
-		<div className="focus-themed flex w-[340px] gap-5 rounded-2xl border border-transparent bg-card-background p-3 transition-colors hover:border-card-border">
-			<div className="flex size-24 flex-shrink-0 overflow-hidden rounded-md bg-image-background">
+		<div className="focus-themed bg-card-background hover:border-card-border flex w-[340px] gap-5 rounded-2xl border border-transparent p-3 transition-colors">
+			<div className="bg-image-background flex size-24 shrink-0 overflow-hidden rounded-md">
 				<Image
 					src={variant === '1' ? demoProject1 : demoProject2}
 					width={460}
@@ -21,7 +21,7 @@ export function ProjectCardDemo({ variant = '1' }: Props) {
 			</div>
 
 			<div className="flex flex-col gap-2">
-				<span className="text-xs font-bold uppercase text-accent-green">
+				<span className="text-accent-green text-xs font-bold uppercase">
 					{variant === '1' ? '15 cliques' : '3 cliques'}
 				</span>
 
@@ -30,7 +30,7 @@ export function ProjectCardDemo({ variant = '1' }: Props) {
 						{variant === '1' ? 'BugTracer' : 'CodeLink'}
 					</span>
 
-					<span className="text-sm text-content-body">
+					<span className="text-content-body text-sm">
 						{variant === '1'
 							? 'Rastreador simples de bugs.'
 							: 'Integração de GitHub e GitLab.'}

@@ -83,7 +83,7 @@ export function ModalProfileData({
 
 	return (
 		<>
-			<div className="absolute right-0 top-0 rounded-full">
+			<div className="absolute top-0 right-0 rounded-full">
 				<Button variant="secondary" onClick={handleToggleModal} icon="rounded">
 					<UserPen />
 				</Button>
@@ -108,7 +108,7 @@ export function ModalProfileData({
 
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="flex size-40 flex-shrink-0 overflow-hidden rounded-full bg-image-background">
+						<div className="bg-image-background flex size-40 shrink-0 overflow-hidden rounded-full">
 							{profileImage && (
 								<Image
 									src={profileImage}
@@ -156,7 +156,7 @@ export function ModalProfileData({
 						/>
 					</div>
 
-					<div className="flex flex-grow flex-col gap-4">
+					<div className="flex grow flex-col gap-4">
 						<div className="flex flex-col gap-1">
 							<Text as="label" variant="label" htmlFor="name">
 								Seu nome

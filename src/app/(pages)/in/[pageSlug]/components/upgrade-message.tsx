@@ -30,11 +30,11 @@ export async function UpgradeMessage({ pageSlug }: Props) {
 	}
 
 	return (
-		<div className="sticky left-0 right-0 top-0 z-10 gap-1 text-balance border-b border-sticky-border bg-sticky-background/85 px-6 py-2 text-center text-sm shadow-sm backdrop-blur-sm sm:bg-sticky-background sm:py-3 sm:text-base">
+		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background sticky top-0 right-0 left-0 z-10 gap-1 border-b px-6 py-2 text-center text-sm text-balance shadow-xs backdrop-blur-xs sm:py-3 sm:text-base">
 			<span>{getTrialDaysMessage()}</span>{' '}
 			<Link
 				href={`/in/${pageSlug}/upgrade`}
-				className="focus-themed font-bold text-accent-green hover:text-accent-green-hover"
+				className="focus-themed text-accent-green hover:text-accent-green-hover font-bold"
 			>
 				Faça o upgrade agora!
 			</Link>

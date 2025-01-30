@@ -42,8 +42,8 @@ export async function UserCard({ data, isOwner }: Props) {
 	const shouldDisplaySocialMediaLinks = socialMedia.length || isOwner
 
 	return (
-		<div className="flex w-full flex-col items-center gap-5 rounded-3xl border border-card-border bg-card-background p-5 text-white sm:w-[348px] sm:max-w-[348px]">
-			<div className="relative flex size-48 items-center justify-center rounded-full bg-image-background">
+		<div className="border-card-border bg-card-background flex w-full flex-col items-center gap-5 rounded-3xl border p-5 text-white sm:w-[348px] sm:max-w-[348px]">
+			<div className="bg-image-background relative flex size-48 items-center justify-center rounded-full">
 				{currentProfilePicture ? (
 					<Image
 						src={currentProfilePicture}
@@ -79,7 +79,7 @@ export async function UserCard({ data, isOwner }: Props) {
 
 				{shouldDisplaySocialMediaLinks && (
 					<>
-						<div className="h-px bg-gradient-to-r from-card-background via-card-border to-card-background" />
+						<div className="from-card-background via-card-border to-card-background h-px bg-linear-to-r" />
 
 						<div className="flex flex-col gap-2">
 							<Text
@@ -116,7 +116,7 @@ export async function UserCard({ data, isOwner }: Props) {
 
 				{shouldDisplayCustomLinks && (
 					<>
-						<div className="h-px bg-gradient-to-r from-card-background via-card-border to-card-background" />
+						<div className="from-card-background via-card-border to-card-background h-px bg-linear-to-r" />
 
 						<div className="flex w-full flex-col">
 							<div className="flex w-full flex-col items-center gap-3">

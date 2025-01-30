@@ -88,7 +88,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 
 				<div className="flex flex-col gap-4">
 					<div className="relative">
-						<Github className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
+						<Github className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
 						<Input
 							placeholder="nome de usuário"
 							value={github}
@@ -98,7 +98,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 					</div>
 
 					<div className="relative">
-						<Linkedin className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
+						<Linkedin className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
 						<Input
 							placeholder="nome de usuário"
 							value={linkedin}
@@ -108,7 +108,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 					</div>
 
 					<div className="relative">
-						<Twitter className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
+						<Twitter className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
 						<Input
 							placeholder="nome de usuário"
 							value={twitter}
@@ -118,7 +118,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 					</div>
 
 					<div className="relative">
-						<Instagram className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" />
+						<Instagram className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
 						<Input
 							placeholder="nome de usuário"
 							value={instagram}

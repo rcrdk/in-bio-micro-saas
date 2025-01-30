@@ -18,10 +18,10 @@ export function Modal({ children, open, onHide }: Props) {
 	}
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-background-modal/50 backdrop-blur-md">
+		<div className="bg-background-modal/50 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md">
 			<div
 				ref={ref}
-				className="flex w-full max-w-screen-sm flex-col justify-between gap-8 rounded-3xl bg-background-primary p-8"
+				className="bg-background-primary flex w-full max-w-(--breakpoint-sm) flex-col justify-between gap-8 rounded-3xl p-8"
 			>
 				{children}
 			</div>

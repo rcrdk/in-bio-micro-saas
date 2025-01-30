@@ -79,7 +79,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 	return (
 		<>
 			<button
-				className="focus-themed flex min-h-[130px] flex-grow items-center justify-center gap-5 rounded-2xl border border-dashed border-button-ghost p-3 transition-colors hover:border-button-ghost-hover"
+				className="focus-themed border-button-ghost hover:border-button-ghost-hover flex min-h-[130px] grow items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors"
 				onClick={handleToggleModal}
 			>
 				<Plus className="size-8" />
@@ -105,7 +105,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="size-36 flex-shrink-0 overflow-hidden rounded-xl bg-image-background">
+						<div className="bg-image-background size-36 shrink-0 overflow-hidden rounded-xl">
 							{projectImage ? (
 								<Image
 									src={projectImage}
@@ -141,7 +141,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 						/>
 					</div>
 
-					<div className="flex flex-grow flex-col gap-4">
+					<div className="flex grow flex-col gap-4">
 						<div className="flex flex-col gap-1">
 							<Text as="label" variant="label" htmlFor="projectName">
 								Nome do projeto:

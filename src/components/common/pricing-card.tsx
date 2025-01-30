@@ -23,19 +23,19 @@ export function PricingCard({
 			className={cn(
 				'flex w-[334px] flex-col items-center rounded-2xl',
 				isRecommend
-					? 'bg-gradient-to-r from-accent-purple to-accent-pink p-[1.6px]'
-					: 'border border-background-card-divider bg-background-primary p-6 sm:p-8',
+					? 'from-accent-purple to-accent-pink bg-linear-to-r p-[1.6px]'
+					: 'border-background-card-divider bg-background-primary border p-6 sm:p-8',
 			)}
 		>
 			{isRecommend && (
-				<span className="p-2 text-xs font-bold uppercase text-white">
+				<span className="p-2 text-xs font-bold text-white uppercase">
 					Recomendado
 				</span>
 			)}
 
 			<div
 				className={cn(
-					'flex w-full flex-col gap-7 rounded-b-2xl bg-background-primary',
+					'bg-background-primary flex w-full flex-col gap-7 rounded-b-2xl',
 					isRecommend && 'p-6 sm:p-8',
 				)}
 			>
@@ -59,7 +59,7 @@ export function PricingCard({
 					<Text
 						variant="body-lg"
 						as="span"
-						className="text-2xl text-content-headline"
+						className="text-content-headline text-2xl"
 					>
 						{priceLabel}
 					</Text>

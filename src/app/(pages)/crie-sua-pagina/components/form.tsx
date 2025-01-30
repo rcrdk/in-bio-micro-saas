@@ -48,15 +48,15 @@ export function CreateSlugForm() {
 			onSubmit={handleSubmit}
 			className="flex w-full flex-col gap-1 sm:flex-row sm:items-center"
 		>
-			<div className="relative flex-grow">
+			<div className="relative grow">
 				<div
 					ref={labelRef}
-					className="pointer-events-none absolute top-0 flex h-full select-none items-center pl-4"
+					className="pointer-events-none absolute top-0 flex h-full items-center pl-4 select-none"
 				>
 					<Text
 						variant="body-md"
 						as="span"
-						className="whitespace-nowrap text-nowrap"
+						className="text-nowrap whitespace-nowrap"
 					>
 						{env.NEXT_PUBLIC_APP_URL}/in/
 					</Text>

@@ -10,10 +10,10 @@ export function VideoPresentation() {
 			<a
 				href="https://www.youtube.com/watch?v=EDwb9jOVRtU"
 				target="_blank"
-				className="group relative block aspect-video overflow-hidden rounded-2xl border border-border-primary"
+				className="group border-border-primary relative block aspect-video overflow-hidden rounded-2xl border"
 				aria-label="Assistir ao vídeo de apresentação"
 			>
-				<Play className="pointer-events-none absolute left-1/2 top-1/2 z-10 size-20 -translate-x-1/2 -translate-y-1/2 text-white lg:size-28" />
+				<Play className="pointer-events-none absolute top-1/2 left-1/2 z-10 size-20 -translate-x-1/2 -translate-y-1/2 text-white lg:size-28" />
 
 				<Image
 					src={videoThumbnail}

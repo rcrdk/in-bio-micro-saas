@@ -50,14 +50,14 @@ export function Hero() {
 					</div>
 				</div>
 
-				<div className="text-left pointer-events-none relative z-[1] mb-24 sm:mb-32 flex w-full max-w-screen-md select-none items-center justify-center lg:my-32 lg:min-w-[530px] lg:max-w-none">
-					<div className="absolute bottom-0 -right-6 sm:right-0 z-[3] translate-y-1/2 scale-90 sm:scale-100 origin-right-bottom">
+				<div className="text-left pointer-events-none relative z-1 mb-24 sm:mb-32 flex w-full max-w-(--breakpoint-md) select-none items-center justify-center lg:my-32 lg:min-w-[530px] lg:max-w-none">
+					<div className="absolute bottom-0 -right-6 sm:right-0 z-3 translate-y-1/2 scale-90 sm:scale-100 origin-right-bottom">
 						<Animated style={{ transform: parallaxProps.xy.to(translationTwo) }}>
 							<TotalVisitsDemo />
 						</Animated>
 					</div>
 
-					<div className="relative z-[2] w-full sm:w-auto scale-95 sm:scale-100">
+					<div className="relative z-2 w-full sm:w-auto scale-95 sm:scale-100">
 						<Animated style={{ transform: parallaxProps.xy.to(translationOne) }}>
 							<UserCardDemo />
 						</Animated>
@@ -69,7 +69,7 @@ export function Hero() {
 						</Animated>
 					</div>
 
-					<div className="absolute -top-16 -left-16 z-[1] sm:-top-10 sm:left-0 sm:scale-100 scale-90 origin-top-left">
+					<div className="absolute -top-16 -left-16 z-1 sm:-top-10 sm:left-0 sm:scale-100 scale-90 origin-top-left">
 						<Animated style={{ transform: parallaxProps.xy.to(translationTwo) }}>
 							<div className="flex flex-col gap-3 sm:gap-6">
 								<div className="ml-14">
