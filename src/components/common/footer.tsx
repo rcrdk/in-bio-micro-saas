@@ -56,14 +56,14 @@ export function Footer() {
 						</Text>
 
 						<Link
-							href="/"
+							href="/termos-de-uso"
 							className="focus-themed block py-1 text-white transition-colors hover:underline"
 						>
 							Termos de uso
 						</Link>
 
 						<Link
-							href="/"
+							href="/politica-de-privacidade"
 							className="focus-themed block py-1 text-white transition-colors hover:underline"
 						>
 							Política de privacidade
