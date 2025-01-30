@@ -6,6 +6,20 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 ## 💻 Project
 [TBD]
 
+## 📋 Features
+
+**Public Pages:**
+- Home: The main landing page showcasing the product, including a hero section, video presentation, pricing details, and FAQs.
+- Create Your Page: A secondary landing page similar to the home page but featuring an input field for users to enter a custom slug. Submitting the form directs them to social login to proceed.
+- Resources: A landing page optimized for programmatic SEO, targeting specific social networks to promote the service.
+- Profiles: Public profile pages created by users, displaying their avatar, name, introduction, social media links, and custom links. Users can also showcase their projects.
+
+**Private Pages:**
+- Create Now: After social login, users complete their profile setup by entering a unique slug.
+- Profile: A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
+- Upgrade: If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
+
+
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;
 <img alt="PNPM" src="https://img.shields.io/badge/-PNPM-05122A?style=flat&logo=pnpm" />&nbsp;

@@ -26,6 +26,8 @@ export async function createLink(slug: string) {
 					linkedin: '',
 					twitter: '',
 					instagram: '',
+					youtube: '',
+					facebook: '',
 				},
 				customLinks: {
 					link1: { title: '', url: '' },

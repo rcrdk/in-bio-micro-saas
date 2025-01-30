@@ -27,21 +27,23 @@ export default function RootLayout({
 				{children}
 
 				<Toaster
-					position="bottom-center"
-					duration={10000}
+					position="top-center"
+					duration={5000}
 					toastOptions={{
+						unstyled: true,
 						classNames: {
-							toast: 'px-6 gap-6',
+							toast:
+								'text-center justify-center flex items-center py-3 px-6 gap-6 text-white shadow-toast text-balance h-[var(--initial-height)] rounded-xl',
 							title: 'text-sm font-medium',
+							icon: '!size-6 !m-0',
 							description: 'text-sm',
-							error: 'bg-red-500 border-red-500 text-white shadow-toast',
-							success:
-								'bg-accent-green border-accent-green text-white shadow-toast',
+							error: 'bg-red-500 border-red-500',
+							success: 'bg-accent-green border-accent-green',
 						},
 					}}
 					icons={{
-						error: <CircleAlert size={20} />,
-						success: <CircleCheck size={20} />,
+						error: <CircleAlert size={24} />,
+						success: <CircleCheck size={24} />,
 					}}
 				/>
 			</body>

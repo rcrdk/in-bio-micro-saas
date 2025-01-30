@@ -1,9 +1,17 @@
-import { Github, Instagram, Linkedin, Twitter, User } from 'lucide-react'
+import {
+	Facebook,
+	Github,
+	Instagram,
+	Linkedin,
+	Twitter,
+	User,
+	Youtube,
+} from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { ModalCustomLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-custom-links'
-import { ModalProfileData } from '@/app/(pages)/in/[pageSlug]/components/modal-profile-data'
+import { ModalProfileInformation } from '@/app/(pages)/in/[pageSlug]/components/modal-profile-information'
 import { ModalSocialLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-social-links'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
@@ -32,11 +40,14 @@ export async function UserCard({ data, isOwner }: Props) {
 				return { icon: <Twitter />, url: 'https://x.com' }
 			case 'instagram':
 				return { icon: <Instagram />, url: 'https://instagram.com' }
+			case 'youtube':
+				return { icon: <Youtube />, url: 'https://youtube.com' }
+			case 'facebook':
+				return { icon: <Facebook />, url: 'https://facebook.com' }
 		}
 	}
 
-	const currentProfilePicture =
-		(await getDownloadUrlFromPath(data.imagePath)) ?? null
+	const currentProfilePicture = await getDownloadUrlFromPath(data.imagePath)
 
 	const shouldDisplayCustomLinks = customLinks.length || isOwner
 	const shouldDisplaySocialMediaLinks = socialMedia.length || isOwner
@@ -57,9 +68,9 @@ export async function UserCard({ data, isOwner }: Props) {
 				)}
 
 				{isOwner && (
-					<ModalProfileData
+					<ModalProfileInformation
 						initialData={data}
-						currentProfilePicture={currentProfilePicture}
+						profileAvatar={currentProfilePicture}
 					/>
 				)}
 			</div>
@@ -123,6 +134,7 @@ export async function UserCard({ data, isOwner }: Props) {
 								{customLinks.map(({ title, url }, index) => (
 									<Button
 										as={Link}
+										variant={index === 0 ? 'primary' : 'secondary'}
 										href={httpUrlParser(url)}
 										className="w-full"
 										key={index}

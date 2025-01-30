@@ -20,7 +20,7 @@ export function Button<T extends React.ElementType = 'button'>({ as, variant = '
 			// eslint-disable-next-line react/no-children-prop
 			children={loading ? <Loader className='animate-spin' /> : props.children}
 			className={cn(
-				'flex shrink-0 items-center gap-4 justify-center text-center select-none whitespace-nowrap rounded-xl border font-bold text-white transition-all outline-hidden border-transparent',
+				'flex shrink-0 items-center gap-4 justify-center text-center select-none whitespace-nowrap rounded-xl border font-bold text-white transition-all outline-hidden border-transparent cursor-pointer',
 				'hover:opacity-90',
 				'active:scale-95 active:duration-75',
 				'disabled:opacity-50 disabled:pointer-events-none',

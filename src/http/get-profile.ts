@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { unstable_cache as cache } from 'next/cache'
+
 import { DB } from '@/lib/firebase'
 
 export type ProfileLinkProps = {
@@ -8,7 +10,13 @@ export type ProfileLinkProps = {
 }
 
 export type ProfileCustomLinks = 'link1' | 'link2' | 'link3'
-export type ProfileSocialMedia = 'github' | 'linkedin' | 'twitter' | 'instagram'
+export type ProfileSocialMedia =
+	| 'github'
+	| 'linkedin'
+	| 'twitter'
+	| 'instagram'
+	| 'youtube'
+	| 'facebook'
 
 export type ProfileData = {
 	name: string
@@ -23,8 +31,13 @@ export type ProfileData = {
 	customLinks: Record<ProfileCustomLinks, ProfileLinkProps>
 }
 
-export async function getProfile(slug: string) {
+async function getProfileFn(slug: string) {
 	const snapshot = await DB.collection('profiles').doc(slug).get()
-
 	return snapshot.data() as ProfileData | undefined
+}
+
+export async function getProfile(slug: string) {
+	return cache(() => getProfileFn(slug), [`get-profile-${slug}`], {
+		tags: ['get-profile', `get-profile-${slug}`],
+	})()
 }

@@ -1,14 +1,13 @@
 'use client'
 
-import { ImageIcon, Loader, Plus, Upload, X } from 'lucide-react'
+import { ImageIcon, Plus, Upload } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { startTransition, useState } from 'react'
 
 import { createProject } from '@/app/actions/create-project'
-import { Button } from '@/components/ui/button'
+import { Dialog } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import { Modal } from '@/components/ui/modal'
 import { Text } from '@/components/ui/text'
 import { Textarea } from '@/components/ui/textarea'
 import { compressFiles } from '@/utils/compress-files'
@@ -79,30 +78,25 @@ export function ModalCreateProject({ pageSlug }: Props) {
 	return (
 		<>
 			<button
-				className="focus-themed border-button-ghost hover:border-button-ghost-hover flex min-h-[130px] grow items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors"
+				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors"
 				onClick={handleToggleModal}
 			>
-				<Plus className="size-8" />
+				<Plus className="text-accent-green size-7" />
 				<span className="font-medium">Novo projeto</span>
 			</button>
 
-			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between gap-4">
-					<Text as="h5" variant="heading-sm">
-						Criar projeto
-					</Text>
-
-					<Button
-						size="sm"
-						variant="ghost"
-						onClick={handleToggleModal}
-						aria-label="Fechar"
-						icon
-					>
-						<X />
-					</Button>
-				</div>
-
+			<Dialog
+				title="Novo projeto"
+				description="Mostre um trabalho importante."
+				submmitButton={{
+					label: 'Adicionar projeto',
+					loading: isSubmitting,
+					onClick: () => handleCreateProject,
+					// onClick: () => {}, // myFormRef.requestSubmit()
+				}}
+				open={open}
+				onOpenChange={handleToggleModal}
+			>
 				<div className="flex gap-8">
 					<div className="flex flex-col items-center gap-3 text-sm">
 						<div className="bg-image-background size-36 shrink-0 overflow-hidden rounded-xl">
@@ -184,25 +178,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 						</div>
 					</div>
 				</div>
-
-				<div className="flex items-center justify-end gap-4">
-					<Button variant="ghost" type="button" onClick={handleToggleModal}>
-						Cancelar
-					</Button>
-
-					<Button
-						disabled={isSubmitting}
-						onClick={handleCreateProject}
-						className="min-w-52"
-					>
-						{isSubmitting ? (
-							<Loader size={20} className="animate-spin" />
-						) : (
-							'Adicionar projeto'
-						)}
-					</Button>
-				</div>
-			</Modal>
+			</Dialog>
 		</>
 	)
 }

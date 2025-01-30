@@ -1,151 +1,143 @@
 'use client'
 
 import {
+	Facebook,
 	Github,
 	Instagram,
 	Linkedin,
-	Loader,
 	Settings,
 	Twitter,
-	X,
+	Youtube,
 } from 'lucide-react'
-import { useParams, useRouter } from 'next/navigation'
-import { startTransition, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
-import { createSocialLinks } from '@/app/actions/create-social-links'
+import { updateProfileSocialMedia } from '@/app/actions/update-profile-social-media'
 import { Button } from '@/components/ui/button'
+import { Dialog } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
-import { Modal } from '@/components/ui/modal'
-import { Text } from '@/components/ui/text'
+import { useFormState } from '@/hooks/form-state'
 import type { ProfileData } from '@/http/get-profile'
 
 type Props = Pick<ProfileData, 'socialMedia'>
 
 export function ModalSocialLinks({ socialMedia }: Props) {
+	const formRef = useRef<HTMLFormElement>(null)
+
 	const [open, setOpen] = useState(false)
-	const [isSubmitting, setIsSubmitting] = useState(false)
-
-	const router = useRouter()
 	const { pageSlug } = useParams()
-
-	const [github, setGithub] = useState(socialMedia?.github ?? '')
-	const [linkedin, setLinkedin] = useState(socialMedia?.linkedin ?? '')
-	const [twitter, setTwitter] = useState(socialMedia?.twitter ?? '')
-	const [instagram, setInstagram] = useState(socialMedia?.instagram ?? '')
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
 	}
 
-	async function handleEditLinks() {
-		setIsSubmitting(true)
+	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
+		updateProfileSocialMedia,
+		{
+			onSuccess() {
+				handleToggleModal()
+			},
+		},
+	)
 
-		if (!pageSlug) return
-
-		await createSocialLinks({
-			pageSlug: String(pageSlug),
-			github,
-			linkedin,
-			twitter,
-			instagram,
-		})
-
-		startTransition(() => {
-			setIsSubmitting(false)
-			handleToggleModal()
-
-			router.refresh()
-		})
-	}
+	useEffect(() => {
+		if (!success && message) {
+			toast.error(message, { id: 'save-profile-social-media' })
+		}
+		if (success && message) {
+			toast.success(message, { id: 'save-profile-social-media' })
+		}
+	}, [success, message, isSubmitting])
 
 	return (
 		<>
 			<Button
 				variant="ghost"
-				onClick={handleEditLinks}
-				aria-label="Adicionar link"
+				onClick={handleToggleModal}
+				aria-label="Configurar redes sociais"
 				icon
 			>
 				<Settings />
 			</Button>
 
-			<Modal open={open} onHide={handleToggleModal}>
-				<div className="flex items-center justify-between gap-4">
-					<Text as="h5" variant="heading-sm">
-						Adicionar links
-					</Text>
+			<Dialog
+				title="Suas redes sociais"
+				description="Apresente sua redes sociais para as pessoas te acompanharem."
+				submmitButton={{
+					label: 'Salvar informações',
+					loading: isSubmitting,
+					onClick: () => formRef.current?.requestSubmit(),
+				}}
+				open={open}
+				onOpenChange={handleToggleModal}
+			>
+				<form onSubmit={handleSubmit} ref={formRef}>
+					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
 
-					<Button
-						size="sm"
-						variant="ghost"
-						onClick={handleToggleModal}
-						aria-label="Fechar"
-						icon
-					>
-						<X />
-					</Button>
-				</div>
+					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+						<div className="relative">
+							<Github className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="github"
+								defaultValue={socialMedia.github}
+								className="pl-14"
+							/>
+						</div>
 
-				<div className="flex flex-col gap-4">
-					<div className="relative">
-						<Github className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
-						<Input
-							placeholder="nome de usuário"
-							value={github}
-							onChange={(e) => setGithub(e.target.value)}
-							className="pl-14"
-						/>
+						<div className="relative">
+							<Linkedin className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="linkedin"
+								defaultValue={socialMedia.linkedin}
+								className="pl-14"
+							/>
+						</div>
+
+						<div className="relative">
+							<Twitter className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="twitter"
+								defaultValue={socialMedia.twitter}
+								className="pl-14"
+							/>
+						</div>
+
+						<div className="relative">
+							<Instagram className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="instagram"
+								defaultValue={socialMedia.instagram}
+								className="pl-14"
+							/>
+						</div>
+
+						<div className="relative">
+							<Youtube className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="youtube"
+								defaultValue={socialMedia.youtube}
+								className="pl-14"
+							/>
+						</div>
+
+						<div className="relative">
+							<Facebook className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
+							<Input
+								placeholder="nome de usuário"
+								name="facebook"
+								defaultValue={socialMedia.facebook}
+								className="pl-14"
+							/>
+						</div>
 					</div>
-
-					<div className="relative">
-						<Linkedin className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
-						<Input
-							placeholder="nome de usuário"
-							value={linkedin}
-							onChange={(e) => setLinkedin(e.target.value)}
-							className="pl-14"
-						/>
-					</div>
-
-					<div className="relative">
-						<Twitter className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
-						<Input
-							placeholder="nome de usuário"
-							value={twitter}
-							onChange={(e) => setTwitter(e.target.value)}
-							className="pl-14"
-						/>
-					</div>
-
-					<div className="relative">
-						<Instagram className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
-						<Input
-							placeholder="nome de usuário"
-							value={instagram}
-							onChange={(e) => setInstagram(e.target.value)}
-							className="pl-14"
-						/>
-					</div>
-				</div>
-
-				<div className="flex items-center justify-end gap-4">
-					<Button variant="ghost" type="button" onClick={handleToggleModal}>
-						Cancelar
-					</Button>
-
-					<Button
-						disabled={isSubmitting}
-						onClick={handleEditLinks}
-						className="min-w-40"
-					>
-						{isSubmitting ? (
-							<Loader size={20} className="animate-spin" />
-						) : (
-							'Salvar links'
-						)}
-					</Button>
-				</div>
-			</Modal>
+				</form>
+			</Dialog>
 		</>
 	)
 }

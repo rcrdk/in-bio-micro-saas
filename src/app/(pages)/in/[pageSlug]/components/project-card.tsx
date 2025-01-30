@@ -9,16 +9,14 @@ import { useParams } from 'next/navigation'
 import { increaseProjectClicks } from '@/app/actions/increase-project-clicks'
 import type { ProjectData } from '@/http/get-projects'
 import { httpUrlParser } from '@/utils/http-url-parser'
-import { cn } from '@/utils/tailwind-cn'
 
 type Props = {
 	data: ProjectData
 	image?: string | null | StaticImageData
 	isOwner: boolean
-	demo?: boolean
 }
 
-export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
+export function ProjectCard({ data, image, isOwner }: Props) {
 	const { pageSlug } = useParams()
 
 	async function handleClickProject() {
@@ -31,11 +29,7 @@ export function ProjectCard({ data, image, isOwner, demo = false }: Props) {
 			href={httpUrlParser(data.projectUrl)}
 			target="_blank"
 			onClick={handleClickProject}
-			tabIndex={demo ? -1 : undefined}
-			className={cn(
-				'focus-themed bg-card-background hover:border-card-border flex gap-5 rounded-2xl border border-transparent p-3 transition-colors',
-				demo && 'w-[340px]',
-			)}
+			className="focus-themed bg-card-background hover:border-card-border flex gap-5 rounded-2xl border border-transparent p-3 transition-colors"
 		>
 			<div className="bg-image-background flex size-24 shrink-0 overflow-hidden rounded-md">
 				{image ? (
