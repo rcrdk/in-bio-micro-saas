@@ -9,7 +9,7 @@ export function Label({ ...props }: Props) {
 		<label
 			{...props}
 			className={cn(
-				'text-sm leading-normal font-bold text-white',
+				'pl-1 text-sm leading-normal font-bold text-white',
 				props.className,
 			)}
 		/>

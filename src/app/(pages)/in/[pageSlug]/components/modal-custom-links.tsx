@@ -94,8 +94,9 @@ export function ModalCustomLinks({ customLinks }: Props) {
 								name="url1"
 								id="url1"
 								defaultValue={customLinks.link1.url}
+								error={errors?.url1}
 							/>
-							<FormError message={errors?.url1} />
+							<FormError message={errors?.url1} floating />
 						</FormGroup>
 					</div>
 
@@ -119,8 +120,9 @@ export function ModalCustomLinks({ customLinks }: Props) {
 								name="url2"
 								id="url2"
 								defaultValue={customLinks.link2.url}
+								error={errors?.url2}
 							/>
-							<FormError message={errors?.url2} />
+							<FormError message={errors?.url2} floating />
 						</FormGroup>
 					</div>
 
@@ -144,8 +146,9 @@ export function ModalCustomLinks({ customLinks }: Props) {
 								name="url3"
 								id="url3"
 								defaultValue={customLinks.link3.url}
+								error={errors?.url3}
 							/>
-							<FormError message={errors?.url3} />
+							<FormError message={errors?.url3} floating />
 						</FormGroup>
 					</div>
 				</form>

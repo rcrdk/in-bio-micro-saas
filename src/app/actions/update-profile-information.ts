@@ -12,9 +12,9 @@ import { DB, Storage } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
 const profileDataSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página.'),
-	name: z.string().min(1, 'Informe um nome.'),
-	description: z.string().min(1, 'Informe uma introdução.'),
+	pageSlug: z.string().min(1, 'Informe o link da página'),
+	name: z.string().min(1, 'Informe um nome'),
+	description: z.string().min(1, 'Informe uma introdução'),
 	file: z.custom<File>().optional(),
 })
 

@@ -47,7 +47,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 	return (
 		<>
 			<button
-				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors"
+				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors select-none"
 				onClick={handleToggleModal}
 			>
 				<Plus className="text-accent-green size-7" />
@@ -81,6 +81,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								placeholder="Digite o nome do projeto"
 								id="name"
 								name="name"
+								error={errors?.name}
 							/>
 							<FormError message={errors?.name} />
 						</FormGroup>
@@ -91,6 +92,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								placeholder="Digite o link do projeto"
 								id="url"
 								name="url"
+								error={errors?.url}
 							/>
 							<FormError message={errors?.url} />
 						</FormGroup>
@@ -102,6 +104,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								id="description"
 								name="description"
 								rows={3}
+								error={errors?.description}
 							/>
 							<FormError message={errors?.description} />
 						</FormGroup>

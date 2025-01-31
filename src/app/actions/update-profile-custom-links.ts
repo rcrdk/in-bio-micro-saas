@@ -13,9 +13,9 @@ const profileCustomLinksSchema = z.object({
 	title1: z.string().optional(),
 	title2: z.string().optional(),
 	title3: z.string().optional(),
-	url1: z.string().url('Informe um link válido.').optional().or(z.literal('')),
-	url2: z.string().url('Informe um link válido.').optional().or(z.literal('')),
-	url3: z.string().url('Informe um link válido.').optional().or(z.literal('')),
+	url1: z.string().url('Informe um link válido').optional().or(z.literal('')),
+	url2: z.string().url('Informe um link válido').optional().or(z.literal('')),
+	url3: z.string().url('Informe um link válido').optional().or(z.literal('')),
 })
 
 export async function updateProfileCustomLinks(data: FormData) {

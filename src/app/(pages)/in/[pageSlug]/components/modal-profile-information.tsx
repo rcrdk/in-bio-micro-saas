@@ -86,6 +86,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 								id="name"
 								name="name"
 								defaultValue={initialData.name}
+								error={errors?.name}
 							/>
 							<FormError message={errors?.name} />
 						</FormGroup>
@@ -98,6 +99,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 								id="description"
 								defaultValue={initialData.description}
 								rows={2}
+								error={errors?.description}
 							/>
 							<FormError message={errors?.description} />
 						</FormGroup>

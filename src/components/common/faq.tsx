@@ -50,12 +50,12 @@ export function Faq() {
 				<Accordion.Root
 					type="single"
 					defaultValue="item-0"
-					className="divide-border-secondary border-border-secondary w-full max-w-(--breakpoint-md) gap-4 divide-y rounded-lg border"
+					className="divide-border-secondary border-border-secondary w-full max-w-[704px] gap-4 divide-y rounded-lg border"
 					collapsible
 				>
 					{content.map((item, index) => (
 						<Accordion.Item key={index} value={`item-${index}`}>
-							<Accordion.Trigger className="flex w-full items-center justify-between gap-6 px-6 py-4 text-left [&[data-state=open]_svg]:rotate-180">
+							<Accordion.Trigger className="flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-4 text-left [&[data-state=open]_svg]:rotate-180">
 								<Text variant="heading-sm">{item.title}</Text>
 								<ChevronDown
 									className="shrink-0 transition-transform"

@@ -9,7 +9,7 @@ import { DB } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
 const profileSocialMediaSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página.'),
+	pageSlug: z.string().min(1, 'Informe o link da página'),
 	github: z.string().optional(),
 	linkedin: z.string().optional(),
 	twitter: z.string().optional(),

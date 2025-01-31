@@ -6,6 +6,9 @@ type Props = ComponentProps<'div'>
 
 export function FormGroup({ ...props }: Props) {
 	return (
-		<div {...props} className={cn('flex flex-col gap-1', props.className)} />
+		<div
+			{...props}
+			className={cn('relative flex flex-col gap-2', props.className)}
+		/>
 	)
 }

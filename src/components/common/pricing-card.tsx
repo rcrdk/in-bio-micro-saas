@@ -21,7 +21,7 @@ export function PricingCard({
 	return (
 		<div
 			className={cn(
-				'flex w-[334px] flex-col items-center rounded-2xl',
+				'flex w-[334px] flex-col items-center rounded-2xl select-none',
 				isRecommend
 					? 'from-accent-purple to-accent-pink bg-linear-to-r p-[1.6px]'
 					: 'border-background-card-divider bg-background-primary border p-6 sm:p-8',

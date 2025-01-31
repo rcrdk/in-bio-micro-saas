@@ -140,6 +140,11 @@
     border-color: var(--color-gray-200, currentColor);
   }
 
+	::selection {
+		background-color: var(--color-accent-purple);
+		color: var(--color-white);
+	}
+
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
 	input:-webkit-autofill:focus,

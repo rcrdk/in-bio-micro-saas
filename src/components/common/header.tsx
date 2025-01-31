@@ -23,7 +23,10 @@ export async function Header({ hidePageButton = false }: Props) {
 	return (
 		<Container className="absolute top-0 right-0 left-0 z-50">
 			<header className="flex items-center justify-between py-6 sm:py-8 xl:py-10">
-				<Link href="/" className="focus-themed block w-[167px] sm:w-[187px]">
+				<Link
+					href="/"
+					className="focus-themed block w-[167px] select-none sm:w-[187px]"
+				>
 					<Image
 						src={brandImage}
 						width={187}

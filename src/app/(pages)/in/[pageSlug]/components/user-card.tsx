@@ -54,7 +54,7 @@ export async function UserCard({ data, isOwner }: Props) {
 
 	return (
 		<div className="border-card-border bg-card-background flex w-full flex-col items-center gap-5 rounded-3xl border p-5 text-white sm:w-[348px] sm:max-w-[348px]">
-			<div className="bg-image-background relative flex size-48 items-center justify-center rounded-full">
+			<div className="bg-image-background relative flex size-48 items-center justify-center rounded-full select-none">
 				{currentProfilePicture ? (
 					<Image
 						src={currentProfilePicture}
@@ -96,7 +96,7 @@ export async function UserCard({ data, isOwner }: Props) {
 							<Text
 								as="span"
 								variant="body-sm"
-								className="font-medium uppercase"
+								className="font-medium uppercase select-none"
 							>
 								Links
 							</Text>

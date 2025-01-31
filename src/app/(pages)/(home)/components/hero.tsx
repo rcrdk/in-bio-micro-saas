@@ -13,7 +13,7 @@ export function Hero() {
 				<Text
 					variant="label"
 					as="span"
-					className="border-border-primary bg-background-primary mb-2 rounded-3xl border px-4 py-2 leading-tight font-bold text-white uppercase"
+					className="border-border-primary bg-background-primary mb-2 rounded-3xl border px-4 py-2 leading-tight font-bold text-white uppercase select-none"
 				>
 					{env.NEXT_PUBLIC_TRIAL_DAYS} dias grátis
 				</Text>

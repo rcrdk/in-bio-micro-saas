@@ -17,7 +17,7 @@ export function TotalVisits({ counter = 0, isPaid }: Props) {
 	const [showMenu, setShowMenu] = useState(false)
 
 	return (
-		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background pointer-events-auto w-full rounded-xl border whitespace-nowrap shadow-lg backdrop-blur-xs sm:w-auto">
+		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background pointer-events-auto w-full rounded-xl border whitespace-nowrap shadow-lg backdrop-blur-xs select-none sm:w-auto">
 			<div className="flex items-center justify-center gap-3 px-3 py-2 sm:gap-5 sm:px-8 sm:py-3">
 				<span className="text-sm font-bold text-white sm:text-base">
 					Total de visitas

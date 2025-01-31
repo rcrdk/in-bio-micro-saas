@@ -1,10 +1,12 @@
 'use client'
 
-import { ImageIcon } from 'lucide-react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Edit, ImageIcon, Settings, Trash } from 'lucide-react'
 import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
 
+import { Button } from '@/components/ui/button'
 import type { ProjectData } from '@/http/dto/get-projects'
 import { increaseProjectClicks } from '@/http/increase-project-clicks'
 import { httpUrlParser } from '@/utils/http-url-parser'
@@ -25,13 +27,11 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 
 	return (
 		<div className="relative flex">
-			{/* Dropdown: delete and edit */}
-
 			<a
 				href={httpUrlParser(data.url)}
 				onClick={handleClickProject}
 				target="_blank"
-				className="focus-themed bg-card-background hover:border-card-border flex w-full cursor-pointer gap-5 rounded-2xl border border-transparent p-3 transition-colors"
+				className="focus-themed bg-card-background hover:border-card-border flex w-full cursor-pointer gap-5 rounded-2xl border border-transparent py-3 pr-4 pl-3 transition-colors select-none"
 			>
 				<div className="bg-image-background flex size-24 shrink-0 overflow-hidden rounded-md">
 					{image ? (
@@ -56,14 +56,52 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						</span>
 					)}
 
-					<div className="flex flex-col gap-1">
-						<span className="font-bold text-white">{data.name}</span>
-						<span className="text-content-body text-sm">
+					<div className="flex flex-col gap-2">
+						<span className="block leading-5 font-bold text-pretty text-white">
+							{data.name}
+						</span>
+						<span className="text-content-body block text-sm text-pretty">
 							{data.description}
 						</span>
 					</div>
 				</div>
 			</a>
+
+			{isOwner && (
+				<>
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild>
+							<Button
+								icon="rounded"
+								variant="secondary"
+								aria-label="Opções"
+								className="absolute top-0 right-0 size-8 -translate-y-1/4 translate-x-1/4 text-white/75"
+							>
+								<Settings size={20} />
+							</Button>
+						</DropdownMenu.Trigger>
+
+						<DropdownMenu.Content
+							align="end"
+							className="border-button-ghost bg-background-primary flex flex-col gap-2 rounded-xl border px-2 py-3 shadow-2xl"
+							sideOffset={8}
+						>
+							<DropdownMenu.Item className="focus-themed flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors hover:text-white/60">
+								<Edit size={18} />
+								Editar
+							</DropdownMenu.Item>
+
+							<DropdownMenu.Item className="focus-themed hover:text-accent-pink flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors">
+								<Trash size={18} />
+								Remover
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+
+					{/* Modal edit */}
+					{/* Modal delete */}
+				</>
+			)}
 		</div>
 	)
 }

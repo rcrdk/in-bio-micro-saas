@@ -30,7 +30,7 @@ export async function UpgradeMessage({ pageSlug }: Props) {
 	}
 
 	return (
-		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background sticky top-0 right-0 left-0 z-10 gap-1 border-b px-6 py-2 text-center text-sm text-balance shadow-xs backdrop-blur-xs sm:py-3 sm:text-base">
+		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background sticky top-0 right-0 left-0 z-10 gap-1 border-b px-6 py-2 text-center text-sm text-balance shadow-xs backdrop-blur-xs select-none sm:py-3 sm:text-base">
 			<span>{getTrialDaysMessage()}</span>{' '}
 			<Link
 				href={`/in/${pageSlug}/upgrade`}

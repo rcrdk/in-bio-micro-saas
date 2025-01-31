@@ -17,7 +17,7 @@ export function Hero({ title, description }: Props) {
 			<div className="flex flex-col items-center">
 				<Text
 					as="span"
-					className="border-border-primary bg-background-primary rounded-3xl border px-4 py-2 leading-tight font-bold text-white uppercase"
+					className="border-border-primary bg-background-primary rounded-3xl border px-4 py-2 leading-tight font-bold text-white uppercase select-none"
 				>
 					{env.NEXT_PUBLIC_TRIAL_DAYS} dias grátis
 				</Text>
