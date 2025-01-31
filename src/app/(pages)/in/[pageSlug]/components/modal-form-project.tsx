@@ -35,7 +35,6 @@ export function ModalFormProject({
 
 	const { pageSlug } = useParams()
 
-	// create edit action
 	const formActionByMode =
 		mode === 'create' ? createProjectAction : updateProjectAction
 

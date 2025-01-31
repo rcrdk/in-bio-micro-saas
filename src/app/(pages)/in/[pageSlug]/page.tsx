@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
@@ -7,6 +8,7 @@ import { TotalVisits } from '@/app/(pages)/in/[pageSlug]/components/total-visits
 import { UpgradeMessage } from '@/app/(pages)/in/[pageSlug]/components/upgrade-message'
 import { UserCard } from '@/app/(pages)/in/[pageSlug]/components/user-card'
 import { Container } from '@/components/ui/container'
+import { useTrialDays } from '@/hooks/trial-days'
 import { getProfileBySlug } from '@/http/get-profile-by-slug'
 import { getProjects } from '@/http/get-projects'
 import { increaseProfileVisits } from '@/http/increase-profile-visits'
@@ -46,14 +48,18 @@ export default async function ProfilePage({ params }: Props) {
 		return notFound()
 	}
 
-	const projects = await getProjects(pageSlug)
-	const session = await auth()
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { trialExpired } = useTrialDays(profileData.trialEndsAt)
 
+	const session = await auth()
+	
 	const isProfileOwner = profileData.userId === session?.user?.id
 
-	// make page accessible to everyone if:
-	// or: is on trial
-	// or: is paid
+	if (!isProfileOwner && trialExpired && !profileData.isPaid) {
+		return notFound()
+	}
+	
+	const projects = await getProjects(pageSlug)
 
 	if (!isProfileOwner) {
 		await increaseProfileVisits(pageSlug)
@@ -71,19 +77,18 @@ export default async function ProfilePage({ params }: Props) {
 		})
 	}
 
-	const isNotPaid =
-		isProfileOwner && !session?.user.isPaid && !session?.user.isTrial
+	const isNotPaid = isProfileOwner && !profileData.isPaid && trialExpired
+	const canCreateProjects = isProfileOwner && projects.length < env.NEXT_PUBLIC_MAX_PROJECTS
 
 	if (isNotPaid) {
 		return redirect(`/in/${profileData.slug}/upgrade`)
 	}
 
-	const canCreateProjects =
-		isProfileOwner && projects.length < env.NEXT_PUBLIC_MAX_PROJECTS
-
 	return (
 		<div className="flex min-h-svh flex-col">
-			<UpgradeMessage pageSlug={pageSlug} />
+			{isProfileOwner && (!profileData.isPaid || profileData.subscriptionEndedAt) && (
+				<UpgradeMessage pageSlug={pageSlug} trialEndDate={profileData.trialEndsAt} subscriptionEndedDate={profileData.subscriptionEndedAt} />
+			)}
 
 			<Container className="grow">
 				<div className="flex flex-col gap-6 py-6 sm:gap-10 sm:py-10 lg:flex-row lg:items-start">
@@ -110,7 +115,7 @@ export default async function ProfilePage({ params }: Props) {
 				<div className="pointer-events-none sticky bottom-0 flex items-center justify-center px-6 pb-6">
 					<TotalVisits
 						counter={profileData.totalVisits}
-						isPaid={!!session.user.isPaid}
+						isPaid={profileData.isPaid}
 					/>
 				</div>
 			)}

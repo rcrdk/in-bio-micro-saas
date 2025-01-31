@@ -20,6 +20,8 @@ export async function getProfileByUserId(userId: string) {
 		[`get-profile-by-user-id-${userId}`],
 		{
 			tags: ['get-profile-by-user-id', `get-profile-by-user-id-${userId}`],
+			revalidate: 60 * 60 * 24, // 1d
+			// revalidate: 5,
 		},
 	)()
 }

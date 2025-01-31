@@ -3,9 +3,6 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 
 <img alt="ProjectInBio Micro SaaS App Preview" src="https://github.com/rcrdk/in-bio-micro-saas/blob/main/public/app-preview.png?raw=true" />
 
-## 💻 Project
-[TBD]
-
 ## 📋 Features
 
 **Public Pages:**
@@ -18,7 +15,6 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 - Create Now: After social login, users complete their profile setup by entering a unique slug.
 - Profile: A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
 - Upgrade: If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
-
 
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;
@@ -52,7 +48,7 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
    2. Set test mode on.
    3. Create a product with two prices: a recurring by month and a one-off (charge a one-time fee).
    4. Copy both prices ids and paste on env: recurring on `STRIPE_SUBSCRIPTION_PRICE_ID` and one-off on `STRIPE_PAYMENT_PRICE_ID`.
-   5. Access `Settings / Billing / Customer Portal` and activate this resource. On cancellations settings select "Cancel immediately" and save changes.
+   5. Access `Settings / Billing / Customer Portal` and activate this resource.
    6. Access `Developers / API Keys` and copy both publishable and secret key and paste it respectively on `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` and `STRIPE_SECRET_KEY` env variables. 
 </details>
 
@@ -99,7 +95,8 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
   
    1. `NEXT_PUBLIC_APP_URL`: define your base domain or simply `http://localhost:3000`
    2. `NEXT_PUBLIC_TRIAL_DAYS`: define the number of days that new users can get free access.
-   3. `AUTH_SECRET` define a random UUID used on Auth.js.
+   3. `NEXT_PUBLIC_MAX_PROJECTS`: define amax number of projects per page.
+   4. `AUTH_SECRET` define a random UUID used on Auth.js.
 </details>
 
 ---

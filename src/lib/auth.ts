@@ -3,7 +3,6 @@ import { Timestamp } from 'firebase-admin/firestore'
 import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 
-import { env } from '@/lib/env'
 import { DB, firebaseCertificate } from '@/lib/firebase'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -19,18 +18,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				createdAt: Timestamp.now().toMillis(),
 			})
 		},
-	},
-	callbacks: {
-		session: ({ session, user }) => ({
-			...session,
-			user: {
-				...session.user,
-				isTrial:
-					!!user.createdAt &&
-					new Date(user.createdAt).getTime() >
-						new Date().getTime() -
-							1000 * 60 * 60 * 24 * env.NEXT_PUBLIC_TRIAL_DAYS,
-			},
-		}),
 	},
 })

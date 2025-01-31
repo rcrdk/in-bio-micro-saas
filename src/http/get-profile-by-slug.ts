@@ -16,6 +16,8 @@ export async function getProfileBySlug(slug: string) {
 		[`get-profile-by-slug-${slug}`],
 		{
 			tags: ['get-profile-by-slug', `get-profile-by-slug-${slug}`],
+			revalidate: 60 * 60 * 24, // 1d
+			// revalidate: 5,
 		},
 	)()
 }

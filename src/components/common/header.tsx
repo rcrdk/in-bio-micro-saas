@@ -44,7 +44,7 @@ export async function Header({ hidePageButton = false }: Props) {
 					)}
 
 					{!profile && session?.user && !hidePageButton && (
-						<Button as={Link} size="sm" href="create">
+						<Button as={Link} size="sm" href="/criar-agora">
 							Criar uma página
 						</Button>
 					)}
@@ -88,7 +88,12 @@ export async function Header({ hidePageButton = false }: Props) {
 							)}
 
 							{!profile && session?.user && !hidePageButton && (
-								<Button as={Link} size="sm" href="create" className="w-full">
+								<Button
+									as={Link}
+									size="sm"
+									href="/criar-agora"
+									className="w-full"
+								>
 									Criar uma página
 								</Button>
 							)}

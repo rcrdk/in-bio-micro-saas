@@ -18,5 +18,6 @@ async function getProjectsFn(slug: string) {
 export async function getProjects(slug: string) {
 	return cache(() => getProjectsFn(slug), [`get-projects-${slug}`], {
 		tags: ['get-projects', `get-projects-${slug}`],
+		revalidate: 60 * 60 * 24, // 1d
 	})()
 }

@@ -39,6 +39,7 @@ export async function POST(req: Request) {
 			name: userName,
 			metadata: {
 				userId,
+				pageSlug: metadata.pageSlug,
 			},
 		})
 

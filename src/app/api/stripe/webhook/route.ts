@@ -1,3 +1,4 @@
+import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import StripePackage from 'stripe'
@@ -22,54 +23,75 @@ export async function POST(req: NextRequest) {
 
 		const event = Stripe.webhooks.constructEvent(body, signature, secret)
 
-		// quando o cancelamento for imediato: customer.subscription.deleted
-		// quando o cancelamento for após o ciclo pago: customer.subscription.updated
-
 		switch (event.type) {
 			case 'checkout.session.completed':
-				if (event.data.object.payment_status === 'paid') {
-					const userId = event.data.object.client_reference_id
+				{
+					const subscription = event.data.object
+					const pageSlug = subscription?.metadata?.pageSlug
 
-					if (userId) {
-						await DB.collection('users').doc(userId).update({
-							isPaid: true,
-						})
+					if (subscription.payment_status === 'paid') {
+						const userId = subscription.client_reference_id
+
+						if (userId && pageSlug) {
+							DB.collection('profiles').doc(pageSlug).update({
+								isPaid: true,
+								subscriptionEndedAt: null,
+							})
+						}
 					}
-				}
 
-				if (
-					event.data.object.payment_status === 'unpaid' &&
-					event.data.object.payment_intent
-				) {
-					const paymentIntend = await Stripe.paymentIntents.retrieve(
-						event.data.object.payment_intent.toString(),
-					)
+					if (
+						subscription.payment_status === 'unpaid' &&
+						subscription.payment_intent
+					) {
+						const paymentIntend = await Stripe.paymentIntents.retrieve(
+							subscription.payment_intent.toString(),
+						)
 
-					const hostedVoucherUrl =
-						paymentIntend.next_action?.boleto_display_details
-							?.hosted_voucher_url
+						const hostedVoucherUrl =
+							paymentIntend.next_action?.boleto_display_details
+								?.hosted_voucher_url
 
-					const userEmail = event.data.object.customer_details?.email
+						const userEmail = subscription.customer_details?.email
 
-					if (hostedVoucherUrl && userEmail) {
-						Resend.emails.send({
-							from: 'ricardo@rcrdk.dev',
-							to: userEmail,
-							subject: 'Seu boleto para pagamento',
-							text: `Aqui está o seu boleto: ${hostedVoucherUrl}`,
-						})
+						if (hostedVoucherUrl && userEmail) {
+							Resend.emails.send({
+								from: 'ricardo@rcrdk.dev',
+								to: userEmail,
+								subject: 'Seu boleto para pagamento',
+								text: `Aqui está o seu boleto: ${hostedVoucherUrl}`,
+							})
+						}
+					}
+
+					if (pageSlug) {
+						revalidateTag(`get-profile-by-slug-${pageSlug}`)
 					}
 				}
 				break
 
 			case 'checkout.session.async_payment_succeeded':
 				{
-					const userId = event.data.object.client_reference_id
+					const subscription = event.data.object
+					const customerId = subscription.customer?.toString()
 
-					if (event.data.object.payment_status === 'paid' && userId) {
-						await DB.collection('users').doc(userId).update({
-							isPaid: true,
-						})
+					if (customerId) {
+						const customer = (await Stripe.customers.retrieve(
+							customerId,
+						)) as StripePackage.Customer
+
+						if (customer && customer.metadata.pageSlug) {
+							const pageSlug = customer.metadata.pageSlug
+
+							DB.collection('profiles').doc(pageSlug).update({
+								isPaid: true,
+								subscriptionEndedAt: null,
+							})
+
+							if (pageSlug) {
+								revalidateTag(`get-profile-by-slug-${pageSlug}`)
+							}
+						}
 					}
 				}
 				break
@@ -84,17 +106,50 @@ export async function POST(req: NextRequest) {
 							customerId,
 						)) as StripePackage.Customer
 
-						if (customer && customer.metadata.userId) {
-							const userId = customer.metadata.userId
+						if (customer && customer.metadata.pageSlug) {
+							const pageSlug = customer.metadata.pageSlug
 
-							await DB.collection('users').doc(userId).update({
+							DB.collection('profiles').doc(pageSlug).update({
 								isPaid: false,
+								subscriptionEndedAt: null,
 							})
+
+							if (pageSlug) {
+								revalidateTag(`get-profile-by-slug-${pageSlug}`)
+							}
 						}
 					}
 				}
-
 				break
+
+			case 'customer.subscription.updated': {
+				const subscription = event.data.object
+				const customerId = subscription.customer.toString()
+
+				if (customerId && subscription.current_period_end) {
+					const customer = (await Stripe.customers.retrieve(
+						customerId,
+					)) as StripePackage.Customer
+
+					if (customer && customer.metadata.pageSlug) {
+						const pageSlug = customer.metadata.pageSlug
+
+						const isScheduleToEnd = subscription.cancel_at_period_end
+
+						DB.collection('profiles')
+							.doc(pageSlug)
+							.update({
+								subscriptionEndedAt: isScheduleToEnd
+									? subscription.current_period_end * 1000
+									: null,
+							})
+
+						if (pageSlug) {
+							revalidateTag(`get-profile-by-slug-${pageSlug}`)
+						}
+					}
+				}
+			}
 		}
 
 		return new NextResponse(null, { status: 200 })

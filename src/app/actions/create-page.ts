@@ -1,10 +1,13 @@
 'use server'
 
+import dayjs from 'dayjs'
 import { Timestamp } from 'firebase-admin/firestore'
+import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
 import { verifyProfileSlugExistence } from '@/http/verify-profile-slug-existence'
 import { auth } from '@/lib/auth'
+import { env } from '@/lib/env'
 import { DB } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
@@ -48,6 +51,10 @@ export async function createPageAction(data: FormData) {
 			}
 		}
 
+		const trialEndsAt = dayjs(Timestamp.now().toMillis())
+			.add(env.NEXT_PUBLIC_TRIAL_DAYS, 'days')
+			.valueOf()
+
 		await DB.collection('profiles')
 			.doc(slug)
 			.set({
@@ -57,6 +64,7 @@ export async function createPageAction(data: FormData) {
 				imagePath: null,
 				totalVisits: 0,
 				slug,
+				isPaid: false,
 				socialMedia: {
 					github: '',
 					linkedin: '',
@@ -70,9 +78,13 @@ export async function createPageAction(data: FormData) {
 					link2: { title: '', url: '' },
 					link3: { title: '', url: '' },
 				},
+				trialEndsAt,
+				subscriptionEndedAt: null,
 				createdAt: Timestamp.now().toMillis(),
 				updatedAt: Timestamp.now().toMillis(),
 			})
+
+		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,

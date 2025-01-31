@@ -17,10 +17,13 @@ export type ProfileData = {
 	slug: string
 	description: string
 	imagePath: string | null
+	isPaid: boolean
 	userId: string
 	totalVisits: number
+	trialEndsAt: number
 	createdAt: number
 	updatedAt: number
+	subscriptionEndedAt: number | null
 	socialMedia: Record<ProfileSocialMedia, string>
 	customLinks: Record<ProfileCustomLinks, ProfileLinkProps>
 }
