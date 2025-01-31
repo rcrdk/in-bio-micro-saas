@@ -13,7 +13,7 @@ import { FormGroup } from '@/components/ui/form-group'
 import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/get-profile'
+import type { ProfileData } from '@/http/dto/get-profile'
 
 type Props = Pick<ProfileData, 'customLinks'>
 
@@ -32,6 +32,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 			onSuccess() {
 				handleToggleModal()
 			},
+			resetStateMessage: true,
 		})
 
 	useEffect(() => {
@@ -73,78 +74,75 @@ export function ModalCustomLinks({ customLinks }: Props) {
 				>
 					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
 
-					<div className="flex items-center gap-2">
+					<div className="flex flex-col gap-2 sm:flex-row sm:items-start">
+						<Text variant="heading-xs" className="text-center sm:hidden">
+							Link 1:
+						</Text>
+
 						<FormGroup>
-							<Text as="label" variant="label">
-								Título do link:
-							</Text>
 							<Input
 								placeholder="Informe um nome"
 								name="title1"
+								id="title1"
 								defaultValue={customLinks.link1.title}
 							/>
 						</FormGroup>
 
 						<FormGroup className="grow">
-							<Text as="label" variant="label">
-								URL:
-							</Text>
 							<Input
 								placeholder="Informe um link"
-								type="url"
 								name="url1"
+								id="url1"
 								defaultValue={customLinks.link1.url}
 							/>
 							<FormError message={errors?.url1} />
 						</FormGroup>
 					</div>
 
-					<div className="flex items-center gap-2">
+					<div className="flex flex-col gap-2 sm:flex-row sm:items-start">
+						<Text variant="heading-xs" className="text-center sm:hidden">
+							Link 2:
+						</Text>
+
 						<FormGroup>
-							<Text as="label" variant="label" hidden>
-								Título do link:
-							</Text>
 							<Input
 								placeholder="Informe um nome"
 								name="title2"
+								id="title2"
 								defaultValue={customLinks.link2.title}
 							/>
 						</FormGroup>
 
 						<FormGroup className="grow">
-							<Text as="label" variant="label" hidden>
-								URL:
-							</Text>
 							<Input
 								placeholder="Informe um link"
-								type="url"
 								name="url2"
+								id="url2"
 								defaultValue={customLinks.link2.url}
 							/>
 							<FormError message={errors?.url2} />
 						</FormGroup>
 					</div>
 
-					<div className="flex items-center gap-2">
+					<div className="flex flex-col gap-2 sm:flex-row sm:items-start">
+						<Text variant="heading-xs" className="text-center sm:hidden">
+							Link 3:
+						</Text>
+
 						<FormGroup>
-							<Text as="label" variant="label" hidden>
-								Título do link:
-							</Text>
 							<Input
 								placeholder="Informe um nome"
 								name="title3"
+								id="title3"
 								defaultValue={customLinks.link3.title}
 							/>
 						</FormGroup>
 
 						<FormGroup className="grow">
-							<Text as="label" variant="label" hidden>
-								URL:
-							</Text>
 							<Input
 								placeholder="Informe um link"
-								type="url"
 								name="url3"
+								id="url3"
 								defaultValue={customLinks.link3.url}
 							/>
 							<FormError message={errors?.url3} />

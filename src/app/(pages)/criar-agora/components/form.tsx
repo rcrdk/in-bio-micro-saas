@@ -4,11 +4,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { createLink } from '@/app/actions/create-link'
-import { verifyLink } from '@/app/actions/verify-link'
+import { createPageAction } from '@/app/actions/create-page'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
+import { useFormState } from '@/hooks/form-state'
 import { env } from '@/lib/env'
 import { generateSlug } from '@/utils/generate-slug'
 
@@ -21,41 +21,34 @@ export function FinishCreateSlugForm() {
 	const searchParams = useSearchParams()
 
 	const [labelWidth, setLabelWidth] = useState('0px')
-	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [slug, setSlug] = useState('')
-	const [error, setError] = useState('')
 
 	function handleSlugChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const sanitizeValue = generateSlug(e.target.value)
 		setSlug(sanitizeValue)
-		setError('')
 	}
 
-	async function handleSubmit(e: React.FormEvent) {
-		e.preventDefault()
-		setIsSubmitting(true)
+	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
+		createPageAction,
+		{
+			onSuccess() {
+				router.push(`/in/${slug}`)
+			},
+			resetStateMessage: true,
+		},
+	)
 
-		if (!slug.length) {
-			setIsSubmitting(false)
-			return setError('Informe um link para prosseguir.')
+	useEffect(() => {
+		if (!success && message) {
+			toast.error(message, { id: 'create-project', position: 'bottom-center' })
 		}
-
-		const linkAlreadyInUse = await verifyLink(slug)
-
-		if (linkAlreadyInUse) {
-			setIsSubmitting(false)
-			return setError('Esse link já está em uso. Escolha outro.')
+		if (success && message) {
+			toast.success(message, {
+				id: 'create-project',
+				position: 'bottom-center',
+			})
 		}
-
-		const isLinkCreated = await createLink(slug)
-
-		if (!isLinkCreated) {
-			setIsSubmitting(false)
-			return setError('Ocorreu um erro ao criar o link. Tente mais tarde.')
-		}
-
-		router.push(`/in/${slug}`)
-	}
+	}, [success, message, isSubmitting])
 
 	useEffect(() => {
 		setLabelWidth(`${labelRef.current?.offsetWidth ?? 0}px`)
@@ -69,13 +62,6 @@ export function FinishCreateSlugForm() {
 			setSlug(generateSlug(slugParam))
 		}
 	}, [searchParams])
-
-	useEffect(() => {
-		if (error) {
-			toast.error(error)
-			setError('')
-		}
-	}, [error])
 
 	return (
 		<>
@@ -105,6 +91,7 @@ export function FinishCreateSlugForm() {
 						ref={inputRef}
 						focusAccent
 						autoCorrect="off"
+						name="slug"
 						style={{ paddingLeft: labelWidth }}
 						disabled={isSubmitting}
 					/>

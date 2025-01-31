@@ -1,24 +1,22 @@
 import 'server-only'
 
+import { unstable_cache as cache } from 'next/cache'
+
+import type { ProjectData } from '@/http/dto/get-projects'
 import { DB } from '@/lib/firebase'
 
-export type ProjectData = {
-	id: string
-	userId: string
-	projectName: string
-	projectDescription: string
-	projectUrl: string
-	imagePath: string
-	totalClicks: number
-	createdAt: number
-	updatedAt: number
-}
-
-export async function getProjects(slug: string) {
+async function getProjectsFn(slug: string) {
 	const snapshot = await DB.collection('profiles')
 		.doc(slug)
 		.collection('projects')
+		.orderBy('createdAt', 'desc')
 		.get()
 
 	return snapshot.docs.map((docs) => docs.data()) as ProjectData[]
+}
+
+export async function getProjects(slug: string) {
+	return cache(() => getProjectsFn(slug), [`get-projects-${slug}`], {
+		tags: ['get-projects', `get-projects-${slug}`],
+	})()
 }

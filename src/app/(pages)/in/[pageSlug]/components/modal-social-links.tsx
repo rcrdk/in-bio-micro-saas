@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/get-profile'
+import type { ProfileData } from '@/http/dto/get-profile'
 
 type Props = Pick<ProfileData, 'socialMedia'>
 
@@ -38,6 +38,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 			onSuccess() {
 				handleToggleModal()
 			},
+			resetStateMessage: true,
 		},
 	)
 

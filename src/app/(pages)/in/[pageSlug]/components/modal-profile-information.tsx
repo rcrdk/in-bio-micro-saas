@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/get-profile'
+import type { ProfileData } from '@/http/dto/get-profile'
 
 type Props = {
 	initialData: Pick<ProfileData, 'name' | 'description' | 'imagePath'>
@@ -38,6 +38,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 			onSuccess() {
 				handleToggleModal()
 			},
+			resetStateMessage: true,
 		})
 
 	useEffect(() => {

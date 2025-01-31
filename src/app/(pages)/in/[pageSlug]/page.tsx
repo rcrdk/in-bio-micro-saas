@@ -6,11 +6,12 @@ import { ProjectCard } from '@/app/(pages)/in/[pageSlug]/components/project-card
 import { TotalVisits } from '@/app/(pages)/in/[pageSlug]/components/total-visits'
 import { UpgradeMessage } from '@/app/(pages)/in/[pageSlug]/components/upgrade-message'
 import { UserCard } from '@/app/(pages)/in/[pageSlug]/components/user-card'
-import { increaseProfileVisits } from '@/app/actions/increase-profile-visits'
 import { Container } from '@/components/ui/container'
-import { getProfile } from '@/http/get-profile'
+import { getProfileBySlug } from '@/http/get-profile-by-slug'
 import { getProjects } from '@/http/get-projects'
+import { increaseProfileVisits } from '@/http/increase-profile-visits'
 import { auth } from '@/lib/auth'
+import { env } from '@/lib/env'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
@@ -22,7 +23,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const { pageSlug } = await params
-	const profileData = await getProfile(pageSlug)
+	const profileData = await getProfileBySlug(pageSlug)
 
 	if (!profileData) {
 		return notFound()
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProfilePage({ params }: Props) {
 	const { pageSlug } = await params
 
-	const profileData = await getProfile(pageSlug)
+	const profileData = await getProfileBySlug(pageSlug)
 
 	if (!profileData) {
 		return notFound()
@@ -77,6 +78,9 @@ export default async function ProfilePage({ params }: Props) {
 		return redirect(`/in/${profileData.slug}/upgrade`)
 	}
 
+	const canCreateProjects =
+		isProfileOwner && projects.length < env.NEXT_PUBLIC_MAX_PROJECTS
+
 	return (
 		<div className="flex min-h-svh flex-col">
 			<UpgradeMessage pageSlug={pageSlug} />
@@ -97,7 +101,7 @@ export default async function ProfilePage({ params }: Props) {
 							/>
 						))}
 
-						{isProfileOwner && <ModalCreateProject pageSlug={pageSlug} />}
+						{canCreateProjects && <ModalCreateProject pageSlug={pageSlug} />}
 					</div>
 				</div>
 			</Container>

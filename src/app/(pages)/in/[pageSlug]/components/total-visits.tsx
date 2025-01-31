@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 import { TotalVisitsPortalButton } from '@/app/(pages)/in/[pageSlug]/components/total-visits-portal-button'
-import { authActions } from '@/app/actions/auth'
+import { authAction } from '@/app/actions/auth'
 
 type Props = {
 	counter: number
@@ -50,7 +50,7 @@ export function TotalVisits({ counter = 0, isPaid }: Props) {
 
 					{isPaid && <TotalVisitsPortalButton />}
 
-					<form action={authActions}>
+					<form action={authAction}>
 						<button className="focus-themed text-content-placeholder text-base transition-colors hover:text-white">
 							Sair
 						</button>
@@ -72,7 +72,7 @@ export function TotalVisits({ counter = 0, isPaid }: Props) {
 
 						{isPaid && <TotalVisitsPortalButton />}
 
-						<form action={authActions} className="grow">
+						<form action={authAction} className="grow">
 							<button className="focus-themed text-content-placeholder w-full py-1 text-base transition-colors hover:text-white">
 								Sair
 							</button>

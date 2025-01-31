@@ -2,7 +2,7 @@
 
 import { auth, signIn, signOut } from '@/lib/auth'
 
-export async function authActions() {
+export async function authAction() {
 	const session = await auth()
 
 	if (!session) {

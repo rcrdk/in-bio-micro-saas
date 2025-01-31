@@ -15,7 +15,7 @@ import { ModalProfileInformation } from '@/app/(pages)/in/[pageSlug]/components/
 import { ModalSocialLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-social-links'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
-import type { ProfileData, ProfileSocialMedia } from '@/http/get-profile'
+import type { ProfileData, ProfileSocialMedia } from '@/http/dto/get-profile'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 import { httpUrlParser } from '@/utils/http-url-parser'
 

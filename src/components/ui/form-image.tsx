@@ -2,6 +2,8 @@ import { ImageIcon, Upload, User } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
+import { cn } from '@/utils/tailwind-cn'
+
 type Props = {
 	mode: 'project' | 'user'
 	currentImage?: string
@@ -30,7 +32,10 @@ export function FormImage({ mode, currentImage }: Props) {
 		<div className="flex flex-col items-center gap-3">
 			<label
 				htmlFor="formFileInput"
-				className="bg-image-background border-border-primary hover:border-border-secondary flex size-40 shrink-0 cursor-pointer overflow-hidden rounded-full border transition-colors"
+				className={cn(
+					'bg-image-background border-image-background hover:border-border-secondary flex size-40 shrink-0 cursor-pointer overflow-hidden border transition-colors',
+					mode === 'user' ? 'rounded-full' : 'rounded-xl',
+				)}
 			>
 				{selectedImage && (
 					<Image

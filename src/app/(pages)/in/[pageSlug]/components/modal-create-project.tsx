@@ -1,79 +1,48 @@
 'use client'
 
-import { ImageIcon, Plus, Upload } from 'lucide-react'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { startTransition, useState } from 'react'
+import { Plus } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
-import { createProject } from '@/app/actions/create-project'
+import { createProjectAction } from '@/app/actions/create-project'
 import { Dialog } from '@/components/ui/dialog'
+import { FormError } from '@/components/ui/form-error'
+import { FormGroup } from '@/components/ui/form-group'
+import { FormImage } from '@/components/ui/form-image'
+import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
-import { Text } from '@/components/ui/text'
 import { Textarea } from '@/components/ui/textarea'
-import { compressFiles } from '@/utils/compress-files'
+import { useFormState } from '@/hooks/form-state'
 
 type Props = {
 	pageSlug: string
 }
 
 export function ModalCreateProject({ pageSlug }: Props) {
+	const formRef = useRef<HTMLFormElement>(null)
+
 	const [open, setOpen] = useState(false)
-	const [isSubmitting, setIsSubmitting] = useState(false)
-
-	const [projectName, setProjectName] = useState('')
-	const [projectDescription, setProjectDescription] = useState('')
-	const [projectUrl, setProjectUrl] = useState('')
-	const [projectImage, setProjectImage] = useState<string | null>(null)
-
-	const router = useRouter()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
 	}
 
-	function handleImageInput(e: React.ChangeEvent<HTMLInputElement>) {
-		const file = e.target.files?.[0] ?? null
-
-		if (file) {
-			const imageValue = URL.createObjectURL(file)
-			setProjectImage(imageValue)
-		} else {
-			setProjectImage(null)
-		}
-	}
-
-	async function handleCreateProject() {
-		setIsSubmitting(true)
-
-		const imageInput = document.getElementById('imageInput') as HTMLInputElement
-
-		if (!imageInput.files?.length) return
-
-		const compressedFile = await compressFiles(Array.from(imageInput.files))
-
-		const formData = new FormData()
-
-		formData.append('file', compressedFile[0])
-		formData.append('pageSlug', pageSlug)
-		formData.append('name', projectName)
-		formData.append('url', projectUrl)
-		formData.append('description', projectDescription)
-
-		await createProject(formData)
-
-		startTransition(() => {
-			setIsSubmitting(false)
-
-			handleToggleModal()
-
-			setProjectName('')
-			setProjectDescription('')
-			setProjectUrl('')
-			setProjectImage(null)
-
-			router.refresh()
+	const [{ success, message, errors }, handleSubmit, isSubmitting] =
+		useFormState(createProjectAction, {
+			onSuccess() {
+				handleToggleModal()
+			},
+			resetStateMessage: true,
 		})
-	}
+
+	useEffect(() => {
+		if (!success && message) {
+			toast.error(message, { id: 'create-project' })
+		}
+		if (success && message) {
+			toast.success(message, { id: 'create-project' })
+		}
+	}, [success, message, isSubmitting])
 
 	return (
 		<>
@@ -91,93 +60,53 @@ export function ModalCreateProject({ pageSlug }: Props) {
 				submmitButton={{
 					label: 'Adicionar projeto',
 					loading: isSubmitting,
-					onClick: () => handleCreateProject,
-					// onClick: () => {}, // myFormRef.requestSubmit()
+					onClick: () => formRef.current?.requestSubmit(),
 				}}
 				open={open}
 				onOpenChange={handleToggleModal}
 			>
-				<div className="flex gap-8">
-					<div className="flex flex-col items-center gap-3 text-sm">
-						<div className="bg-image-background size-36 shrink-0 overflow-hidden rounded-xl">
-							{projectImage ? (
-								<Image
-									src={projectImage}
-									width={500}
-									height={500}
-									className="size-full object-cover"
-									alt=""
-								/>
-							) : (
-								<label
-									className="flex size-full cursor-pointer items-center justify-center"
-									htmlFor="imageInput"
-								>
-									<ImageIcon className="size-10 opacity-30" />
-								</label>
-							)}
-						</div>
+				<form
+					onSubmit={handleSubmit}
+					className="flex flex-col gap-8 sm:flex-row"
+					ref={formRef}
+				>
+					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
 
-						<label
-							className="flex cursor-pointer items-center gap-1 text-white"
-							htmlFor="imageInput"
-						>
-							<Upload className="size-3" />
-							<span>{projectImage ? 'Alterar' : 'Adicionar'} imagem</span>
-						</label>
-
-						<input
-							type="file"
-							id="imageInput"
-							accept="image/*"
-							className="hidden"
-							onChange={handleImageInput}
-						/>
-					</div>
+					<FormImage mode="project" />
 
 					<div className="flex grow flex-col gap-4">
-						<div className="flex flex-col gap-1">
-							<Text as="label" variant="label" htmlFor="projectName">
-								Nome do projeto:
-							</Text>
-
+						<FormGroup>
+							<Label htmlFor="name">Nome do projeto:</Label>
 							<Input
 								placeholder="Digite o nome do projeto"
-								id="projectName"
-								value={projectName}
-								onChange={(e) => setProjectName(e.target.value)}
+								id="name"
+								name="name"
 							/>
-						</div>
+							<FormError message={errors?.name} />
+						</FormGroup>
 
-						<div className="flex flex-col gap-1">
-							<Text as="label" variant="label" htmlFor="projectUrl">
-								Link do projeto:
-							</Text>
-
+						<FormGroup>
+							<Label htmlFor="url">Link do projeto:</Label>
 							<Input
-								type="url"
 								placeholder="Digite o link do projeto"
-								id="projectUrl"
-								value={projectUrl}
-								onChange={(e) => setProjectUrl(e.target.value)}
+								id="url"
+								name="url"
 							/>
-						</div>
+							<FormError message={errors?.url} />
+						</FormGroup>
 
-						<div className="flex flex-col gap-1">
-							<Text as="label" variant="label" htmlFor="projectDescription">
-								Descrição do projeto:
-							</Text>
-
+						<FormGroup>
+							<Label htmlFor="description">Descrição do projeto:</Label>
 							<Textarea
 								placeholder="Dê uma breve descrição do seu projeto"
-								id="projectDescription"
+								id="description"
+								name="description"
 								rows={3}
-								value={projectDescription}
-								onChange={(e) => setProjectDescription(e.target.value)}
 							/>
-						</div>
+							<FormError message={errors?.description} />
+						</FormGroup>
 					</div>
-				</div>
+				</form>
 			</Dialog>
 		</>
 	)

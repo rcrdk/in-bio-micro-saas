@@ -64,7 +64,8 @@ export async function updateProfileCustomLinks(data: FormData) {
 				updatedAt: Timestamp.now().toMillis(),
 			})
 
-		revalidateTag(`get-profile-${pageSlug}`)
+		revalidateTag(`get-profile-by-slug-${pageSlug}`)
+		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,

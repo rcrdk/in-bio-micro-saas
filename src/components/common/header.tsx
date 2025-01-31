@@ -3,11 +3,11 @@ import { Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { authActions } from '@/app/actions/auth'
+import { authAction } from '@/app/actions/auth'
 import brandImage from '@/assets/brand.svg'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
-import { checkUserProfile } from '@/http/check-user-profile'
+import { getProfileByUserId } from '@/http/get-profile-by-user-id'
 import { auth } from '@/lib/auth'
 
 type Props = {
@@ -17,8 +17,8 @@ type Props = {
 export async function Header({ hidePageButton = false }: Props) {
 	const session = await auth()
 
-	const profile =
-		session?.user?.id && (await checkUserProfile(session.user?.id))
+	// eslint-disable-next-line prettier/prettier
+	const profile = session?.user?.id && (await getProfileByUserId(session.user.id))
 
 	return (
 		<Container className="absolute top-0 right-0 left-0 z-50">
@@ -46,14 +46,10 @@ export async function Header({ hidePageButton = false }: Props) {
 						</Button>
 					)}
 
-					<form action={authActions}>
-						{session ? (
-							<Button size="sm" variant="ghost">
-								Sair
-							</Button>
-						) : (
-							<Button size="sm">Entrar</Button>
-						)}
+					<form action={authAction}>
+						<Button size="sm" variant={session ? 'ghost' : 'primary'}>
+							{session ? 'Sair' : 'Entrar'}
+						</Button>
 					</form>
 				</div>
 
@@ -76,14 +72,16 @@ export async function Header({ hidePageButton = false }: Props) {
 							sideOffset={8}
 						>
 							{profile && session?.user && !hidePageButton && (
-								<Button
-									as={Link}
-									size="sm"
-									href={`/in/${profile.slug}`}
-									className="w-full"
-								>
-									Minha página
-								</Button>
+								<DropdownMenu.Item asChild>
+									<Button
+										as={Link}
+										size="sm"
+										href={`/in/${profile.slug}`}
+										className="w-full"
+									>
+										Minha página
+									</Button>
+								</DropdownMenu.Item>
 							)}
 
 							{!profile && session?.user && !hidePageButton && (
@@ -92,16 +90,16 @@ export async function Header({ hidePageButton = false }: Props) {
 								</Button>
 							)}
 
-							<form action={authActions}>
-								{session ? (
-									<Button size="sm" variant="ghost" className="w-full">
-										Sair
+							<form action={authAction}>
+								<DropdownMenu.Item asChild>
+									<Button
+										size="sm"
+										variant={session ? 'ghost' : 'primary'}
+										className="w-full"
+									>
+										{session ? 'Sair' : 'Entrar'}
 									</Button>
-								) : (
-									<Button size="sm" className="w-full">
-										Entrar
-									</Button>
-								)}
+								</DropdownMenu.Item>
 							</form>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
