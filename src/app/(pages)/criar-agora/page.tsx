@@ -7,7 +7,6 @@ import { Text } from '@/components/ui/text'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
 
-
 export const metadata: Metadata = getSeoTags({
 	title: 'Finalize a criação da sua página ProjectInBio',
 })
@@ -35,11 +34,15 @@ export default function Home() {
 
 					<Text variant="body-sm" className="mt-12 text-center opacity-65">
 						Ao prosseguir você concorda com nossos{' '}
-						<a href="/termos-de-uso" target='_blank' className="underline">
+						<a href="/termos-de-uso" target="_blank" className="underline">
 							termos de uso
 						</a>{' '}
 						e{' '}
-						<a href="/politica-de-privacidade" target='_blank' className="underline">
+						<a
+							href="/politica-de-privacidade"
+							target="_blank"
+							className="underline"
+						>
 							política de privacidade
 						</a>
 						.

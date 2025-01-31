@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
 						<Text as="li">
 							Utilizamos anúncios para compensar os custos de funcionamento
 							deste site e fornecer financiamento para futuros desenvolvimentos.
-							Os cookies de publicidade comportamental usados ​​por este site
+							Os cookies de publicidade comportamental usados por este site
 							foram projetados para garantir que você forneça os anúncios mais
 							relevantes sempre que possível, rastreando anonimamente seus
 							interesses e apresentando coisas semelhantes que possam ser do seu

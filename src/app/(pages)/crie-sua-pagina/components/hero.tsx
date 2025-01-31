@@ -63,9 +63,9 @@ export function Hero() {
 						</Animated>
 					</div>
 
-					<div className="absolute left-1/2 top-1/2 -z-10 w-[600px] -translate-x-1/2 -translate-y-1/2 ">
+					<div className="absolute left-1/2 top-1/2 -z-10 w-[600px] -translate-x-1/2 -translate-y-1/2 translate-z-0">
 						<Animated style={{ transform: parallaxProps.xy.to(translationThree) }}>
-							<div className='opacity-60 mix-blend-lighten blur-[580px] aspect-square rounded-full bg-accent-purple' />
+							<div className="opacity-60 mix-blend-lighten blur-[580px] aspect-square rounded-full bg-accent-purple translate-0 translate-z-0 backface-hidden" />
 						</Animated>
 					</div>
 
