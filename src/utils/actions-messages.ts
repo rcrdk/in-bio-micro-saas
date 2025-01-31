@@ -14,5 +14,6 @@ export const actionsMessages = {
 		PROFILE_CUSTOM_LINKS_SAVED: 'Seus links personalizados foram salvos com sucesso.',
 		PROJECT_CREATED: 'Seu novo projeto foi criado com sucesso.',
 		PROJECT_UPDATED: 'Seu projeto foi atualizado com sucesso.',
+		PROJECT_DELETED: 'Seu projeto foi removido com sucesso.',
 	},
 } as const

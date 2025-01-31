@@ -4,8 +4,9 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Edit, ImageIcon, Settings, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
+import { ModalRemoveProject } from '@/app/(pages)/in/[pageSlug]/components/modal-delete-project'
 import { ModalFormProject } from '@/app/(pages)/in/[pageSlug]/components/modal-form-project'
 import { Button } from '@/components/ui/button'
 import type { ProjectData } from '@/http/dto/get-projects'
@@ -22,10 +23,15 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 	const { pageSlug } = useParams()
 
 	const [openEdit, setOpenEdit] = useState(false)
+	const [openRemove, setOpenRemove] = useState(false)
 
-	function handleToggleEditModal() {
+	const handleToggleEditModal = useCallback(() => {
 		setOpenEdit((prev) => !prev)
-	}
+	}, [])
+
+	const handleToggleRemoveModal = useCallback(() => {
+		setOpenRemove((prev) => !prev)
+	}, [])
 
 	async function handleClickProject() {
 		if (!pageSlug || !data.id || isOwner) return
@@ -101,7 +107,10 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 								Editar
 							</DropdownMenu.Item>
 
-							<DropdownMenu.Item className="focus-themed hover:text-accent-pink flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors">
+							<DropdownMenu.Item
+								className="focus-themed hover:text-accent-pink flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors"
+								onClick={handleToggleRemoveModal}
+							>
 								<Trash size={18} />
 								Remover
 							</DropdownMenu.Item>
@@ -116,7 +125,11 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						initialImage={image}
 					/>
 
-					{/* Modal delete */}
+					<ModalRemoveProject
+						open={openRemove}
+						onOpenChange={handleToggleRemoveModal}
+						project={data}
+					/>
 				</>
 			)}
 		</div>
