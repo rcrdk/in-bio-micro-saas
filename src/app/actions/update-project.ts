@@ -11,15 +11,17 @@ import { auth } from '@/lib/auth'
 import { DB, Storage } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
-const profileDataSchema = z.object({
+const updateProjectSchema = z.object({
 	pageSlug: z.string().min(1, 'Informe o link da página'),
+	projectId: z.string().min(1, 'Informe o id do projeto'),
 	name: z.string().min(1, 'Informe um nome'),
-	description: z.string().min(1, 'Informe uma introdução'),
+	description: z.string().min(1, 'Informe uma descrição'),
+	url: z.string().min(1, 'Informe um link').url('Informe um link válido'),
 	file: z.custom<File>().optional(),
 })
 
-export async function updateProfileInformationAction(data: FormData) {
-	const result = profileDataSchema.safeParse(Object.fromEntries(data))
+export async function updateProjectAction(data: FormData) {
+	const result = updateProjectSchema.safeParse(Object.fromEntries(data))
 
 	if (!result.success) {
 		const errors = result.error.flatten().fieldErrors
@@ -41,16 +43,21 @@ export async function updateProfileInformationAction(data: FormData) {
 		}
 	}
 
-	const { name, description, pageSlug, file } = result.data
+	const { name, description, url, pageSlug, projectId, file } = result.data
+	const generateId = randomUUID()
 
 	try {
 		let updatedImagePath = null
 
-		const hasNewAvatarImageSelected = file && file.size > 0
+		const hasNewImageFileSelected = file && file.size > 0
 
-		if (hasNewAvatarImageSelected) {
-			const currentProfile = await DB.collection('profiles').doc(pageSlug).get()
-			const currentImagePath = currentProfile?.data()?.imagePath
+		if (hasNewImageFileSelected) {
+			const currentProject = await DB.collection('profiles')
+				.doc(pageSlug)
+				.collection('projects')
+				.doc(projectId)
+				.get()
+			const currentImagePath = currentProject?.data()?.imagePath
 
 			if (currentImagePath) {
 				const storageRef = Storage.file(currentImagePath)
@@ -59,9 +66,8 @@ export async function updateProfileInformationAction(data: FormData) {
 				if (currentStoragePathExists) await storageRef.delete()
 			}
 
-			const filePrefix = randomUUID()
 			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`profiles/${pageSlug}/${filePrefix}-${file.name}`)
+			const storageRef = Storage.file(`projects/${pageSlug}/${generateId}-${file.name}`)
 			const arrayBuffer = await file.arrayBuffer()
 			const buffer = Buffer.from(arrayBuffer)
 
@@ -74,15 +80,17 @@ export async function updateProfileInformationAction(data: FormData) {
 
 		await DB.collection('profiles')
 			.doc(pageSlug)
+			.collection('projects')
+			.doc(projectId)
 			.update({
 				name,
 				description,
-				...(hasNewAvatarImageSelected && { imagePath: updatedImagePath }),
+				url,
+				...(hasNewImageFileSelected && { imagePath: updatedImagePath }),
 				updatedAt: Timestamp.now().toMillis(),
 			})
 
-		revalidateTag(`get-profile-by-slug-${pageSlug}`)
-		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
+		revalidateTag(`get-projects-${pageSlug}`)
 	} catch (error) {
 		return {
 			success: false,
@@ -93,7 +101,7 @@ export async function updateProfileInformationAction(data: FormData) {
 
 	return {
 		success: true,
-		message: actionsMessages.success.PROFILE_DATA_SAVED,
+		message: actionsMessages.success.PROJECT_UPDATED,
 		errors: null,
 	}
 }

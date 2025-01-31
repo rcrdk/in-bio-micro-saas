@@ -2,10 +2,11 @@
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Edit, ImageIcon, Settings, Trash } from 'lucide-react'
-import type { StaticImageData } from 'next/image'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
+import { useState } from 'react'
 
+import { ModalFormProject } from '@/app/(pages)/in/[pageSlug]/components/modal-form-project'
 import { Button } from '@/components/ui/button'
 import type { ProjectData } from '@/http/dto/get-projects'
 import { increaseProjectClicks } from '@/http/increase-project-clicks'
@@ -13,12 +14,18 @@ import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {
 	data: ProjectData
-	image?: string | null | StaticImageData
+	image?: string
 	isOwner: boolean
 }
 
 export function ProjectCard({ data, image, isOwner }: Props) {
 	const { pageSlug } = useParams()
+
+	const [openEdit, setOpenEdit] = useState(false)
+
+	function handleToggleEditModal() {
+		setOpenEdit((prev) => !prev)
+	}
 
 	async function handleClickProject() {
 		if (!pageSlug || !data.id || isOwner) return
@@ -83,10 +90,13 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 
 						<DropdownMenu.Content
 							align="end"
-							className="border-button-ghost bg-background-primary flex flex-col gap-2 rounded-xl border px-2 py-3 shadow-2xl"
+							className="border-button-ghost bg-background-primary flex flex-col gap-2 rounded-xl border px-2 py-3 shadow-2xl select-none"
 							sideOffset={8}
 						>
-							<DropdownMenu.Item className="focus-themed flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors hover:text-white/60">
+							<DropdownMenu.Item
+								className="focus-themed flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors hover:text-white/60"
+								onClick={handleToggleEditModal}
+							>
 								<Edit size={18} />
 								Editar
 							</DropdownMenu.Item>
@@ -98,7 +108,14 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 
-					{/* Modal edit */}
+					<ModalFormProject
+						open={openEdit}
+						onOpenChange={handleToggleEditModal}
+						mode="edit"
+						initialData={data}
+						initialImage={image}
+					/>
+
 					{/* Modal delete */}
 				</>
 			)}

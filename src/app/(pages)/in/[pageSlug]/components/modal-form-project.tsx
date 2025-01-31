@@ -1,10 +1,11 @@
 'use client'
 
-import { Plus } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 
 import { createProjectAction } from '@/app/actions/create-project'
+import { updateProjectAction } from '@/app/actions/update-project'
 import { Dialog } from '@/components/ui/dialog'
 import { FormError } from '@/components/ui/form-error'
 import { FormGroup } from '@/components/ui/form-group'
@@ -13,57 +14,60 @@ import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/form-state'
+import type { ProjectData } from '@/http/dto/get-projects'
 
 type Props = {
-	pageSlug: string
+	open: boolean
+	onOpenChange: VoidFunction
+	mode: 'create' | 'edit'
+	initialData?: ProjectData
+	initialImage?: string
 }
 
-export function ModalCreateProject({ pageSlug }: Props) {
+export function ModalFormProject({
+	open,
+	onOpenChange,
+	mode,
+	initialData,
+	initialImage,
+}: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
-	const [open, setOpen] = useState(false)
+	const { pageSlug } = useParams()
 
-	function handleToggleModal() {
-		setOpen((prev) => !prev)
-	}
+	// create edit action
+	const formActionByMode =
+		mode === 'create' ? createProjectAction : updateProjectAction
 
 	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(createProjectAction, {
+		useFormState(formActionByMode, {
 			onSuccess() {
-				handleToggleModal()
+				onOpenChange()
 			},
 			resetStateMessage: true,
 		})
 
 	useEffect(() => {
 		if (!success && message) {
-			toast.error(message, { id: 'create-project' })
+			toast.error(message, { id: 'create-edit-project' })
 		}
 		if (success && message) {
-			toast.success(message, { id: 'create-project' })
+			toast.success(message, { id: 'create-edit-project' })
 		}
 	}, [success, message, isSubmitting])
 
 	return (
 		<>
-			<button
-				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors select-none"
-				onClick={handleToggleModal}
-			>
-				<Plus className="text-accent-green size-7" />
-				<span className="font-medium">Novo projeto</span>
-			</button>
-
 			<Dialog
-				title="Novo projeto"
+				title={mode === 'create' ? 'Novo projeto' : 'Editar projeto'}
 				description="Mostre um trabalho importante."
 				submmitButton={{
-					label: 'Adicionar projeto',
+					label: mode === 'create' ? 'Adicionar projeto' : 'Salvar projeto',
 					loading: isSubmitting,
 					onClick: () => formRef.current?.requestSubmit(),
 				}}
 				open={open}
-				onOpenChange={handleToggleModal}
+				onOpenChange={onOpenChange}
 			>
 				<form
 					onSubmit={handleSubmit}
@@ -72,7 +76,15 @@ export function ModalCreateProject({ pageSlug }: Props) {
 				>
 					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
 
-					<FormImage mode="project" />
+					{mode === 'edit' && initialData && (
+						<input
+							type="hidden"
+							name="projectId"
+							defaultValue={initialData.id}
+						/>
+					)}
+
+					<FormImage mode="project" currentImage={initialImage} />
 
 					<div className="flex grow flex-col gap-4">
 						<FormGroup>
@@ -82,6 +94,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								id="name"
 								name="name"
 								error={errors?.name}
+								defaultValue={initialData?.name}
 							/>
 							<FormError message={errors?.name} />
 						</FormGroup>
@@ -92,6 +105,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								placeholder="Digite o link do projeto"
 								id="url"
 								name="url"
+								defaultValue={initialData?.url}
 								error={errors?.url}
 							/>
 							<FormError message={errors?.url} />
@@ -104,6 +118,7 @@ export function ModalCreateProject({ pageSlug }: Props) {
 								id="description"
 								name="description"
 								rows={3}
+								defaultValue={initialData?.description}
 								error={errors?.description}
 							/>
 							<FormError message={errors?.description} />

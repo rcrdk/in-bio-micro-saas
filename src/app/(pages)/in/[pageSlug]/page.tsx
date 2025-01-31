@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
-import { ModalCreateProject } from '@/app/(pages)/in/[pageSlug]/components/modal-create-project'
+import { CreateProjectButton } from '@/app/(pages)/in/[pageSlug]/components/create-project-button'
 import { ProjectCard } from '@/app/(pages)/in/[pageSlug]/components/project-card'
 import { TotalVisits } from '@/app/(pages)/in/[pageSlug]/components/total-visits'
 import { UpgradeMessage } from '@/app/(pages)/in/[pageSlug]/components/upgrade-message'
@@ -101,7 +101,7 @@ export default async function ProfilePage({ params }: Props) {
 							/>
 						))}
 
-						{canCreateProjects && <ModalCreateProject pageSlug={pageSlug} />}
+						{canCreateProjects && <CreateProjectButton />}
 					</div>
 				</div>
 			</Container>
