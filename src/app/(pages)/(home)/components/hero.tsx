@@ -1,6 +1,6 @@
 'use client'
 
-import { sendGAEvent } from '@next/third-parties/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
@@ -40,7 +40,7 @@ export function Hero() {
 					href="/crie-sua-pagina"
 					className="mt-12"
 					onClick={() =>
-						sendGAEvent('event', 'cta_home_clicks', { page: 'home' })
+						sendGTMEvent({ event: 'cta_home_clicks', value: 'home' })
 					}
 				>
 					Quero fazer minha Bio

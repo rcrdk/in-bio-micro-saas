@@ -2,7 +2,7 @@
 
 import '@/styles/globals.css'
 
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { CircleAlert, CircleCheck } from 'lucide-react'
 import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 import { Toaster } from 'sonner'
@@ -48,10 +48,17 @@ export default function RootLayout({
 				/>
 			</body>
 
-			{process.env.NODE_ENV === 'production' &&
-				env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-					<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-				)}
+			{process.env.NODE_ENV === 'production' && (
+				<>
+					{env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+						<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+					)}
+
+					{env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER && (
+						<GoogleTagManager gtmId={env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER} />
+					)}
+				</>
+			)}
 		</html>
 	)
 }

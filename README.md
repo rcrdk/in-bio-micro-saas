@@ -94,6 +94,7 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 	<summary style="font-weight:bold;">4️⃣ Google Analytics and Mixpanel</summary>
   
    1. `NEXT_PUBLIC_GOOGLE_ANALYTICS`
+   1. `NEXT_PUBLIC_GOOGLE_TAG_MANAGER`
    2. `MIXPANEL_SECRET`
 </details>
 

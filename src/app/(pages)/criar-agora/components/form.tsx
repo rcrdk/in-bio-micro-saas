@@ -1,6 +1,6 @@
 'use client'
 
-import { sendGAEvent } from '@next/third-parties/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
@@ -33,7 +33,7 @@ export function FinishCreateSlugForm() {
 		createPageAction,
 		{
 			onSuccess() {
-				sendGAEvent('event', 'create_page_effective')
+				sendGTMEvent({ event: 'create_page_effective' })
 
 				router.push(`/in/${slug}`)
 			},

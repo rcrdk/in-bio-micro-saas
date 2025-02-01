@@ -28,6 +28,7 @@ export const env = createEnv({
 		NEXT_PUBLIC_TRIAL_DAYS: z.coerce.number(),
 		NEXT_PUBLIC_MAX_PROJECTS: z.coerce.number(),
 		NEXT_PUBLIC_GOOGLE_ANALYTICS: z.string().optional(),
+		NEXT_PUBLIC_GOOGLE_TAG_MANAGER: z.string().optional(),
 	},
 
 	runtimeEnv: {
@@ -47,6 +48,7 @@ export const env = createEnv({
 		STRIPE_PAYMENT_PRICE_ID: process.env.STRIPE_PAYMENT_PRICE_ID,
 		STRIPE_SUBSCRIPTION_PRICE_ID: process.env.STRIPE_SUBSCRIPTION_PRICE_ID,
 		NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
+		NEXT_PUBLIC_GOOGLE_TAG_MANAGER: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER,
 		RESEND_SECRET_KEY: process.env.RESEND_SECRET_KEY,
 		MIXPANEL_SECRET: process.env.MIXPANEL_SECRET,
 	},

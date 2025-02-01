@@ -2,7 +2,7 @@
 
 import 'dayjs/locale/pt-br'
 
-import { sendGAEvent } from '@next/third-parties/google'
+import { sendGTMEvent } from '@next/third-parties/google'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 
@@ -27,7 +27,7 @@ export function UpgradeMessage({
 
 	function handleCreatePortal() {
 		createStripePortal()
-		sendGAEvent('event', 'click_to_upgrade')
+		sendGTMEvent({ event: 'click_to_upgrade' })
 	}
 
 	if (subscriptionEndedDate) {
@@ -56,7 +56,7 @@ export function UpgradeMessage({
 			<span>{trialMessage}</span>{' '}
 			<Link
 				href={`/in/${pageSlug}/upgrade`}
-				onClick={() => sendGAEvent('event', 'click_to_upgrade')}
+				onClick={() => sendGTMEvent({ event: 'click_to_upgrade' })}
 				className={cn(
 					'focus-themed font-bold transition-colors',
 					trialExpired
