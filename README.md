@@ -16,13 +16,13 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 - Profile: A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
 - Upgrade: If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
 
----
+<!-- ---
 
 - Mixpanel Analytics
 - SEO
 - Stripe integration
 - Firebase integration
-- Next App Router + Use Cache + Server Components
+- Next App Router + Use Cache + Server Components -->
 
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;

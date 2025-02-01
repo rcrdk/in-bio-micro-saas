@@ -33,7 +33,7 @@ export function FinishCreateSlugForm() {
 		createPageAction,
 		{
 			onSuccess() {
-				sendGAEvent('event', 'create_project_effective')
+				sendGAEvent('event', 'create_page_effective')
 
 				router.push(`/in/${slug}`)
 			},

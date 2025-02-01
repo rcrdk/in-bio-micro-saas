@@ -27,7 +27,7 @@ export function CreateSlugForm() {
 	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault()
 
-		sendGAEvent('event', 'create_project_intention')
+		sendGAEvent('event', 'create_page_intention')
 
 		try {
 			setIsSubmitting(true)
