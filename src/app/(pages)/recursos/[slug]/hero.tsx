@@ -44,9 +44,7 @@ export function Hero({ title, description, slug }: Props) {
 					size="lg"
 					href="/crie-sua-pagina"
 					className="mt-12"
-					onClick={() =>
-						sendGTMEvent({ event: 'cta_home_clicks', value: slug })
-					}
+					onClick={() => sendGTMEvent({ event: 'cta_home_clicks', slug })}
 				>
 					Quero fazer minha Bio
 					<ArrowRight />

@@ -27,7 +27,7 @@ export function UpgradeMessage({
 
 	function handleCreatePortal() {
 		createStripePortal()
-		sendGTMEvent({ event: 'click_to_upgrade' })
+		sendGTMEvent({ event: 'click_to_upgrade', slug: pageSlug })
 	}
 
 	if (subscriptionEndedDate) {

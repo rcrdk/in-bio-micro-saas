@@ -18,7 +18,7 @@ export function AvailablePlans() {
 	const { pageSlug } = useParams()
 
 	async function handleCreateCheckout(mode: CheckoutType) {
-		sendGTMEvent({ event: 'click_to_checkout', value: mode })
+		sendGTMEvent({ event: 'click_to_checkout', slug: pageSlug, method: mode })
 
 		try {
 			setIsSubmitting(mode)

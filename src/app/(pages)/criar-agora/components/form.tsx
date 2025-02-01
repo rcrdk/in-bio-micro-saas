@@ -33,7 +33,7 @@ export function FinishCreateSlugForm() {
 		createPageAction,
 		{
 			onSuccess() {
-				sendGTMEvent({ event: 'create_page_effective' })
+				sendGTMEvent({ event: 'create_page_effective', slug })
 
 				router.push(`/in/${slug}`)
 			},

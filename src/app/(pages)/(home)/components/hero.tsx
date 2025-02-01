@@ -40,7 +40,7 @@ export function Hero() {
 					href="/crie-sua-pagina"
 					className="mt-12"
 					onClick={() =>
-						sendGTMEvent({ event: 'cta_home_clicks', value: 'home' })
+						sendGTMEvent({ event: 'cta_home_clicks', slug: 'home' })
 					}
 				>
 					Quero fazer minha Bio
