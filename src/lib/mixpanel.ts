@@ -2,11 +2,21 @@ import Mixpanel from 'mixpanel'
 
 import { env } from '@/lib/env'
 
-const mixpanelEvent = Mixpanel.init(env.MIXPANEL_SECRET ?? '')
+const mixpanelEvent = env.MIXPANEL_SECRET
+	? Mixpanel.init(env.MIXPANEL_SECRET)
+	: undefined
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function trackServerEvent(eventName: string, properties: any) {
-	if (process.env.NODE_ENV !== 'production' || !env.MIXPANEL_SECRET) return
+export function trackServerEvent(
+	eventName: string,
+	properties: Record<string, string | number>,
+) {
+	if (
+		process.env.NODE_ENV !== 'production' ||
+		!env.MIXPANEL_SECRET ||
+		!mixpanelEvent
+	) {
+		return
+	}
 
 	mixpanelEvent.track(eventName, properties)
 }

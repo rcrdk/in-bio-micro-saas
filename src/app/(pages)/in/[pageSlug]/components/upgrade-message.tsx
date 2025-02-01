@@ -2,6 +2,7 @@
 
 import 'dayjs/locale/pt-br'
 
+import { sendGAEvent } from '@next/third-parties/google'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 
@@ -24,6 +25,11 @@ export function UpgradeMessage({
 
 	const { createStripePortal } = useStripe()
 
+	function handleCreatePortal() {
+		createStripePortal()
+		sendGAEvent('event', 'click_to_upgrade')
+	}
+
 	if (subscriptionEndedDate) {
 		const dateFormatted = dayjs(subscriptionEndedDate)
 			.locale('pt-br')
@@ -36,7 +42,7 @@ export function UpgradeMessage({
 					<span className="font-bold">{dateFormatted}</span>.
 				</span>{' '}
 				<button
-					onClick={createStripePortal}
+					onClick={handleCreatePortal}
 					className="focus-themed text-accent-green hover:text-accent-green-hover cursor-pointer font-bold transition-colors"
 				>
 					Renove seu plano!
@@ -50,6 +56,7 @@ export function UpgradeMessage({
 			<span>{trialMessage}</span>{' '}
 			<Link
 				href={`/in/${pageSlug}/upgrade`}
+				onClick={() => sendGAEvent('event', 'click_to_upgrade')}
 				className={cn(
 					'focus-themed font-bold transition-colors',
 					trialExpired

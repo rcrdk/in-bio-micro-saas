@@ -49,7 +49,11 @@ export default async function LinkInBio({ params }: Props) {
 		<>
 			<Header />
 
-			<Hero title={content.title} description={content.description} />
+			<Hero
+				title={content.title}
+				description={content.description}
+				slug={slug}
+			/>
 
 			<VideoPresentation />
 			<Pricing />

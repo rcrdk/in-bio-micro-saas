@@ -1,5 +1,6 @@
 'use client'
 
+import { sendGAEvent } from '@next/third-parties/google'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -17,6 +18,8 @@ export function AvailablePlans() {
 	const { pageSlug } = useParams()
 
 	async function handleCreateCheckout(mode: CheckoutType) {
+		sendGAEvent('event', 'click_to_checkout', { type: mode })
+
 		try {
 			setIsSubmitting(mode)
 

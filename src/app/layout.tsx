@@ -48,9 +48,10 @@ export default function RootLayout({
 				/>
 			</body>
 
-			{env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-				<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-			)}
+			{process.env.NODE_ENV === 'production' &&
+				env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+					<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+				)}
 		</html>
 	)
 }

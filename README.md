@@ -16,6 +16,14 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 - Profile: A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
 - Upgrade: If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
 
+---
+
+- Mixpanel Analytics
+- SEO
+- Stripe integration
+- Firebase integration
+- Next App Router + Use Cache + Server Components
+
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;
 <img alt="PNPM" src="https://img.shields.io/badge/-PNPM-05122A?style=flat&logo=pnpm" />&nbsp;
@@ -50,6 +58,7 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
    4. Copy both prices ids and paste on env: recurring on `STRIPE_SUBSCRIPTION_PRICE_ID` and one-off on `STRIPE_PAYMENT_PRICE_ID`.
    5. Access `Settings / Billing / Customer Portal` and activate this resource.
    6. Access `Developers / API Keys` and copy both publishable and secret key and paste it respectively on `NEXT_PUBLIC_STRIPE_PUBLIC_KEY` and `STRIPE_SECRET_KEY` env variables. 
+   7. To get started with listening events, check out the below section [Listen to Stripe events](#listen-to-stripe-events)
 </details>
 
 ---
@@ -118,7 +127,11 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 	<summary style="font-weight:bold;">2️⃣ Production</summary>
 
    1. Access `Developers / Webhooks`
-   2. Add an endpoint `https://<YOUR_DOMAIN>/api/stripe/webhook`
+   2. Add an endpoint `https://<YOUR_DOMAIN>/api/stripe/webhook` and listen to these four events:
+   	- customer.subscription.updated
+   	- checkout.session.completed
+   	- checkout.session.async_payment_succeeded
+   	- customer.subscription.deleted	
    3. Set `STRIPE_WEBHOOK_SECRET` env with 'Signing secret' on endpoint details page.
 </details>
 

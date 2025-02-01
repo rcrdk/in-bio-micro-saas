@@ -1,3 +1,6 @@
+'use client'
+
+import { sendGAEvent } from '@next/third-parties/google'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
@@ -31,7 +34,15 @@ export function Hero() {
 					online com uma plataforma fácil e personalizável.
 				</Text>
 
-				<Button as={Link} size="lg" href="/crie-sua-pagina" className="mt-12">
+				<Button
+					as={Link}
+					size="lg"
+					href="/crie-sua-pagina"
+					className="mt-12"
+					onClick={() =>
+						sendGAEvent('event', 'cta_home_clicks', { page: 'home' })
+					}
+				>
 					Quero fazer minha Bio
 					<ArrowRight />
 				</Button>

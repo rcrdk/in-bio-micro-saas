@@ -11,7 +11,7 @@ import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
 
 export const metadata: Metadata = getSeoTags({
-	title: 'ProjectInBio: Seus projetos e redes sociais em um unico link',
+	title: 'ProjectInBio: Seus projetos e redes sociais em um único link',
 	description: 'Crie sua própria página de projetos e compartilhe eles com o mundo. Acompanhe o engajamento com Analytics de cliques.',
 	keywords: ['ProjectInBio', 'bio', 'projetos', 'redes sociais', 'link', 'página', 'profissional'],
 	canonicalUrlRelative: '/crie-sua-pagina',

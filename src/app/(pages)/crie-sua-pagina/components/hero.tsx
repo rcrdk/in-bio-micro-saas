@@ -37,7 +37,7 @@ export function Hero() {
 			>
 				<div className="flex flex-col gap-4 pb-32 pt-32 lg:pb-16 lg:pr-10 lg:pt-40">
 					<Text variant="heading-lg" as="h1">
-						Seus projetos e redes sociais em um unico link
+						Seus projetos e redes sociais em um único link
 					</Text>
 
 					<Text variant="body-lg" as="h2">

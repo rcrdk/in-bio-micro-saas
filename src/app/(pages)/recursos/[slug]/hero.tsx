@@ -1,3 +1,6 @@
+'use client'
+
+import { sendGAEvent } from '@next/third-parties/google'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
@@ -9,9 +12,10 @@ import { env } from '@/lib/env'
 type Props = {
 	title?: string
 	description?: string
+	slug: string
 }
 
-export function Hero({ title, description }: Props) {
+export function Hero({ title, description, slug }: Props) {
 	return (
 		<Container className="relative z-0 pt-40 pb-20 text-center">
 			<div className="flex flex-col items-center">
@@ -35,7 +39,15 @@ export function Hero({ title, description }: Props) {
 						'Mostre seu trabalho de forma profissional e simplifique sua presença online com uma plataforma fácil e personalizável.'}
 				</Text>
 
-				<Button as={Link} size="lg" href="/crie-sua-pagina" className="mt-12">
+				<Button
+					as={Link}
+					size="lg"
+					href="/crie-sua-pagina"
+					className="mt-12"
+					onClick={() =>
+						sendGAEvent('event', 'cta_home_clicks', { page: slug })
+					}
+				>
 					Quero fazer minha Bio
 					<ArrowRight />
 				</Button>
