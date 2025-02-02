@@ -9,6 +9,12 @@ import { Pricing } from '@/components/common/pricing'
 import { VideoPresentation } from '@/components/common/video-presentation'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
+import { getPageTrackParams } from '@/utils/get-page-track-params'
+
+type Props = {
+	params: Promise<{ slug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
 export const metadata: Metadata = getSeoTags({
 	title: 'ProjectInBio: Crie Seu Portfólio e Links em Minutos',
@@ -17,9 +23,15 @@ export const metadata: Metadata = getSeoTags({
 	canonicalUrlRelative: '/',
 })
 
-export default function Home() {
+export default async function Home({ searchParams }: Props) {
+	const searchParamsRef = await searchParams
+
+	const trackParams = getPageTrackParams(searchParamsRef)
+
 	trackServerEvent('page_view', {
 		page: 'home',
+		url: '/',
+		...trackParams
 	})
 
 	return (

@@ -4,7 +4,6 @@ import { AvailablePlans } from '@/app/(pages)/in/[pageSlug]/upgrade/components/a
 import { Header } from '@/components/common/header'
 import { Container } from '@/components/ui/container'
 import { Text } from '@/components/ui/text'
-import { auth } from '@/lib/auth'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
 
@@ -12,12 +11,17 @@ export const metadata: Metadata = getSeoTags({
 	title: 'Upgrade da página ProjectInBio',
 })
 
-export default async function Upgrade() {
-	const session = await auth()
+export type Props = {
+	params: Promise<{ pageSlug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function Upgrade({ params }: Props) {
+	const { pageSlug } = await params
 
 	trackServerEvent('page_view', {
 		page: 'upgrade',
-		user: session?.user.id ?? '',
+		url: `/in/${pageSlug}/upgrade`,
 	})
 
 	return (

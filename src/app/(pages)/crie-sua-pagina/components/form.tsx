@@ -35,7 +35,7 @@ export function CreateSlugForm() {
 			return await signIn('google', { redirectTo: `/criar-agora?slug=${slug}` })
 		} catch (error) {
 			toast.error(
-				'Ocorreu um erro ao tentar prosseguir com a ação. Tenta mais tarde.',
+				'Ocorreu um erro ao tentar prosseguir com a ação. Tente mais tarde.',
 			)
 			setIsSubmitting(false)
 		}

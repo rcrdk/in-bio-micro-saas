@@ -7,13 +7,25 @@ import { Text } from '@/components/ui/text'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
 
+type Props = {
+	params: Promise<{ slug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
 export const metadata: Metadata = getSeoTags({
 	title: 'Finalize a criação da sua página ProjectInBio',
 })
 
-export default function Home() {
+export default async function CreateNow({ searchParams }: Props) {
+	const { slug } = await searchParams
+
+	if (slug) {
+		trackServerEvent('page_create_intend', {})
+	}
+
 	trackServerEvent('page_view', {
 		page: 'create',
+		url: '/criar-agora',
 	})
 
 	return (

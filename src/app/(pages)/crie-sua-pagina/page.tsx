@@ -9,6 +9,12 @@ import { Pricing } from '@/components/common/pricing'
 import { VideoPresentation } from '@/components/common/video-presentation'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
+import { getPageTrackParams } from '@/utils/get-page-track-params'
+
+type Props = {
+	params: Promise<{ slug: string }>
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
 export const metadata: Metadata = getSeoTags({
 	title: 'ProjectInBio: Seus projetos e redes sociais em um único link',
@@ -17,9 +23,15 @@ export const metadata: Metadata = getSeoTags({
 	canonicalUrlRelative: '/crie-sua-pagina',
 })
 
-export default function Create() {
+export default async function Create({ searchParams }: Props) {
+	const searchParamsRef = await searchParams
+	
+		const trackParams = getPageTrackParams(searchParamsRef)
+
 	trackServerEvent('page_view', {
 		page: 'create-lp',
+		url: '/crie-sua-pagina',
+		...trackParams
 	})
 
 	return (

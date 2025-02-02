@@ -14,6 +14,8 @@
 	--animate-dialog-overlay-hide: dialogOverlayHide 300ms cubic-bezier(0.16, 1, 0.3, 1);
 	--animate-dialog-content-show: dialogContentShow 500ms cubic-bezier(0.16, 1, 0.3, 1);
 	--animate-dialog-content-hide: dialogContentHide 300ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-dialog-cookies-show: dialogCookiesShow 500ms cubic-bezier(0.16, 1, 0.3, 1);
+	--animate-dialog-cookies-hide: dialogCookiesHide 300ms cubic-bezier(0.16, 1, 0.3, 1);
 
   --color-accent-purple: #4b2dbb;
   --color-accent-purple-hover: #482bb2;
@@ -117,14 +119,36 @@
 			transform: translateY(-4%) scale(0.96);
 		}
 	}
+
+	@keyframes dialogCookiesShow {
+		from {
+			opacity: 0;
+			transform: translateY(101%) scale(0.96);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@keyframes dialogCookiesHide {
+		from {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+		to {
+			opacity: 0;
+			transform: translateY(101%) scale(0.96);
+		}
+	}
 }
 
 @utility focus-themed {
-  @apply outline-hidden rounded-lg;
+  @apply outline-hidden rounded-lg focus-visible:ring-4 focus-visible:ring-white/20;
+}
 
-  &:focus-visible {
-    @apply ring-4 ring-white/20;
-  }
+@utility focus-accent {
+  @apply outline-hidden focus-visible:ring-4 focus-visible:ring-accent-purple/75;
 }
 
 @utility animate-spin {

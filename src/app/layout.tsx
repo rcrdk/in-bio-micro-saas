@@ -7,6 +7,7 @@ import { CircleAlert, CircleCheck } from 'lucide-react'
 import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 import { Toaster } from 'sonner'
 
+import Cookies from '@/components/ui/cookies'
 import { env } from '@/lib/env'
 
 const redHatDisplay = RedHatDisplay({
@@ -46,6 +47,8 @@ export default function RootLayout({
 						success: <CircleCheck size={24} />,
 					}}
 				/>
+
+				<Cookies />
 			</body>
 
 			{process.env.NODE_ENV === 'production' && (

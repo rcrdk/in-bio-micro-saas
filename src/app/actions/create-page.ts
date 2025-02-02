@@ -9,6 +9,7 @@ import { verifyProfileSlugExistence } from '@/http/verify-profile-slug-existence
 import { auth } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { DB } from '@/lib/firebase'
+import { trackServerEvent } from '@/lib/mixpanel'
 import { actionsMessages } from '@/utils/actions-messages'
 
 const createPageSchema = z.object({
@@ -83,6 +84,10 @@ export async function createPageAction(data: FormData) {
 				createdAt: Timestamp.now().toMillis(),
 				updatedAt: Timestamp.now().toMillis(),
 			})
+
+		trackServerEvent('page_created', {
+			url: `/in/${slug}`,
+		})
 
 		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
 	} catch (error) {

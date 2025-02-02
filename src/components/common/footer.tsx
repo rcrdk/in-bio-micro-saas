@@ -74,7 +74,7 @@ export function Footer() {
 						<a
 							href="http://rcrdk.dev/"
 							target="_blank"
-							className="border-border-primary hover:border-border-secondary flex items-center gap-2 rounded-tl-3xl rounded-tr-md rounded-br-md rounded-bl-3xl border py-1 pr-3 pl-1 text-nowrap transition-colors select-none"
+							className="focus-themed border-border-primary hover:border-border-secondary flex items-center gap-2 rounded-tl-3xl rounded-tr-md rounded-br-md rounded-bl-3xl border py-1 pr-3 pl-1 text-nowrap transition-colors select-none"
 						>
 							<Image
 								src="https://github.com/rcrdk.png"

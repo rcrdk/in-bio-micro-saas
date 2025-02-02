@@ -9,6 +9,7 @@ import { Pricing } from '@/components/common/pricing'
 import { VideoPresentation } from '@/components/common/video-presentation'
 import { trackServerEvent } from '@/lib/mixpanel'
 import { getSeoTags } from '@/lib/seo'
+import { getPageTrackParams } from '@/utils/get-page-track-params'
 import { getTextsBySlug } from '@/utils/get-texts-by-slug'
 
 type Props = {
@@ -32,9 +33,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	})
 }
 
-export default async function LinkInBio({ params }: Props) {
+export default async function Resources({ params, searchParams }: Props) {
 	const { slug } = await params
+	const searchParamsRef = await searchParams
+
 	const content = await getTextsBySlug(slug)
+	const trackParams = getPageTrackParams(searchParamsRef)
 
 	if (!content) {
 		return notFound()
@@ -42,7 +46,8 @@ export default async function LinkInBio({ params }: Props) {
 
 	trackServerEvent('page_view', {
 		page: 'resouces',
-		slug,
+		url: `/recursos/${slug}`,
+		...trackParams,
 	})
 
 	return (

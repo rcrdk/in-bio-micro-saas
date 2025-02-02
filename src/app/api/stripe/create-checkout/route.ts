@@ -67,8 +67,7 @@ export async function POST(req: Request) {
 	})
 
 	trackServerEvent('checkout_created', {
-		userId,
-		price: isSubscription
+		priceId: isSubscription
 			? env.STRIPE_SUBSCRIPTION_PRICE_ID
 			: env.STRIPE_PAYMENT_PRICE_ID,
 		isSubscription,

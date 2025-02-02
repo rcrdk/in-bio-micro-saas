@@ -66,14 +66,14 @@ export default async function ProfilePage({ params }: Props) {
 
 		trackServerEvent('page_view', {
 			page: 'profile',
-			slug: pageSlug,
-			owner: 'no',
+			page_owner: false,
+			url: `/in/${pageSlug}`
 		})
 	} else {
 		trackServerEvent('page_view', {
 			page: 'profile',
-			slug: pageSlug,
-			owner: 'yes',
+			page_owner: true,
+			url: `/in/${pageSlug}`
 		})
 	}
 

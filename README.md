@@ -6,23 +6,24 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 ## 📋 Features
 
 **Public Pages:**
-- Home: The main landing page showcasing the product, including a hero section, video presentation, pricing details, and FAQs.
-- Create Your Page: A secondary landing page similar to the home page but featuring an input field for users to enter a custom slug. Submitting the form directs them to social login to proceed.
-- Resources: A landing page optimized for programmatic SEO, targeting specific social networks to promote the service.
-- Profiles: Public profile pages created by users, displaying their avatar, name, introduction, social media links, and custom links. Users can also showcase their projects.
+- **Home:** The main landing page showcasing the product, including a hero section, video presentation, pricing details, and FAQs.
+- **Create Your Page:** A secondary landing page similar to the home page but featuring an input field for users to enter a custom slug. Submitting the form directs them to social login to proceed.
+- **Resources:** A landing page optimized for programmatic SEO, targeting specific social networks to promote the service.
+- **Profiles:** Public profile pages created by users, displaying their avatar, name, introduction, social media links, and custom links. Users can also showcase their projects.
 
 **Private Pages:**
-- Create Now: After social login, users complete their profile setup by entering a unique slug.
-- Profile: A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
-- Upgrade: If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
+- **Create Now:** After social login, users complete their profile setup by entering a unique slug.
+- **Profile:** A private version of the public profile with additional features, including edit buttons for all data, page visit analytics, and project click insights. If the user is in the trial period, a top bar prompts them to upgrade.
+- **Upgrade:** If the trial period expires and the user has no active payment or subscription, this page is displayed to select a plan via Stripe.
 
-<!-- ---
+---
 
-- Mixpanel Analytics
-- SEO
-- Stripe integration
-- Firebase integration
-- Next App Router + Use Cache + Server Components -->
+**Development:**
+- **Next.js 15 & React 19:** uses the App Router with Server Components for improved performance. Implements `unstable_cache` to optimize API usage.
+- **Mixpanel Analytics:** tracks user interactions on the server side and provides custom reports on app activity.
+- **Google Tag Manager & Google Analytics:** enables custom tracking tags and client-side interaction tracking for detailed analytics.
+- **Stripe:** handles subscriptions and one-time payments, leveraging webhooks to monitor payment events.
+- **Firebase:** utilizes Firestore for data persistence and Storage for file management.
 
 ## ⚙️ Tech Stack and tools
 <img alt="Turborepo" src="https://img.shields.io/badge/-Turborepo-05122A?style=flat&logo=turborepo" />&nbsp;
@@ -91,11 +92,11 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 ---
 
 <details>
-	<summary style="font-weight:bold;">4️⃣ Google Analytics and Mixpanel</summary>
+	<summary style="font-weight:bold;">4️⃣ Google Analytics, Google Tag Manager and Mixpanel Analytics</summary>
   
-   1. `NEXT_PUBLIC_GOOGLE_ANALYTICS`
-   1. `NEXT_PUBLIC_GOOGLE_TAG_MANAGER`
-   2. `MIXPANEL_SECRET`
+   1. `NEXT_PUBLIC_GOOGLE_TAG_MANAGER`: used to create custom tags for tracking along with Google Analytics. Theses tags are ready to be configured: `cta_home_clicks`, `create_page_effective`, `create_page_intention`, `click_to_upgrade` and `click_to_checkout`.
+   2. `NEXT_PUBLIC_GOOGLE_ANALYTICS`: used for tracking interactions on client side.
+   3. `MIXPANEL_SECRET`: used for tracking interactions with these events on server side: `page_view`, `page_create_intend`, `page_created` and `checkout_created`.
 </details>
 
 ---
