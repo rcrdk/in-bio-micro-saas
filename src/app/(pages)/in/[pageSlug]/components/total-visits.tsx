@@ -1,85 +1,25 @@
 'use client'
 
-import * as Collapsible from '@radix-ui/react-collapsible'
-import { Menu, TrendingUp } from 'lucide-react'
-import Link from 'next/link'
-import { useState } from 'react'
-
-import { TotalVisitsPortalButton } from '@/app/(pages)/in/[pageSlug]/components/total-visits-portal-button'
-import { authAction } from '@/app/actions/auth'
+import { TrendingUp } from 'lucide-react'
 
 type Props = {
 	counter: number
 	isPaid: boolean
 }
 
-export function TotalVisits({ counter = 0, isPaid }: Props) {
-	const [showMenu, setShowMenu] = useState(false)
-
+export function TotalVisits({ counter = 0 }: Props) {
 	return (
-		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background pointer-events-auto w-full rounded-xl border whitespace-nowrap shadow-lg backdrop-blur-xs select-none sm:w-auto">
-			<div className="flex items-center justify-center gap-3 px-3 py-2 sm:gap-5 sm:px-8 sm:py-3">
-				<span className="text-sm font-bold text-white sm:text-base">
-					Total de visitas
+		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background xs:px-8 xs:h-14 xs:gap-5 xs:justify-center pointer-events-auto flex h-12 w-full items-center justify-evenly gap-0 rounded-xl border whitespace-nowrap shadow-lg backdrop-blur-xs select-none sm:w-auto">
+			<span className="xs:text-base text-sm font-bold text-white">
+				Total de visitas
+			</span>
+
+			<div className="text-accent-green xs:gap-2 flex items-center gap-1">
+				<span className="xs:text-2xl text-xl font-bold sm:text-3xl">
+					{counter.toLocaleString('pt-br')}
 				</span>
-
-				<div className="text-accent-green flex items-center gap-1 sm:gap-2">
-					<span className="text-2xl font-bold sm:text-3xl">
-						{counter.toLocaleString('pt-br')}
-					</span>
-					<TrendingUp />
-				</div>
-
-				<div className="border-border-secondary ml-2 flex items-center gap-4 border-l pl-3 sm:hidden">
-					<button
-						className="p-1"
-						aria-label="Menu"
-						onClick={() => setShowMenu((prev) => !prev)}
-					>
-						<Menu />
-					</button>
-				</div>
-
-				<div className="border-border-secondary hidden items-center gap-4 border-l pl-5 sm:flex">
-					<Link
-						href="/"
-						className="focus-themed text-content-placeholder block py-1 text-base transition-colors hover:text-white"
-					>
-						Home
-					</Link>
-
-					{isPaid && <TotalVisitsPortalButton />}
-
-					<form action={authAction}>
-						<button className="focus-themed text-content-placeholder text-base transition-colors hover:text-white">
-							Sair
-						</button>
-					</form>
-				</div>
+				<TrendingUp />
 			</div>
-
-			<Collapsible.Root open={showMenu}>
-				<Collapsible.Content className="data-[state=closed]:animate-collapsible-close data-[state=open]:animate-collapsible-open overflow-hidden">
-					<div className="flex flex-wrap pb-1 text-center sm:hidden">
-						<div className="border-border-secondary/50 mb-1 w-full border-t" />
-
-						<Link
-							href="/"
-							className="focus-themed text-content-placeholder block grow py-1 text-base transition-colors hover:text-white"
-						>
-							Home
-						</Link>
-
-						{isPaid && <TotalVisitsPortalButton />}
-
-						<form action={authAction} className="grow">
-							<button className="focus-themed text-content-placeholder w-full py-1 text-base transition-colors hover:text-white">
-								Sair
-							</button>
-						</form>
-					</div>
-				</Collapsible.Content>
-			</Collapsible.Root>
 		</div>
 	)
 }
