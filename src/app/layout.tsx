@@ -21,7 +21,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="pt-br" className="bg-background-primary">
+		<html lang="pt-br" translate="no" className="bg-background-primary">
 			<body
 				className={`bg-background-primary text-content-body antialiased ${redHatDisplay.className}`}
 			>

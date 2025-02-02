@@ -2,7 +2,7 @@ import 'server-only'
 
 import { unstable_cache as cache } from 'next/cache'
 
-import type { ProfileData } from '@/http/dto/get-profile'
+import type { ProfileData } from '@/http/types/get-profile'
 import { DB } from '@/lib/firebase'
 
 async function getProfileBySlugFn(slug: string) {

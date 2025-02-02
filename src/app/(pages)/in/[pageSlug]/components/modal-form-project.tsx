@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/form-state'
-import type { ProjectData } from '@/http/dto/get-projects'
+import type { ProjectData } from '@/http/types/get-projects'
 
 type Props = {
 	open: boolean

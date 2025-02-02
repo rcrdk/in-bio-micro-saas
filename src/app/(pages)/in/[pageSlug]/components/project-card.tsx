@@ -9,8 +9,8 @@ import { useCallback, useState } from 'react'
 import { ModalRemoveProject } from '@/app/(pages)/in/[pageSlug]/components/modal-delete-project'
 import { ModalFormProject } from '@/app/(pages)/in/[pageSlug]/components/modal-form-project'
 import { Button } from '@/components/ui/button'
-import type { ProjectData } from '@/http/dto/get-projects'
 import { increaseProjectClicks } from '@/http/increase-project-clicks'
+import type { ProjectData } from '@/http/types/get-projects'
 import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {

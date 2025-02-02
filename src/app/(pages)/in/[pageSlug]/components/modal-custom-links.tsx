@@ -13,7 +13,7 @@ import { FormGroup } from '@/components/ui/form-group'
 import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/dto/get-profile'
+import type { ProfileData } from '@/http/types/get-profile'
 
 type Props = Pick<ProfileData, 'customLinks'>
 

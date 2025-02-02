@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { deleteProjectAction } from '@/app/actions/delete-project'
 import { Dialog } from '@/components/ui/dialog'
 import { useFormState } from '@/hooks/form-state'
-import type { ProjectData } from '@/http/dto/get-projects'
+import type { ProjectData } from '@/http/types/get-projects'
 
 type Props = {
 	open: boolean

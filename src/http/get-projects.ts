@@ -2,7 +2,7 @@ import 'server-only'
 
 import { unstable_cache as cache } from 'next/cache'
 
-import type { ProjectData } from '@/http/dto/get-projects'
+import type { ProjectData } from '@/http/types/get-projects'
 import { DB } from '@/lib/firebase'
 
 async function getProjectsFn(slug: string) {
