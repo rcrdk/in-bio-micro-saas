@@ -31,7 +31,7 @@ export function Button<T extends React.ElementType = 'button'>({ as, variant = '
 
 				size === 'sm' && !icon && 'px-4 h-10',
 				size === 'md' && !icon && 'px-6 h-12',
-				size === 'lg' && !icon && 'px-8 h-14 sm:h-16 text-lg',
+				size === 'lg' && !icon && 'px-8 h-14 sm:h-16 sm:text-lg',
 
 				size === 'sm' && icon && 'px-0 size-10',
 				size === 'md' && icon && 'px-0 size-12',

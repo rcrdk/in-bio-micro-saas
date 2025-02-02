@@ -33,7 +33,7 @@ export default function Cookies() {
 	return (
 		<RadixDialog.Root open={showMessage} onOpenChange={handleDismiss}>
 			<RadixDialog.Portal>
-				<RadixDialog.Overlay className="data-[state=open]:animate-dialog-overlay-show data-[state=closed]:animate-dialog-overlay-hide bg-background-modal/50 fixed inset-0 z-[98]" />
+				<RadixDialog.Overlay className="data-[state=open]:animate-dialog-overlay-show data-[state=closed]:animate-dialog-overlay-hide fixed inset-0 z-[98] bg-gradient-to-b from-black/75 to-black opacity-75" />
 
 				<RadixDialog.Content className="data-[state=open]:animate-dialog-cookies-show data-[state=closed]:animate-dialog-cookies-hide fixed right-0 bottom-8 left-0 z-[99]">
 					<RadixDialog.Title className="sr-only">
@@ -41,8 +41,8 @@ export default function Cookies() {
 					</RadixDialog.Title>
 
 					<Container>
-						<div className="border-border-secondary mx-auto flex max-w-[1100px] items-center gap-8 rounded-xl border bg-black px-8 py-5">
-							<p className="grow">
+						<div className="border-border-secondary xs:px-8 xs:py-5 mx-auto flex max-w-[1100px] flex-col items-center gap-6 rounded-xl border bg-black px-6 py-4 sm:flex-row sm:gap-8">
+							<p className="xs:text-base grow text-center text-sm text-pretty sm:text-left">
 								Este site usa cookies para lhe oferecer uma melhor experiência
 								de navegação. Ao continuar navegando, você concorda com o uso de
 								cookies de acordo com nossa{' '}
@@ -61,6 +61,7 @@ export default function Cookies() {
 								disabled={!showMessage}
 								type="button"
 								onClick={handleDismiss}
+								className="w-full sm:w-auto"
 							>
 								<ThumbsUp />
 								<span>Estou de acordo</span>

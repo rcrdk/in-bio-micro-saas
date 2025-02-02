@@ -21,7 +21,7 @@ export function PricingCard({
 	return (
 		<div
 			className={cn(
-				'flex w-[334px] flex-col items-center rounded-2xl select-none',
+				'flex w-[290px] flex-col items-center rounded-2xl select-none sm:w-[334px]',
 				isRecommend
 					? 'from-accent-purple to-accent-pink bg-linear-to-r p-[1.6px]'
 					: 'border-background-card-divider bg-background-primary border p-6 sm:p-8',
@@ -59,7 +59,7 @@ export function PricingCard({
 					<Text
 						variant="body-lg"
 						as="span"
-						className="text-content-headline text-2xl"
+						className="text-content-headline xs:text-2xl text-xl"
 					>
 						{priceLabel}
 					</Text>

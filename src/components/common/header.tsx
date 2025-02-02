@@ -71,7 +71,7 @@ export async function Header({ hidePageButton = false }: Props) {
 
 						<DropdownMenu.Content
 							align="end"
-							className="border-button-ghost bg-background-primary flex flex-col gap-3 rounded-xl border p-4 shadow-2xl"
+							className="border-button-ghost bg-background-primary flex min-w-48 flex-col gap-3 rounded-xl border p-4 shadow-2xl"
 							sideOffset={8}
 						>
 							{profile && session?.user && !hidePageButton && (

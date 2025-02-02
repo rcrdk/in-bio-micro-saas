@@ -70,7 +70,7 @@ export function FinishCreateSlugForm() {
 		<>
 			<form
 				onSubmit={handleSubmit}
-				className="mt-8 flex w-full flex-col gap-1 sm:flex-row sm:items-center"
+				className="mt-8 flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-1"
 			>
 				<div className="relative grow">
 					<div
@@ -101,7 +101,7 @@ export function FinishCreateSlugForm() {
 				</div>
 
 				<Button
-					className="ml-1 w-full min-w-36 sm:w-auto"
+					className="w-full min-w-36 sm:ml-1 sm:w-auto"
 					disabled={isSubmitting}
 					loading={isSubmitting}
 				>

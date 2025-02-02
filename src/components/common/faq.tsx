@@ -55,7 +55,7 @@ export function Faq() {
 				>
 					{content.map((item, index) => (
 						<Accordion.Item key={index} value={`item-${index}`}>
-							<Accordion.Trigger className="focus-themed flex w-full cursor-pointer items-center justify-between gap-6 px-6 py-4 text-left [&[data-state=open]_svg]:rotate-180">
+							<Accordion.Trigger className="focus-themed flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left sm:gap-6 sm:px-6 sm:py-4 [&[data-state=open]_svg]:rotate-180">
 								<Text variant="heading-sm">{item.title}</Text>
 								<ChevronDown
 									className="shrink-0 transition-transform"
@@ -64,7 +64,7 @@ export function Faq() {
 							</Accordion.Trigger>
 
 							<Accordion.Content className="data-[state=closed]:animate-accordion-close data-[state=open]:animate-accordion-open overflow-hidden">
-								<div className="px-6 pb-6">
+								<div className="px-4 pb-5 sm:px-6 sm:pb-6">
 									<Text>{item.description}</Text>
 								</div>
 							</Accordion.Content>

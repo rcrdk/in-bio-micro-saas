@@ -38,7 +38,7 @@ export function Hero() {
 					as={Link}
 					size="lg"
 					href="/crie-sua-pagina"
-					className="mt-12"
+					className="mt-10 w-full sm:mt-12 sm:w-auto"
 					onClick={() =>
 						sendGTMEvent({ event: 'cta_home_clicks', slug: 'home' })
 					}
