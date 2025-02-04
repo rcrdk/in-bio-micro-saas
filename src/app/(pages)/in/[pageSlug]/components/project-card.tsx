@@ -100,7 +100,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 							sideOffset={8}
 						>
 							<DropdownMenu.Item
-								className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors"
+								className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-all active:scale-95 active:duration-75"
 								onClick={handleToggleEditModal}
 							>
 								<Edit size={20} />
@@ -108,7 +108,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 							</DropdownMenu.Item>
 
 							<DropdownMenu.Item
-								className="focus-themed hover:bg-accent-pink/15 hover:text-accent-pink flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors"
+								className="focus-themed hover:bg-accent-pink/15 hover:text-accent-pink flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-all active:scale-95 active:duration-75"
 								onClick={handleToggleRemoveModal}
 							>
 								<Trash size={20} />

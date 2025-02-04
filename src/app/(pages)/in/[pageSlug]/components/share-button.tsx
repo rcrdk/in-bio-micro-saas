@@ -28,7 +28,7 @@ export function ShareButton({ pageSlug, mode }: Props) {
 		}
 
 		try {
-			await navigator.share({ url: shareLink })
+			await navigator.share({ title: 'Ok!', url: shareLink })
 		} catch (err) {
 			clipboard.copy(shareLink)
 
@@ -41,7 +41,7 @@ export function ShareButton({ pageSlug, mode }: Props) {
 	if (mode === 'sticky-bottom') {
 		return (
 			<button
-				className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background focus-themed hover:border-button-ghost-hover xs:size-14 pointer-events-auto hidden size-12 shrink-0 cursor-pointer items-center justify-center rounded-xl border shadow-lg backdrop-blur-xs select-none sm:flex"
+				className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background focus-themed hover:border-button-ghost-hover xs:size-14 pointer-events-auto hidden size-12 shrink-0 cursor-pointer items-center justify-center rounded-xl border shadow-lg backdrop-blur-xs transition-all select-none active:scale-95 active:duration-75 sm:flex"
 				onClick={handleCopyUrl}
 				aria-label="Compartilhar o link"
 			>

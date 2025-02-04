@@ -15,7 +15,7 @@ export function CreateProjectButton() {
 	return (
 		<>
 			<button
-				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-colors select-none"
+				className="focus-themed border-button-ghost bg-card-background hover:border-card-border flex min-h-[130px] grow cursor-pointer items-center justify-center gap-5 rounded-2xl border border-dashed p-3 transition-all select-none active:scale-95 active:duration-75"
 				onClick={handleToggleModal}
 			>
 				<Plus className="text-accent-green size-7" />

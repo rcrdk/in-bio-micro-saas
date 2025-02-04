@@ -11,7 +11,7 @@ export function UserControlsPortalButton() {
 	return (
 		<DropdownMenu.Item asChild>
 			<button
-				className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors"
+				className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-all active:scale-95 active:duration-75"
 				onClick={createStripePortal}
 			>
 				<BadgeDollarSign size={20} />
