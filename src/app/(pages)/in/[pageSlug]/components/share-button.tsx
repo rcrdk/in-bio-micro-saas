@@ -28,7 +28,7 @@ export function ShareButton({ pageSlug, mode }: Props) {
 		}
 
 		try {
-			await navigator.share({ title: 'Ok!', url: shareLink })
+			await navigator.share({ url: shareLink })
 		} catch (err) {
 			clipboard.copy(shareLink)
 
