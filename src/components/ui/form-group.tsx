@@ -8,7 +8,7 @@ export function FormGroup({ ...props }: Props) {
 	return (
 		<div
 			{...props}
-			className={cn('relative flex flex-col gap-2', props.className)}
+			className={cn('relative flex flex-col gap-1 sm:gap-2', props.className)}
 		/>
 	)
 }

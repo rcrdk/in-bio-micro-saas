@@ -13,6 +13,7 @@ import Link from 'next/link'
 import { ModalCustomLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-custom-links'
 import { ModalProfileInformation } from '@/app/(pages)/in/[pageSlug]/components/modal-profile-information'
 import { ModalSocialLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-social-links'
+import { ShareButton } from '@/app/(pages)/in/[pageSlug]/components/share-button'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
 import type { ProfileData, ProfileSocialMedia } from '@/http/types/get-profile'
@@ -98,7 +99,7 @@ export async function UserCard({ data, isOwner }: Props) {
 								variant="body-sm"
 								className="font-medium uppercase select-none"
 							>
-								Links
+								Redes sociais
 							</Text>
 
 							<div className="flex flex-wrap gap-2">
@@ -148,6 +149,8 @@ export async function UserCard({ data, isOwner }: Props) {
 						</div>
 					</>
 				)}
+
+				{isOwner && <ShareButton mode="user-card" pageSlug={data.slug} />}
 			</div>
 		</div>
 	)

@@ -49,7 +49,7 @@ export function Hero() {
 			</div>
 
 			<div className="absolute inset-0 -z-10">
-				<div className="absolute inset-0 z-10 bg-[repeating-linear-gradient(to_right,_transparent,_transparent_45px,_#ffffff_46px)] opacity-20" />
+				<div className="absolute inset-0 z-10 bg-[repeating-linear-gradient(to_right,_transparent,_transparent_45px,_#ffffff_46px)] opacity-10" />
 				<div className="before:bg-accent-purple absolute bottom-full left-1/2 w-[157px] max-w-[75%] -translate-x-1/2 translate-y-32 translate-z-0 opacity-60 mix-blend-lighten blur-[580px] backface-hidden before:block before:aspect-9/16 before:rounded-full" />
 				<div className="before:bg-accent-purple absolute bottom-full left-1/2 w-[480px] max-w-[75%] -translate-x-1/2 translate-y-8 translate-z-0 opacity-60 mix-blend-lighten blur-[580px] backface-hidden before:block before:aspect-square before:rounded-full" />
 				<div className="before:bg-accent-purple absolute bottom-full left-1/2 w-[480px] max-w-[75%] -translate-x-1/2 translate-y-8 translate-z-0 opacity-60 mix-blend-lighten blur-[580px] backface-hidden before:block before:aspect-square before:rounded-full" />

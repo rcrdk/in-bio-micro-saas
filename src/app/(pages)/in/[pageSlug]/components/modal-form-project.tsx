@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { useWindowSize } from 'react-haiku'
 import { toast } from 'sonner'
 
 import { createProjectAction } from '@/app/actions/create-project'
@@ -34,6 +35,7 @@ export function ModalFormProject({
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const { pageSlug } = useParams()
+	const { width } = useWindowSize()
 
 	const formActionByMode =
 		mode === 'create' ? createProjectAction : updateProjectAction
@@ -85,7 +87,7 @@ export function ModalFormProject({
 
 					<FormImage mode="project" currentImage={initialImage} />
 
-					<div className="flex grow flex-col gap-4">
+					<div className="flex grow flex-col gap-2 sm:gap-4">
 						<FormGroup>
 							<Label htmlFor="name">Nome do projeto:</Label>
 							<Input
@@ -102,6 +104,7 @@ export function ModalFormProject({
 							<Label htmlFor="url">Link do projeto:</Label>
 							<Input
 								placeholder="Digite o link do projeto"
+								inputMode="url"
 								id="url"
 								name="url"
 								defaultValue={initialData?.url}
@@ -116,7 +119,7 @@ export function ModalFormProject({
 								placeholder="Dê uma breve descrição do seu projeto"
 								id="description"
 								name="description"
-								rows={3}
+								rows={width < 640 ? 6 : 3}
 								defaultValue={initialData?.description}
 								error={errors?.description}
 							/>

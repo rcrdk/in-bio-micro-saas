@@ -25,7 +25,7 @@ export function UserControls({ isPaid }: Props) {
 				align="end"
 				side="top"
 				sideOffset={8}
-				className="bg-sticky-background border-sticky-border pointer-events-auto flex flex-col gap-1 rounded-xl border p-2 shadow-lg"
+				className="bg-sticky-background border-sticky-border pointer-events-auto flex flex-col gap-1 rounded-xl border p-2 shadow-lg select-none"
 			>
 				<DropdownMenu.Item asChild>
 					<Link
@@ -40,10 +40,12 @@ export function UserControls({ isPaid }: Props) {
 				{isPaid && <UserControlsPortalButton />}
 
 				<form action={authAction}>
-					<button className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors">
-						<LogOut size={20} />
-						Sair
-					</button>
+					<DropdownMenu.Item asChild>
+						<button className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors">
+							<LogOut size={20} />
+							Finalizar sessão
+						</button>
+					</DropdownMenu.Item>
 				</form>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>

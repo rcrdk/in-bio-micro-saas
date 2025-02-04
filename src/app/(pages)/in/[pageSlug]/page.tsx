@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation'
 
 import { CreateProjectButton } from '@/app/(pages)/in/[pageSlug]/components/create-project-button'
 import { ProjectCard } from '@/app/(pages)/in/[pageSlug]/components/project-card'
+import { ShareButton } from '@/app/(pages)/in/[pageSlug]/components/share-button'
 import { TotalVisits } from '@/app/(pages)/in/[pageSlug]/components/total-visits'
 import { UpgradeMessage } from '@/app/(pages)/in/[pageSlug]/components/upgrade-message'
 import { UserCard } from '@/app/(pages)/in/[pageSlug]/components/user-card'
@@ -113,13 +114,14 @@ export default async function ProfilePage({ params }: Props) {
 			</Container>
 
 			{isProfileOwner && (
-				<div className="pointer-events-none sticky bottom-0 flex items-center justify-center px-6 pb-6 gap-2 pt-6 sm:pt-10 bg-gradient-to-b from-background-primary/0 to-background-primary">
+				<div className="lg:pl-[388px] pointer-events-none sticky bottom-0 flex items-center justify-center px-6 pb-6 gap-2 pt-6 sm:pt-10 bg-gradient-to-b from-background-primary/0 to-background-primary">
 					<TotalVisits
 						counter={profileData.totalVisits}
 						isPaid={profileData.isPaid}
 					/>
 
 					<UserControls isPaid={profileData.isPaid} />
+					<ShareButton mode='sticky-bottom' pageSlug={profileData.slug} />
 				</div>
 			)}
 		</div>

@@ -76,7 +76,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 				<form onSubmit={handleSubmit} ref={formRef}>
 					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
 
-					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+					<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
 						<div className="relative">
 							<Github className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2" />
 							<Input
@@ -84,6 +84,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="github"
 								defaultValue={socialMedia.github}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 
@@ -94,6 +95,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="linkedin"
 								defaultValue={socialMedia.linkedin}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 
@@ -104,6 +106,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="twitter"
 								defaultValue={socialMedia.twitter}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 
@@ -114,6 +117,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="instagram"
 								defaultValue={socialMedia.instagram}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 
@@ -124,6 +128,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="youtube"
 								defaultValue={socialMedia.youtube}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 
@@ -134,6 +139,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 								name="facebook"
 								defaultValue={socialMedia.facebook}
 								className="pl-14"
+								inputMode="url"
 							/>
 						</div>
 					</div>

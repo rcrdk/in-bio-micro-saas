@@ -38,7 +38,10 @@ export function Dialog({
 				<RadixDialog.Overlay className="data-[state=open]:animate-dialog-overlay-show data-[state=closed]:animate-dialog-overlay-hide bg-background-modal/50 fixed inset-0 z-[98] backdrop-blur-sm" />
 
 				<RadixDialog.Overlay className="fixed inset-0 z-[99] overflow-y-auto">
-					<RadixDialog.Content className="data-[state=open]:animate-dialog-content-show data-[state=closed]:animate-dialog-content-hide sm-p-6 !pointer-events-none flex min-h-svh items-end justify-center p-4 sm:items-center md:p-10">
+					<RadixDialog.Content
+						className="data-[state=open]:animate-dialog-content-show data-[state=closed]:animate-dialog-content-hide sm-p-6 !pointer-events-none flex min-h-svh items-end justify-center p-4 sm:items-center md:p-10"
+						onOpenAutoFocus={(e) => e.preventDefault()}
+					>
 						<div
 							className={cn(
 								'bg-background-primary border-border-primary pointer-events-auto flex w-full flex-col rounded-3xl border p-6 sm:gap-8 sm:p-8',

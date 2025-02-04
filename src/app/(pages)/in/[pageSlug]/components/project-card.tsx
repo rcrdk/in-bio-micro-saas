@@ -96,22 +96,22 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 
 						<DropdownMenu.Content
 							align="end"
-							className="border-button-ghost bg-background-primary flex flex-col gap-2 rounded-xl border px-2 py-3 shadow-2xl select-none"
+							className="bg-sticky-background border-sticky-border pointer-events-auto flex flex-col gap-1 rounded-xl border p-2 shadow-lg select-none"
 							sideOffset={8}
 						>
 							<DropdownMenu.Item
-								className="focus-themed flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors hover:text-white/60"
+								className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors"
 								onClick={handleToggleEditModal}
 							>
-								<Edit size={18} />
+								<Edit size={20} />
 								Editar
 							</DropdownMenu.Item>
 
 							<DropdownMenu.Item
-								className="focus-themed hover:text-accent-pink flex cursor-pointer items-center gap-3 px-3 py-2 text-sm font-medium transition-colors"
+								className="focus-themed hover:bg-accent-pink/15 hover:text-accent-pink flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-colors"
 								onClick={handleToggleRemoveModal}
 							>
-								<Trash size={18} />
+								<Trash size={20} />
 								Remover
 							</DropdownMenu.Item>
 						</DropdownMenu.Content>

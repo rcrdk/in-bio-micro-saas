@@ -3,7 +3,7 @@
 import '@/styles/globals.css'
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
-import { CircleAlert, CircleCheck } from 'lucide-react'
+import { CircleAlert, CircleCheck, Info } from 'lucide-react'
 import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 import { Toaster } from 'sonner'
 
@@ -40,9 +40,11 @@ export default function RootLayout({
 							description: 'text-sm',
 							error: 'bg-red-500 border-red-500',
 							success: 'bg-accent-green border-accent-green',
+							info: 'bg-accent-purple border-accent-purple',
 						},
 					}}
 					icons={{
+						info: <Info />,
 						error: <CircleAlert size={24} />,
 						success: <CircleCheck size={24} />,
 					}}

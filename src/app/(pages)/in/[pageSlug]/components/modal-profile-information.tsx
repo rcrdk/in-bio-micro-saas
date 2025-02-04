@@ -3,6 +3,7 @@
 import { UserPen } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useWindowSize } from 'react-haiku'
 import { toast } from 'sonner'
 
 import { updateProfileInformationAction } from '@/app/actions/update-profile-information'
@@ -28,6 +29,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 	const [open, setOpen] = useState(false)
 
 	const { pageSlug } = useParams()
+	const { width } = useWindowSize()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
@@ -78,7 +80,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 
 					<FormImage mode="user" currentImage={profileAvatar} />
 
-					<div className="flex grow flex-col gap-4">
+					<div className="flex grow flex-col gap-2 sm:gap-4">
 						<FormGroup>
 							<Label htmlFor="name">Seu nome</Label>
 							<Input
@@ -98,7 +100,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 								name="description"
 								id="description"
 								defaultValue={initialData.description}
-								rows={2}
+								rows={width < 640 ? 4 : 2}
 								error={errors?.description}
 							/>
 							<FormError message={errors?.description} />

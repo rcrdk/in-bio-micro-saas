@@ -69,7 +69,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 			>
 				<form
 					onSubmit={handleSubmit}
-					className="flex flex-col gap-4"
+					className="sm::gap-4 flex flex-col gap-2"
 					ref={formRef}
 				>
 					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
