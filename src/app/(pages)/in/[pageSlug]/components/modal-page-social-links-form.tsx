@@ -13,27 +13,27 @@ import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { updateProfileSocialMedia } from '@/app/actions/update-profile-social-media'
+import { updatePageSocialMediaAction } from '@/app/actions/update-page-social-media'
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/types/get-profile'
+import type { PageData } from '@/http/types/get-page'
 
-type Props = Pick<ProfileData, 'socialMedia'>
+type Props = Pick<PageData, 'socialMedia'>
 
-export function ModalSocialLinks({ socialMedia }: Props) {
+export function ModalPageSocialLinksForm({ socialMedia }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const [open, setOpen] = useState(false)
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
 	}
 
 	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
-		updateProfileSocialMedia,
+		updatePageSocialMediaAction,
 		{
 			onSuccess() {
 				handleToggleModal()
@@ -44,10 +44,10 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 
 	useEffect(() => {
 		if (!success && message) {
-			toast.error(message, { id: 'save-profile-social-media' })
+			toast.error(message, { id: 'save-page-social-media' })
 		}
 		if (success && message) {
-			toast.success(message, { id: 'save-profile-social-media' })
+			toast.success(message, { id: 'save-page-social-media' })
 		}
 	}, [success, message, isSubmitting])
 
@@ -74,7 +74,7 @@ export function ModalSocialLinks({ socialMedia }: Props) {
 				onOpenChange={handleToggleModal}
 			>
 				<form onSubmit={handleSubmit} ref={formRef}>
-					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
+					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
 					<div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
 						<div className="relative">

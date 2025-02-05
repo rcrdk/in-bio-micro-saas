@@ -10,18 +10,18 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { ModalCustomLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-custom-links'
-import { ModalProfileInformation } from '@/app/(pages)/in/[pageSlug]/components/modal-profile-information'
-import { ModalSocialLinks } from '@/app/(pages)/in/[pageSlug]/components/modal-social-links'
+import { ModalPageCustomLinksForm } from '@/app/(pages)/in/[pageSlug]/components/modal-page-custom-links-form'
+import { ModalPageInformationForm } from '@/app/(pages)/in/[pageSlug]/components/modal-page-information-form'
+import { ModalPageSocialLinksForm } from '@/app/(pages)/in/[pageSlug]/components/modal-page-social-links-form'
 import { ShareButton } from '@/app/(pages)/in/[pageSlug]/components/share-button'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
-import type { ProfileData, ProfileSocialMedia } from '@/http/types/get-profile'
+import type { PageData, PageSocialNetworks } from '@/http/types/get-page'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {
-	data: ProfileData
+	data: PageData
 	isOwner: boolean
 }
 
@@ -29,9 +29,9 @@ export async function UserCard({ data, isOwner }: Props) {
 	// eslint-disable-next-line prettier/prettier
 	const customLinks = data.customLinks && Object.values(data.customLinks).filter(({ title, url }) => title && url)
 	// eslint-disable-next-line prettier/prettier
-	const socialMedia = data.socialMedia && Object.entries(data.socialMedia).filter(([, value]) => value) as [ProfileSocialMedia, string][]
+	const socialMedia = data.socialMedia && Object.entries(data.socialMedia).filter(([, value]) => value) as [PageSocialNetworks, string][]
 
-	function renderSocialNetwork(socialNetwork: ProfileSocialMedia) {
+	function renderSocialNetwork(socialNetwork: PageSocialNetworks) {
 		switch (socialNetwork) {
 			case 'github':
 				return { icon: <Github />, url: 'https://github.com' }
@@ -48,7 +48,7 @@ export async function UserCard({ data, isOwner }: Props) {
 		}
 	}
 
-	const currentProfilePicture = await getDownloadUrlFromPath(data.imagePath)
+	const currentPageAvatar = await getDownloadUrlFromPath(data.imagePath)
 
 	const shouldDisplayCustomLinks = customLinks.length || isOwner
 	const shouldDisplaySocialMediaLinks = socialMedia.length || isOwner
@@ -56,9 +56,9 @@ export async function UserCard({ data, isOwner }: Props) {
 	return (
 		<div className="border-card-border bg-card-background flex w-full flex-col items-center gap-5 rounded-3xl border p-5 text-white sm:w-[348px] sm:max-w-[348px]">
 			<div className="bg-image-background relative flex size-48 items-center justify-center rounded-full select-none">
-				{currentProfilePicture ? (
+				{currentPageAvatar ? (
 					<Image
-						src={currentProfilePicture}
+						src={currentPageAvatar}
 						width={460}
 						height={460}
 						alt=""
@@ -69,9 +69,9 @@ export async function UserCard({ data, isOwner }: Props) {
 				)}
 
 				{isOwner && (
-					<ModalProfileInformation
+					<ModalPageInformationForm
 						initialData={data}
-						profileAvatar={currentProfilePicture}
+						currentAvatar={currentPageAvatar}
 					/>
 				)}
 			</div>
@@ -120,7 +120,9 @@ export async function UserCard({ data, isOwner }: Props) {
 									)
 								})}
 
-								{isOwner && <ModalSocialLinks socialMedia={data.socialMedia} />}
+								{isOwner && (
+									<ModalPageSocialLinksForm socialMedia={data.socialMedia} />
+								)}
 							</div>
 						</div>
 					</>
@@ -144,7 +146,9 @@ export async function UserCard({ data, isOwner }: Props) {
 									</Button>
 								))}
 
-								{isOwner && <ModalCustomLinks customLinks={data.customLinks} />}
+								{isOwner && (
+									<ModalPageCustomLinksForm customLinks={data.customLinks} />
+								)}
 							</div>
 						</div>
 					</>

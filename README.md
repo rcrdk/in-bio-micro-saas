@@ -9,7 +9,7 @@ ProjectInBio serves as a micro SaaS boilerplate, in this case users can create t
 - **Home:** The main landing page showcasing the product, including a hero section, video presentation, pricing details, and FAQs.
 - **Create Your Page:** A secondary landing page similar to the home page but featuring an input field for users to enter a custom slug. Submitting the form directs them to social login to proceed.
 - **Resources:** A landing page optimized for programmatic SEO, targeting specific social networks to promote the service.
-- **Profiles:** Public profile pages created by users, displaying their avatar, name, introduction, social media links, and custom links. Users can also showcase their projects.
+- **Pages:** Public profile pages created by users, displaying their avatar, name, introduction, social media links, and custom links. Users can also showcase their projects.
 
 **Private Pages:**
 - **Create Now:** After social login, users complete their profile setup by entering a unique slug.

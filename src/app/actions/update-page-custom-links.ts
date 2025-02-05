@@ -8,7 +8,7 @@ import { auth } from '@/lib/auth'
 import { DB } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
-const profileCustomLinksSchema = z.object({
+const pageCustomLinksSchema = z.object({
 	pageSlug: z.string().min(1, 'Informe o link da página.'),
 	title1: z.string().optional(),
 	title2: z.string().optional(),
@@ -18,8 +18,8 @@ const profileCustomLinksSchema = z.object({
 	url3: z.string().url('Informe um link válido').optional().or(z.literal('')),
 })
 
-export async function updateProfileCustomLinks(data: FormData) {
-	const result = profileCustomLinksSchema.safeParse(Object.fromEntries(data))
+export async function updatePageCustomLinksAction(data: FormData) {
+	const result = pageCustomLinksSchema.safeParse(Object.fromEntries(data))
 
 	if (!result.success) {
 		const errors = result.error.flatten().fieldErrors
@@ -41,11 +41,19 @@ export async function updateProfileCustomLinks(data: FormData) {
 		}
 	}
 
-	const { pageSlug, title1, title2, title3, url1, url2, url3 } = result.data
+	const {
+		pageSlug: slug,
+		title1,
+		title2,
+		title3,
+		url1,
+		url2,
+		url3,
+	} = result.data
 
 	try {
-		await DB.collection('profiles')
-			.doc(pageSlug)
+		await DB.collection('pages')
+			.doc(slug)
 			.update({
 				customLinks: {
 					link1: {
@@ -64,8 +72,8 @@ export async function updateProfileCustomLinks(data: FormData) {
 				updatedAt: Timestamp.now().toMillis(),
 			})
 
-		revalidateTag(`get-profile-by-slug-${pageSlug}`)
-		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
+		revalidateTag(`get-page-by-slug-${slug}`)
+		revalidateTag(`get-page-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,
@@ -76,7 +84,7 @@ export async function updateProfileCustomLinks(data: FormData) {
 
 	return {
 		success: true,
-		message: actionsMessages.success.PROFILE_CUSTOM_LINKS_SAVED,
+		message: actionsMessages.success.PAGE_CUSTOM_LINKS_SAVED,
 		errors: null,
 	}
 }

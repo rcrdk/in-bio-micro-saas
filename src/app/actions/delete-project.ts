@@ -35,13 +35,13 @@ export async function deleteProjectAction(data: FormData) {
 		}
 	}
 
-	const { pageSlug, projectId } = result.data
+	const { pageSlug: slug, projectId: id } = result.data
 
 	try {
-		const projectRef = DB.collection('profiles')
-			.doc(pageSlug)
+		const projectRef = DB.collection('pages')
+			.doc(slug)
 			.collection('projects')
-			.doc(projectId)
+			.doc(id)
 
 		const imagePath = (await projectRef?.get()).data()?.imagePath
 
@@ -54,7 +54,7 @@ export async function deleteProjectAction(data: FormData) {
 
 		await projectRef.delete()
 
-		revalidateTag(`get-projects-${pageSlug}`)
+		revalidateTag(`get-projects-${slug}`)
 	} catch (error) {
 		return {
 			success: false,

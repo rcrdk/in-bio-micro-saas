@@ -15,17 +15,17 @@ export function AvailablePlans() {
 	const [isSubmitting, setIsSubmitting] = useState<CheckoutType | null>(null)
 
 	const { createStripeCheckout } = useStripe()
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 
 	async function handleCreateCheckout(mode: CheckoutType) {
-		sendGTMEvent({ event: 'click_to_checkout', slug: pageSlug, method: mode })
+		sendGTMEvent({ event: 'click_to_checkout', slug, method: mode })
 
 		try {
 			setIsSubmitting(mode)
 
 			await createStripeCheckout({
 				metadata: {
-					pageSlug,
+					pageSlug: slug,
 				},
 				isSubscription: mode === 'subscription',
 			})

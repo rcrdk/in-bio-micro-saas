@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
-import { updateProfileCustomLinks } from '@/app/actions/update-profile-custom-links'
+import { updatePageCustomLinksAction } from '@/app/actions/update-page-custom-links'
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { FormError } from '@/components/ui/form-error'
@@ -13,22 +13,22 @@ import { FormGroup } from '@/components/ui/form-group'
 import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/types/get-profile'
+import type { PageData } from '@/http/types/get-page'
 
-type Props = Pick<ProfileData, 'customLinks'>
+type Props = Pick<PageData, 'customLinks'>
 
-export function ModalCustomLinks({ customLinks }: Props) {
+export function ModalPageCustomLinksForm({ customLinks }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const [open, setOpen] = useState(false)
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 
 	function handleToggleModal() {
 		setOpen((prev) => !prev)
 	}
 
 	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(updateProfileCustomLinks, {
+		useFormState(updatePageCustomLinksAction, {
 			onSuccess() {
 				handleToggleModal()
 			},
@@ -37,10 +37,10 @@ export function ModalCustomLinks({ customLinks }: Props) {
 
 	useEffect(() => {
 		if (!success && message) {
-			toast.error(message, { id: 'save-profile-custom-links' })
+			toast.error(message, { id: 'save-page-custom-links' })
 		}
 		if (success && message) {
-			toast.success(message, { id: 'save-profile-custom-links' })
+			toast.success(message, { id: 'save-page-custom-links' })
 		}
 	}, [success, message, isSubmitting])
 
@@ -72,7 +72,7 @@ export function ModalCustomLinks({ customLinks }: Props) {
 					className="sm::gap-4 flex flex-col gap-2"
 					ref={formRef}
 				>
-					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
+					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
 					<div className="flex flex-col gap-2 sm:flex-row sm:items-start">
 						<Text variant="heading-xs" className="text-center sm:hidden">

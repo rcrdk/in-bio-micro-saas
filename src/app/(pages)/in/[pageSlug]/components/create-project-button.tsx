@@ -3,7 +3,7 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
-import { ModalFormProject } from '@/app/(pages)/in/[pageSlug]/components/modal-form-project'
+import { ModalProjectForm } from '@/app/(pages)/in/[pageSlug]/components/modal-project-form'
 
 export function CreateProjectButton() {
 	const [open, setOpen] = useState(false)
@@ -22,7 +22,7 @@ export function CreateProjectButton() {
 				<span className="font-medium">Novo projeto</span>
 			</button>
 
-			<ModalFormProject
+			<ModalProjectForm
 				open={open}
 				onOpenChange={handleToggleModal}
 				mode="create"

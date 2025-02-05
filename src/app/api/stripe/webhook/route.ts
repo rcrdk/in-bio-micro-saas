@@ -27,13 +27,13 @@ export async function POST(req: NextRequest) {
 			case 'checkout.session.completed':
 				{
 					const subscription = event.data.object
-					const pageSlug = subscription?.metadata?.pageSlug
+					const slug = subscription?.metadata?.pageSlug
 
 					if (subscription.payment_status === 'paid') {
 						const userId = subscription.client_reference_id
 
-						if (userId && pageSlug) {
-							DB.collection('profiles').doc(pageSlug).update({
+						if (userId && slug) {
+							DB.collection('pages').doc(slug).update({
 								isPaid: true,
 								subscriptionEndedAt: null,
 							})
@@ -64,8 +64,8 @@ export async function POST(req: NextRequest) {
 						}
 					}
 
-					if (pageSlug) {
-						revalidateTag(`get-profile-by-slug-${pageSlug}`)
+					if (slug) {
+						revalidateTag(`get-page-by-slug-${slug}`)
 					}
 				}
 				break
@@ -81,15 +81,15 @@ export async function POST(req: NextRequest) {
 						)) as StripePackage.Customer
 
 						if (customer && customer.metadata.pageSlug) {
-							const pageSlug = customer.metadata.pageSlug
+							const slug = customer.metadata.pageSlug
 
-							DB.collection('profiles').doc(pageSlug).update({
+							DB.collection('pages').doc(slug).update({
 								isPaid: true,
 								subscriptionEndedAt: null,
 							})
 
-							if (pageSlug) {
-								revalidateTag(`get-profile-by-slug-${pageSlug}`)
+							if (slug) {
+								revalidateTag(`get-page-by-slug-${slug}`)
 							}
 						}
 					}
@@ -107,15 +107,15 @@ export async function POST(req: NextRequest) {
 						)) as StripePackage.Customer
 
 						if (customer && customer.metadata.pageSlug) {
-							const pageSlug = customer.metadata.pageSlug
+							const slug = customer.metadata.pageSlug
 
-							DB.collection('profiles').doc(pageSlug).update({
+							DB.collection('pages').doc(slug).update({
 								isPaid: false,
 								subscriptionEndedAt: null,
 							})
 
-							if (pageSlug) {
-								revalidateTag(`get-profile-by-slug-${pageSlug}`)
+							if (slug) {
+								revalidateTag(`get-page-by-slug-${slug}`)
 							}
 						}
 					}
@@ -132,20 +132,20 @@ export async function POST(req: NextRequest) {
 					)) as StripePackage.Customer
 
 					if (customer && customer.metadata.pageSlug) {
-						const pageSlug = customer.metadata.pageSlug
+						const slug = customer.metadata.pageSlug
 
 						const isScheduleToEnd = subscription.cancel_at_period_end
 
-						DB.collection('profiles')
-							.doc(pageSlug)
+						DB.collection('pages')
+							.doc(slug)
 							.update({
 								subscriptionEndedAt: isScheduleToEnd
 									? subscription.current_period_end * 1000
 									: null,
 							})
 
-						if (pageSlug) {
-							revalidateTag(`get-profile-by-slug-${pageSlug}`)
+						if (slug) {
+							revalidateTag(`get-page-by-slug-${slug}`)
 						}
 					}
 				}

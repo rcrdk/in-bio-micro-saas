@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-import { getProfileByUserId } from '@/http/get-profile-by-user-id'
+import { getPageByUserId } from '@/http/get-page-by-user-id'
 import { auth } from '@/lib/auth'
 
 type Props = {
@@ -14,10 +14,10 @@ export default async function RootLayout({ children }: Props) {
 		return redirect('/')
 	}
 
-	const profile = await getProfileByUserId(session.user.id)
+	const page = await getPageByUserId(session.user.id)
 
-	if (profile) {
-		return redirect(`/in/${profile.slug}`)
+	if (page) {
+		return redirect(`/in/${page.slug}`)
 	}
 
 	return <>{children}</>

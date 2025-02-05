@@ -6,8 +6,8 @@ import Image from 'next/image'
 import { useParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
-import { ModalRemoveProject } from '@/app/(pages)/in/[pageSlug]/components/modal-delete-project'
-import { ModalFormProject } from '@/app/(pages)/in/[pageSlug]/components/modal-form-project'
+import { ModalProjectDelete } from '@/app/(pages)/in/[pageSlug]/components/modal-project-delete'
+import { ModalProjectForm } from '@/app/(pages)/in/[pageSlug]/components/modal-project-form'
 import { Button } from '@/components/ui/button'
 import { increaseProjectClicks } from '@/http/increase-project-clicks'
 import type { ProjectData } from '@/http/types/get-projects'
@@ -20,7 +20,7 @@ type Props = {
 }
 
 export function ProjectCard({ data, image, isOwner }: Props) {
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 
 	const [openEdit, setOpenEdit] = useState(false)
 	const [openRemove, setOpenRemove] = useState(false)
@@ -34,8 +34,8 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 	}, [])
 
 	async function handleClickProject() {
-		if (!pageSlug || !data.id || isOwner) return
-		await increaseProjectClicks(String(pageSlug), data.id)
+		if (!slug || !data.id || isOwner) return
+		await increaseProjectClicks(String(slug), data.id)
 	}
 
 	return (
@@ -117,7 +117,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 
-					<ModalFormProject
+					<ModalProjectForm
 						open={openEdit}
 						onOpenChange={handleToggleEditModal}
 						mode="edit"
@@ -125,7 +125,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						initialImage={image}
 					/>
 
-					<ModalRemoveProject
+					<ModalProjectDelete
 						open={openRemove}
 						onOpenChange={handleToggleRemoveModal}
 						project={data}

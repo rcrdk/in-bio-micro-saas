@@ -25,7 +25,7 @@ type Props = {
 	initialImage?: string
 }
 
-export function ModalFormProject({
+export function ModalProjectForm({
 	open,
 	onOpenChange,
 	mode,
@@ -34,7 +34,7 @@ export function ModalFormProject({
 }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 	const { width } = useWindowSize()
 
 	const formActionByMode =
@@ -75,7 +75,7 @@ export function ModalFormProject({
 					className="flex flex-col gap-8 sm:flex-row"
 					ref={formRef}
 				>
-					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
+					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
 					{mode === 'edit' && initialData && (
 						<input

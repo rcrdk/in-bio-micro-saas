@@ -12,8 +12,8 @@ type Props = {
 	mode: 'sticky-bottom' | 'user-card'
 }
 
-export function ShareButton({ pageSlug, mode }: Props) {
-	const shareLink = `${env.NEXT_PUBLIC_APP_URL}/in/${pageSlug}`
+export function ShareButton({ pageSlug: slug, mode }: Props) {
+	const shareLink = `${env.NEXT_PUBLIC_APP_URL}/in/${slug}`
 	const toastMessage =
 		'O link da página foi copiado para área de transferiencia.'
 

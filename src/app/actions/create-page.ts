@@ -5,7 +5,7 @@ import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
-import { verifyProfileSlugExistence } from '@/http/verify-profile-slug-existence'
+import { verifyPageSlugExistence } from '@/http/verify-page-slug-existence'
 import { auth } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { DB } from '@/lib/firebase'
@@ -42,7 +42,7 @@ export async function createPageAction(data: FormData) {
 	const { slug } = result.data
 
 	try {
-		const slugAlreadyInUse = await verifyProfileSlugExistence(slug)
+		const slugAlreadyInUse = await verifyPageSlugExistence(slug)
 
 		if (slugAlreadyInUse) {
 			return {
@@ -56,7 +56,7 @@ export async function createPageAction(data: FormData) {
 			.add(env.NEXT_PUBLIC_TRIAL_DAYS, 'days')
 			.valueOf()
 
-		await DB.collection('profiles')
+		await DB.collection('pages')
 			.doc(slug)
 			.set({
 				userId: session.user.id,
@@ -89,7 +89,7 @@ export async function createPageAction(data: FormData) {
 			url: `/in/${slug}`,
 		})
 
-		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
+		revalidateTag(`get-page-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,

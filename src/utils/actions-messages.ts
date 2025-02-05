@@ -9,9 +9,9 @@ export const actionsMessages = {
 	},
 
 	success: {
-		PROFILE_DATA_SAVED: 'Suas informações foram salvas com sucesso.',
-		PROFILE_SOCIAL_LINKS_SAVED: 'Seus links de redes sociais foram salvos com sucesso.',
-		PROFILE_CUSTOM_LINKS_SAVED: 'Seus links personalizados foram salvos com sucesso.',
+		PAGE_DATA_SAVED: 'Suas informações foram salvas com sucesso.',
+		PAGE_SOCIAL_LINKS_SAVED: 'Seus links de redes sociais foram salvos com sucesso.',
+		PAGE_CUSTOM_LINKS_SAVED: 'Seus links personalizados foram salvos com sucesso.',
 		PROJECT_CREATED: 'Seu novo projeto foi criado com sucesso.',
 		PROJECT_UPDATED: 'Seu projeto foi atualizado com sucesso.',
 		PROJECT_DELETED: 'Seu projeto foi removido com sucesso.',

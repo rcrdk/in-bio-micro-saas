@@ -15,10 +15,10 @@ type Props = {
 	project: ProjectData
 }
 
-export function ModalRemoveProject({ open, onOpenChange, project }: Props) {
+export function ModalProjectDelete({ open, onOpenChange, project }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 
 	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
 		deleteProjectAction,
@@ -58,7 +58,7 @@ export function ModalRemoveProject({ open, onOpenChange, project }: Props) {
 				className="flex flex-col gap-8 sm:flex-row"
 				ref={formRef}
 			>
-				<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
+				<input type="hidden" name="pageSlug" defaultValue={slug} />
 				<input type="hidden" name="projectId" defaultValue={project.id} />
 			</form>
 		</Dialog>

@@ -1,10 +1,10 @@
-export type ProfileLinkProps = {
+export type PageCustomLinkProps = {
 	title: string
 	url: string
 }
 
-export type ProfileCustomLinks = 'link1' | 'link2' | 'link3'
-export type ProfileSocialMedia =
+export type PageCustomLinks = 'link1' | 'link2' | 'link3'
+export type PageSocialNetworks =
 	| 'github'
 	| 'linkedin'
 	| 'twitter'
@@ -12,7 +12,7 @@ export type ProfileSocialMedia =
 	| 'youtube'
 	| 'facebook'
 
-export type ProfileData = {
+export type PageData = {
 	name: string
 	slug: string
 	description: string
@@ -24,6 +24,6 @@ export type ProfileData = {
 	createdAt: number
 	updatedAt: number
 	subscriptionEndedAt: number | null
-	socialMedia: Record<ProfileSocialMedia, string>
-	customLinks: Record<ProfileCustomLinks, ProfileLinkProps>
+	socialMedia: Record<PageSocialNetworks, string>
+	customLinks: Record<PageCustomLinks, PageCustomLinkProps>
 }

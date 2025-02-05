@@ -4,12 +4,9 @@ import { FieldValue } from 'firebase-admin/firestore'
 
 import { DB } from '@/lib/firebase'
 
-export async function increaseProjectClicks(
-	pageSlug: string,
-	projectId: string,
-) {
-	const projectRef = DB.collection('profiles')
-		.doc(pageSlug)
+export async function increaseProjectClicks(slug: string, projectId: string) {
+	const projectRef = DB.collection('pages')
+		.doc(slug)
 		.collection('projects')
 		.doc(projectId)
 

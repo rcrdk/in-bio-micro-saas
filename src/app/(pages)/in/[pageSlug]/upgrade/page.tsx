@@ -17,11 +17,11 @@ export type Props = {
 }
 
 export default async function Upgrade({ params }: Props) {
-	const { pageSlug } = await params
+	const { pageSlug: slug } = await params
 
 	trackServerEvent('page_view', {
 		page: 'upgrade',
-		url: `/in/${pageSlug}/upgrade`,
+		url: `/in/${slug}/upgrade`,
 	})
 
 	return (

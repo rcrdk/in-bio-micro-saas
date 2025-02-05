@@ -43,7 +43,14 @@ export async function updateProjectAction(data: FormData) {
 		}
 	}
 
-	const { name, description, url, pageSlug, projectId, file } = result.data
+	const {
+		name,
+		description,
+		url,
+		pageSlug: slug,
+		projectId,
+		file,
+	} = result.data
 	const generateId = randomUUID()
 
 	try {
@@ -52,8 +59,8 @@ export async function updateProjectAction(data: FormData) {
 		const hasNewImageFileSelected = file && file.size > 0
 
 		if (hasNewImageFileSelected) {
-			const currentProject = await DB.collection('profiles')
-				.doc(pageSlug)
+			const currentProject = await DB.collection('pages')
+				.doc(slug)
 				.collection('projects')
 				.doc(projectId)
 				.get()
@@ -67,7 +74,7 @@ export async function updateProjectAction(data: FormData) {
 			}
 
 			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`projects/${pageSlug}/${generateId}-${file.name}`)
+			const storageRef = Storage.file(`projects/${slug}/${generateId}-${file.name}`)
 			const arrayBuffer = await file.arrayBuffer()
 			const buffer = Buffer.from(arrayBuffer)
 
@@ -78,8 +85,8 @@ export async function updateProjectAction(data: FormData) {
 			updatedImagePath = storageRef.name
 		}
 
-		await DB.collection('profiles')
-			.doc(pageSlug)
+		await DB.collection('pages')
+			.doc(slug)
 			.collection('projects')
 			.doc(projectId)
 			.update({
@@ -90,7 +97,7 @@ export async function updateProjectAction(data: FormData) {
 				updatedAt: Timestamp.now().toMillis(),
 			})
 
-		revalidateTag(`get-projects-${pageSlug}`)
+		revalidateTag(`get-projects-${slug}`)
 	} catch (error) {
 		return {
 			success: false,

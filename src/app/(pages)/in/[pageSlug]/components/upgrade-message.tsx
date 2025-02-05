@@ -17,7 +17,7 @@ type Props = {
 }
 
 export function UpgradeMessage({
-	pageSlug,
+	pageSlug: slug,
 	trialEndDate,
 	subscriptionEndedDate,
 }: Props) {
@@ -27,7 +27,7 @@ export function UpgradeMessage({
 
 	function handleCreatePortal() {
 		createStripePortal()
-		sendGTMEvent({ event: 'click_to_upgrade', slug: pageSlug })
+		sendGTMEvent({ event: 'click_to_upgrade', slug })
 	}
 
 	if (subscriptionEndedDate) {
@@ -55,7 +55,7 @@ export function UpgradeMessage({
 		<div className="border-sticky-border bg-sticky-background/85 sm:bg-sticky-background sticky top-0 right-0 left-0 z-10 gap-1 border-b px-6 py-2 text-center text-sm text-balance shadow-xs backdrop-blur-xs select-none sm:py-3 sm:text-base">
 			<span>{trialMessage}</span>{' '}
 			<Link
-				href={`/in/${pageSlug}/upgrade`}
+				href={`/in/${slug}/upgrade`}
 				onClick={() => sendGTMEvent({ event: 'click_to_upgrade' })}
 				className={cn(
 					'focus-themed font-bold transition-colors',

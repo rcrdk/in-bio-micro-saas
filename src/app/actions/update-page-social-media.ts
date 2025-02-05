@@ -8,7 +8,7 @@ import { auth } from '@/lib/auth'
 import { DB } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
-const profileSocialMediaSchema = z.object({
+const pageSocialMediaSchema = z.object({
 	pageSlug: z.string().min(1, 'Informe o link da página'),
 	github: z.string().optional(),
 	linkedin: z.string().optional(),
@@ -18,8 +18,8 @@ const profileSocialMediaSchema = z.object({
 	facebook: z.string().optional(),
 })
 
-export async function updateProfileSocialMedia(data: FormData) {
-	const result = profileSocialMediaSchema.safeParse(Object.fromEntries(data))
+export async function updatePageSocialMediaAction(data: FormData) {
+	const result = pageSocialMediaSchema.safeParse(Object.fromEntries(data))
 
 	if (!result.success) {
 		const errors = result.error.flatten().fieldErrors
@@ -41,11 +41,18 @@ export async function updateProfileSocialMedia(data: FormData) {
 		}
 	}
 
-	const { pageSlug, github, linkedin, twitter, instagram, youtube, facebook } =
-		result.data
+	const {
+		pageSlug: slug,
+		github,
+		linkedin,
+		twitter,
+		instagram,
+		youtube,
+		facebook,
+	} = result.data
 
 	try {
-		await DB.collection('profiles').doc(pageSlug).update({
+		await DB.collection('pages').doc(slug).update({
 			socialMedia: {
 				github,
 				linkedin,
@@ -57,8 +64,8 @@ export async function updateProfileSocialMedia(data: FormData) {
 			updatedAt: Timestamp.now().toMillis(),
 		})
 
-		revalidateTag(`get-profile-by-slug-${pageSlug}`)
-		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
+		revalidateTag(`get-page-by-slug-${slug}`)
+		revalidateTag(`get-page-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,
@@ -69,7 +76,7 @@ export async function updateProfileSocialMedia(data: FormData) {
 
 	return {
 		success: true,
-		message: actionsMessages.success.PROFILE_SOCIAL_LINKS_SAVED,
+		message: actionsMessages.success.PAGE_SOCIAL_LINKS_SAVED,
 		errors: null,
 	}
 }

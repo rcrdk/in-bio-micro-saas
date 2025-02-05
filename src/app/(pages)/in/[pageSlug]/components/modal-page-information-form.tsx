@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useWindowSize } from 'react-haiku'
 import { toast } from 'sonner'
 
-import { updateProfileInformationAction } from '@/app/actions/update-profile-information'
+import { updatePageInformationAction } from '@/app/actions/update-page-information'
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { FormError } from '@/components/ui/form-error'
@@ -16,19 +16,22 @@ import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormState } from '@/hooks/form-state'
-import type { ProfileData } from '@/http/types/get-profile'
+import type { PageData } from '@/http/types/get-page'
 
 type Props = {
-	initialData: Pick<ProfileData, 'name' | 'description' | 'imagePath'>
-	profileAvatar?: string
+	initialData: Pick<PageData, 'name' | 'description' | 'imagePath'>
+	currentAvatar?: string
 }
 
-export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
+export function ModalPageInformationForm({
+	initialData,
+	currentAvatar,
+}: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const [open, setOpen] = useState(false)
 
-	const { pageSlug } = useParams()
+	const { pageSlug: slug } = useParams()
 	const { width } = useWindowSize()
 
 	function handleToggleModal() {
@@ -36,7 +39,7 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 	}
 
 	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(updateProfileInformationAction, {
+		useFormState(updatePageInformationAction, {
 			onSuccess() {
 				handleToggleModal()
 			},
@@ -45,10 +48,10 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 
 	useEffect(() => {
 		if (!success && message) {
-			toast.error(message, { id: 'save-profile-information' })
+			toast.error(message, { id: 'save-page-information' })
 		}
 		if (success && message) {
-			toast.success(message, { id: 'save-profile-information' })
+			toast.success(message, { id: 'save-page-information' })
 		}
 	}, [success, message, isSubmitting])
 
@@ -76,9 +79,9 @@ export function ModalProfileInformation({ initialData, profileAvatar }: Props) {
 					className="flex flex-col gap-8 sm:flex-row"
 					ref={formRef}
 				>
-					<input type="hidden" name="pageSlug" defaultValue={pageSlug} />
+					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
-					<FormImage mode="user" currentImage={profileAvatar} />
+					<FormImage mode="user" currentImage={currentAvatar} />
 
 					<div className="flex grow flex-col gap-2 sm:gap-4">
 						<FormGroup>

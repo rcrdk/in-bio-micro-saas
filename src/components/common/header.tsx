@@ -7,7 +7,7 @@ import { authAction } from '@/app/actions/auth'
 import brandImage from '@/assets/brand.svg'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
-import { getProfileByUserId } from '@/http/get-profile-by-user-id'
+import { getPageByUserId } from '@/http/get-page-by-user-id'
 import { auth } from '@/lib/auth'
 
 type Props = {
@@ -18,7 +18,7 @@ export async function Header({ hidePageButton = false }: Props) {
 	const session = await auth()
 
 	// eslint-disable-next-line prettier/prettier
-	const profile = session?.user?.id && (await getProfileByUserId(session.user.id))
+	const page = session?.user?.id && (await getPageByUserId(session.user.id))
 
 	return (
 		<Container className="absolute top-0 right-0 left-0 z-50">
@@ -41,11 +41,11 @@ export async function Header({ hidePageButton = false }: Props) {
 						<Button
 							as={Link}
 							size="sm"
-							href={profile ? `/in/${profile.slug}` : '/criar-agora'}
+							href={page ? `/in/${page.slug}` : '/criar-agora'}
 							className="hidden sm:flex"
 						>
-							{profile ? <CircleUserRound /> : <CirclePlus />}
-							{profile ? 'Minha página' : 'Criar uma página'}
+							{page ? <CircleUserRound /> : <CirclePlus />}
+							{page ? 'Minha página' : 'Criar uma página'}
 						</Button>
 					)}
 
@@ -83,19 +83,19 @@ export async function Header({ hidePageButton = false }: Props) {
 							className="bg-sticky-background border-sticky-border pointer-events-auto flex flex-col gap-1 rounded-xl border p-2 shadow-lg select-none"
 							sideOffset={8}
 						>
-							{profile && !hidePageButton && (
+							{page && !hidePageButton && (
 								<DropdownMenu.Item
 									className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-all active:scale-95 active:duration-75"
 									asChild
 								>
-									<Link href={`/in/${profile.slug}`}>
+									<Link href={`/in/${page.slug}`}>
 										<CircleUserRound size={20} />
 										Minha página
 									</Link>
 								</DropdownMenu.Item>
 							)}
 
-							{!profile && !hidePageButton && (
+							{!page && !hidePageButton && (
 								<DropdownMenu.Item
 									className="focus-themed hover:bg-button-ghost flex w-full cursor-pointer items-center justify-start gap-3 py-2 pr-6 pl-4 text-left font-medium transition-all active:scale-95 active:duration-75"
 									asChild

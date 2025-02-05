@@ -11,15 +11,15 @@ import { auth } from '@/lib/auth'
 import { DB, Storage } from '@/lib/firebase'
 import { actionsMessages } from '@/utils/actions-messages'
 
-const profileDataSchema = z.object({
+const pageDataSchema = z.object({
 	pageSlug: z.string().min(1, 'Informe o link da página'),
 	name: z.string().min(1, 'Informe um nome'),
 	description: z.string().min(1, 'Informe uma introdução'),
 	file: z.custom<File>().optional(),
 })
 
-export async function updateProfileInformationAction(data: FormData) {
-	const result = profileDataSchema.safeParse(Object.fromEntries(data))
+export async function updatePageInformationAction(data: FormData) {
+	const result = pageDataSchema.safeParse(Object.fromEntries(data))
 
 	if (!result.success) {
 		const errors = result.error.flatten().fieldErrors
@@ -41,7 +41,7 @@ export async function updateProfileInformationAction(data: FormData) {
 		}
 	}
 
-	const { name, description, pageSlug, file } = result.data
+	const { name, description, pageSlug: slug, file } = result.data
 
 	try {
 		let updatedImagePath = null
@@ -49,8 +49,8 @@ export async function updateProfileInformationAction(data: FormData) {
 		const hasNewAvatarImageSelected = file && file.size > 0
 
 		if (hasNewAvatarImageSelected) {
-			const currentProfile = await DB.collection('profiles').doc(pageSlug).get()
-			const currentImagePath = currentProfile?.data()?.imagePath
+			const currentPage = await DB.collection('pages').doc(slug).get()
+			const currentImagePath = currentPage?.data()?.imagePath
 
 			if (currentImagePath) {
 				const storageRef = Storage.file(currentImagePath)
@@ -61,7 +61,7 @@ export async function updateProfileInformationAction(data: FormData) {
 
 			const filePrefix = randomUUID()
 			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`profiles/${pageSlug}/${filePrefix}-${file.name}`)
+			const storageRef = Storage.file(`pages/${slug}/${filePrefix}-${file.name}`)
 			const arrayBuffer = await file.arrayBuffer()
 			const buffer = Buffer.from(arrayBuffer)
 
@@ -72,8 +72,8 @@ export async function updateProfileInformationAction(data: FormData) {
 			updatedImagePath = storageRef.name
 		}
 
-		await DB.collection('profiles')
-			.doc(pageSlug)
+		await DB.collection('pages')
+			.doc(slug)
 			.update({
 				name,
 				description,
@@ -81,8 +81,8 @@ export async function updateProfileInformationAction(data: FormData) {
 				updatedAt: Timestamp.now().toMillis(),
 			})
 
-		revalidateTag(`get-profile-by-slug-${pageSlug}`)
-		revalidateTag(`get-profile-by-user-id-${session.user.id}`)
+		revalidateTag(`get-page-by-slug-${slug}`)
+		revalidateTag(`get-page-by-user-id-${session.user.id}`)
 	} catch (error) {
 		return {
 			success: false,
@@ -93,7 +93,7 @@ export async function updateProfileInformationAction(data: FormData) {
 
 	return {
 		success: true,
-		message: actionsMessages.success.PROFILE_DATA_SAVED,
+		message: actionsMessages.success.PAGE_DATA_SAVED,
 		errors: null,
 	}
 }
