@@ -1,16 +1,11 @@
 'use server'
 
 import { revalidateTag } from 'next/cache'
-import { z } from 'zod'
 
+import { deleteProject } from '@/http/delete-project'
 import { auth } from '@/lib/auth'
-import { DB, Storage } from '@/lib/firebase'
+import { deleteProjectSchema } from '@/schemas/delete-project'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const deleteProjectSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página'),
-	projectId: z.string().min(1, 'Informe o id do projeto'),
-})
 
 export async function deleteProjectAction(data: FormData) {
 	const result = deleteProjectSchema.safeParse(Object.fromEntries(data))
@@ -35,24 +30,13 @@ export async function deleteProjectAction(data: FormData) {
 		}
 	}
 
-	const { pageSlug: slug, projectId: id } = result.data
+	const { pageSlug: slug, projectId } = result.data
 
 	try {
-		const projectRef = DB.collection('pages')
-			.doc(slug)
-			.collection('projects')
-			.doc(id)
-
-		const imagePath = (await projectRef?.get()).data()?.imagePath
-
-		if (imagePath) {
-			const storageRef = Storage.file(imagePath)
-			const currentStoragePathExists = await storageRef.exists()
-
-			if (currentStoragePathExists) await storageRef.delete()
-		}
-
-		await projectRef.delete()
+		await deleteProject({
+			slug,
+			projectId,
+		})
 
 		revalidateTag(`get-projects-${slug}`)
 	} catch (error) {

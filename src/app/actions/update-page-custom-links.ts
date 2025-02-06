@@ -1,22 +1,11 @@
 'use server'
 
-import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import { z } from 'zod'
 
+import { updatePageCustomLinks } from '@/http/update-page-custom-links'
 import { auth } from '@/lib/auth'
-import { DB } from '@/lib/firebase'
+import { pageCustomLinksSchema } from '@/schemas/update-page-custom-links'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const pageCustomLinksSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página.'),
-	title1: z.string().optional(),
-	title2: z.string().optional(),
-	title3: z.string().optional(),
-	url1: z.string().url('Informe um link válido').optional().or(z.literal('')),
-	url2: z.string().url('Informe um link válido').optional().or(z.literal('')),
-	url3: z.string().url('Informe um link válido').optional().or(z.literal('')),
-})
 
 export async function updatePageCustomLinksAction(data: FormData) {
 	const result = pageCustomLinksSchema.safeParse(Object.fromEntries(data))
@@ -41,36 +30,19 @@ export async function updatePageCustomLinksAction(data: FormData) {
 		}
 	}
 
-	const {
-		pageSlug: slug,
-		title1,
-		title2,
-		title3,
-		url1,
-		url2,
-		url3,
-	} = result.data
+	const { pageSlug: slug, ...links } = result.data
+
+	const link1 = { title: links.title1, url: links.url1 }
+	const link2 = { title: links.title2, url: links.url2 }
+	const link3 = { title: links.title3, url: links.url3 }
 
 	try {
-		await DB.collection('pages')
-			.doc(slug)
-			.update({
-				customLinks: {
-					link1: {
-						title: title1,
-						url: url1,
-					},
-					link2: {
-						title: title2,
-						url: url2,
-					},
-					link3: {
-						title: title3,
-						url: url3,
-					},
-				},
-				updatedAt: Timestamp.now().toMillis(),
-			})
+		await updatePageCustomLinks({
+			slug,
+			link1,
+			link2,
+			link3,
+		})
 
 		revalidateTag(`get-page-by-slug-${slug}`)
 		revalidateTag(`get-page-by-user-id-${session.user.id}`)

@@ -2,7 +2,7 @@ import 'server-only'
 
 import { unstable_cache as cache } from 'next/cache'
 
-import type { ProjectData } from '@/http/types/get-projects'
+import type { ProjectDTO } from '@/dtos/projects'
 import { DB } from '@/lib/firebase'
 
 async function getProjectsFn(slug: string) {
@@ -12,7 +12,7 @@ async function getProjectsFn(slug: string) {
 		.orderBy('createdAt', 'desc')
 		.get()
 
-	return snapshot.docs.map((docs) => docs.data()) as ProjectData[]
+	return snapshot.docs.map((docs) => docs.data()) as ProjectDTO[]
 }
 
 export async function getProjects(slug: string) {

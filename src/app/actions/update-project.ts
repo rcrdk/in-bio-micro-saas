@@ -1,24 +1,11 @@
 'use server'
 
-import { randomUUID } from 'node:crypto'
-
-import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import sharp from 'sharp'
-import { z } from 'zod'
 
+import { updateProject } from '@/http/update-project'
 import { auth } from '@/lib/auth'
-import { DB, Storage } from '@/lib/firebase'
+import { updateProjectSchema } from '@/schemas/update-project'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const updateProjectSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página'),
-	projectId: z.string().min(1, 'Informe o id do projeto'),
-	name: z.string().min(1, 'Informe um nome'),
-	description: z.string().min(1, 'Informe uma descrição'),
-	url: z.string().min(1, 'Informe um link').url('Informe um link válido'),
-	file: z.custom<File>().optional(),
-})
 
 export async function updateProjectAction(data: FormData) {
 	const result = updateProjectSchema.safeParse(Object.fromEntries(data))
@@ -51,51 +38,16 @@ export async function updateProjectAction(data: FormData) {
 		projectId,
 		file,
 	} = result.data
-	const generateId = randomUUID()
 
 	try {
-		let updatedImagePath = null
-
-		const hasNewImageFileSelected = file && file.size > 0
-
-		if (hasNewImageFileSelected) {
-			const currentProject = await DB.collection('pages')
-				.doc(slug)
-				.collection('projects')
-				.doc(projectId)
-				.get()
-			const currentImagePath = currentProject?.data()?.imagePath
-
-			if (currentImagePath) {
-				const storageRef = Storage.file(currentImagePath)
-				const currentStoragePathExists = await storageRef.exists()
-
-				if (currentStoragePathExists) await storageRef.delete()
-			}
-
-			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`projects/${slug}/${generateId}-${file.name}`)
-			const arrayBuffer = await file.arrayBuffer()
-			const buffer = Buffer.from(arrayBuffer)
-
-			const compressImage = await sharp(buffer).resize(1024).jpeg().toBuffer()
-
-			await storageRef.save(compressImage)
-
-			updatedImagePath = storageRef.name
-		}
-
-		await DB.collection('pages')
-			.doc(slug)
-			.collection('projects')
-			.doc(projectId)
-			.update({
-				name,
-				description,
-				url,
-				...(hasNewImageFileSelected && { imagePath: updatedImagePath }),
-				updatedAt: Timestamp.now().toMillis(),
-			})
+		updateProject({
+			slug,
+			projectId,
+			name,
+			description,
+			url,
+			file,
+		})
 
 		revalidateTag(`get-projects-${slug}`)
 	} catch (error) {

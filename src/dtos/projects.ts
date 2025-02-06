@@ -1,4 +1,4 @@
-export type ProjectData = {
+export type ProjectDTO = {
 	id: string
 	userId: string
 	name: string

@@ -1,22 +1,11 @@
 'use server'
 
-import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import { z } from 'zod'
 
+import { updatePageSocialMedia } from '@/http/update-page-social-media'
 import { auth } from '@/lib/auth'
-import { DB } from '@/lib/firebase'
+import { pageSocialMediaSchema } from '@/schemas/update-page-social-media'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const pageSocialMediaSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página'),
-	github: z.string().optional(),
-	linkedin: z.string().optional(),
-	twitter: z.string().optional(),
-	instagram: z.string().optional(),
-	youtube: z.string().optional(),
-	facebook: z.string().optional(),
-})
 
 export async function updatePageSocialMediaAction(data: FormData) {
 	const result = pageSocialMediaSchema.safeParse(Object.fromEntries(data))
@@ -41,27 +30,12 @@ export async function updatePageSocialMediaAction(data: FormData) {
 		}
 	}
 
-	const {
-		pageSlug: slug,
-		github,
-		linkedin,
-		twitter,
-		instagram,
-		youtube,
-		facebook,
-	} = result.data
+	const { pageSlug: slug, ...socialLinks } = result.data
 
 	try {
-		await DB.collection('pages').doc(slug).update({
-			socialMedia: {
-				github,
-				linkedin,
-				twitter,
-				instagram,
-				youtube,
-				facebook,
-			},
-			updatedAt: Timestamp.now().toMillis(),
+		await updatePageSocialMedia({
+			slug,
+			...socialLinks,
 		})
 
 		revalidateTag(`get-page-by-slug-${slug}`)

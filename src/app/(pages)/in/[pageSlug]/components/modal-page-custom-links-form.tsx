@@ -12,10 +12,10 @@ import { FormError } from '@/components/ui/form-error'
 import { FormGroup } from '@/components/ui/form-group'
 import { Input } from '@/components/ui/input'
 import { Text } from '@/components/ui/text'
+import type { PageDTO } from '@/dtos/page'
 import { useFormState } from '@/hooks/form-state'
-import type { PageData } from '@/http/types/get-page'
 
-type Props = Pick<PageData, 'customLinks'>
+type Props = Pick<PageDTO, 'customLinks'>
 
 export function ModalPageCustomLinksForm({ customLinks }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)

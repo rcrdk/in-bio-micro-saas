@@ -2,7 +2,7 @@
 
 import { RefreshCw, TrendingUp } from 'lucide-react'
 
-import { refreshPageVisitsCounter } from '@/app/actions/refresh-page-total-count'
+import { refreshPageVisitsCounterAction } from '@/app/actions/refresh-page-total-count'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/tailwind-cn'
 
@@ -21,7 +21,7 @@ export function TotalVisits({ counter = 0, slug }: Props) {
 					variant="ghost"
 					icon="rounded"
 					className="bg-sticky-background border-sticky-border size-8"
-					onClick={() => refreshPageVisitsCounter(slug)}
+					onClick={() => refreshPageVisitsCounterAction(slug)}
 					aria-label="Atualizar contagem de visualizações"
 				>
 					<RefreshCw width={14} />

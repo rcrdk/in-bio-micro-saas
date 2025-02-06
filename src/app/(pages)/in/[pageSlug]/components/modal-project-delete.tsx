@@ -6,13 +6,13 @@ import { toast } from 'sonner'
 
 import { deleteProjectAction } from '@/app/actions/delete-project'
 import { Dialog } from '@/components/ui/dialog'
+import type { ProjectDTO } from '@/dtos/projects'
 import { useFormState } from '@/hooks/form-state'
-import type { ProjectData } from '@/http/types/get-projects'
 
 type Props = {
 	open: boolean
 	onOpenChange: VoidFunction
-	project: ProjectData
+	project: ProjectDTO
 }
 
 export function ModalProjectDelete({ open, onOpenChange, project }: Props) {

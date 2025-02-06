@@ -14,14 +14,14 @@ import { FormImage } from '@/components/ui/form-image'
 import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import type { ProjectDTO } from '@/dtos/projects'
 import { useFormState } from '@/hooks/form-state'
-import type { ProjectData } from '@/http/types/get-projects'
 
 type Props = {
 	open: boolean
 	onOpenChange: VoidFunction
 	mode: 'create' | 'edit'
-	initialData?: ProjectData
+	initialData?: ProjectDTO
 	initialImage?: string
 }
 

@@ -9,12 +9,12 @@ import { useCallback, useState } from 'react'
 import { ModalProjectDelete } from '@/app/(pages)/in/[pageSlug]/components/modal-project-delete'
 import { ModalProjectForm } from '@/app/(pages)/in/[pageSlug]/components/modal-project-form'
 import { Button } from '@/components/ui/button'
+import type { ProjectDTO } from '@/dtos/projects'
 import { increaseProjectClicks } from '@/http/increase-project-clicks'
-import type { ProjectData } from '@/http/types/get-projects'
 import { httpUrlParser } from '@/utils/http-url-parser'
 
 type Props = {
-	data: ProjectData
+	data: ProjectDTO
 	image?: string
 	isOwner: boolean
 }

@@ -2,7 +2,7 @@ import 'server-only'
 
 import { unstable_cache as cache } from 'next/cache'
 
-import type { PageData } from '@/http/types/get-page'
+import type { PageDTO } from '@/dtos/page'
 import { DB } from '@/lib/firebase'
 
 async function getPageByUserIdFn(userId: string) {
@@ -11,7 +11,7 @@ async function getPageByUserIdFn(userId: string) {
 		.limit(1)
 		.get()
 
-	return snapshot.docs?.[0]?.data() as PageData | undefined
+	return snapshot.docs?.[0]?.data() as PageDTO | undefined
 }
 
 export async function getPageByUserId(userId: string) {

@@ -17,10 +17,10 @@ import { updatePageSocialMediaAction } from '@/app/actions/update-page-social-me
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import type { PageDTO } from '@/dtos/page'
 import { useFormState } from '@/hooks/form-state'
-import type { PageData } from '@/http/types/get-page'
 
-type Props = Pick<PageData, 'socialMedia'>
+type Props = Pick<PageDTO, 'socialMedia'>
 
 export function ModalPageSocialLinksForm({ socialMedia }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)

@@ -3,18 +3,14 @@
 import dayjs from 'dayjs'
 import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import { z } from 'zod'
 
+import { createPage } from '@/http/create-page'
 import { verifyPageSlugExistence } from '@/http/verify-page-slug-existence'
 import { auth } from '@/lib/auth'
 import { env } from '@/lib/env'
-import { DB } from '@/lib/firebase'
 import { trackServerEvent } from '@/lib/mixpanel'
+import { createPageSchema } from '@/schemas/create-page'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const createPageSchema = z.object({
-	slug: z.string().min(1),
-})
 
 export async function createPageAction(data: FormData) {
 	const result = createPageSchema.safeParse(Object.fromEntries(data))
@@ -56,34 +52,12 @@ export async function createPageAction(data: FormData) {
 			.add(env.NEXT_PUBLIC_TRIAL_DAYS, 'days')
 			.valueOf()
 
-		await DB.collection('pages')
-			.doc(slug)
-			.set({
-				userId: session.user.id,
-				name: session.user.name ?? '',
-				description: '',
-				imagePath: null,
-				totalVisits: 0,
-				slug,
-				isPaid: false,
-				socialMedia: {
-					github: '',
-					linkedin: '',
-					twitter: '',
-					instagram: '',
-					youtube: '',
-					facebook: '',
-				},
-				customLinks: {
-					link1: { title: '', url: '' },
-					link2: { title: '', url: '' },
-					link3: { title: '', url: '' },
-				},
-				trialEndsAt,
-				subscriptionEndedAt: null,
-				createdAt: Timestamp.now().toMillis(),
-				updatedAt: Timestamp.now().toMillis(),
-			})
+		await createPage({
+			slug,
+			name: session.user.name!,
+			userId: session.user.id!,
+			trialEndsAt,
+		})
 
 		trackServerEvent('page_created', {
 			url: `/in/${slug}`,

@@ -1,22 +1,11 @@
 'use server'
 
-import { randomUUID } from 'node:crypto'
-
-import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import sharp from 'sharp'
-import { z } from 'zod'
 
+import { updatePageInformation } from '@/http/update-page-information'
 import { auth } from '@/lib/auth'
-import { DB, Storage } from '@/lib/firebase'
+import { pageDataSchema } from '@/schemas/update-page-information'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const pageDataSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página'),
-	name: z.string().min(1, 'Informe um nome'),
-	description: z.string().min(1, 'Informe uma introdução'),
-	file: z.custom<File>().optional(),
-})
 
 export async function updatePageInformationAction(data: FormData) {
 	const result = pageDataSchema.safeParse(Object.fromEntries(data))
@@ -44,42 +33,12 @@ export async function updatePageInformationAction(data: FormData) {
 	const { name, description, pageSlug: slug, file } = result.data
 
 	try {
-		let updatedImagePath = null
-
-		const hasNewAvatarImageSelected = file && file.size > 0
-
-		if (hasNewAvatarImageSelected) {
-			const currentPage = await DB.collection('pages').doc(slug).get()
-			const currentImagePath = currentPage?.data()?.imagePath
-
-			if (currentImagePath) {
-				const storageRef = Storage.file(currentImagePath)
-				const currentStoragePathExists = await storageRef.exists()
-
-				if (currentStoragePathExists) await storageRef.delete()
-			}
-
-			const filePrefix = randomUUID()
-			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`pages/${slug}/${filePrefix}-${file.name}`)
-			const arrayBuffer = await file.arrayBuffer()
-			const buffer = Buffer.from(arrayBuffer)
-
-			const compressImage = await sharp(buffer).resize(1024).jpeg().toBuffer()
-
-			await storageRef.save(compressImage)
-
-			updatedImagePath = storageRef.name
-		}
-
-		await DB.collection('pages')
-			.doc(slug)
-			.update({
-				name,
-				description,
-				...(hasNewAvatarImageSelected && { imagePath: updatedImagePath }),
-				updatedAt: Timestamp.now().toMillis(),
-			})
+		await updatePageInformation({
+			slug,
+			name,
+			description,
+			file,
+		})
 
 		revalidateTag(`get-page-by-slug-${slug}`)
 		revalidateTag(`get-page-by-user-id-${session.user.id}`)

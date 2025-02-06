@@ -1,10 +1,9 @@
 import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import StripePackage from 'stripe'
+import type StripePackage from 'stripe'
 
+import { updateStripeWebhook } from '@/http/update-stripe-webhook'
 import { env } from '@/lib/env'
-import { DB } from '@/lib/firebase'
 import { Resend } from '@/lib/resend'
 import { Stripe } from '@/lib/stripe'
 
@@ -33,7 +32,8 @@ export async function POST(req: NextRequest) {
 						const userId = subscription.client_reference_id
 
 						if (userId && slug) {
-							DB.collection('pages').doc(slug).update({
+							await updateStripeWebhook({
+								slug,
 								isPaid: true,
 								subscriptionEndedAt: null,
 							})
@@ -83,7 +83,8 @@ export async function POST(req: NextRequest) {
 						if (customer && customer.metadata.pageSlug) {
 							const slug = customer.metadata.pageSlug
 
-							DB.collection('pages').doc(slug).update({
+							await updateStripeWebhook({
+								slug,
 								isPaid: true,
 								subscriptionEndedAt: null,
 							})
@@ -109,7 +110,8 @@ export async function POST(req: NextRequest) {
 						if (customer && customer.metadata.pageSlug) {
 							const slug = customer.metadata.pageSlug
 
-							DB.collection('pages').doc(slug).update({
+							await updateStripeWebhook({
+								slug,
 								isPaid: false,
 								subscriptionEndedAt: null,
 							})
@@ -136,13 +138,12 @@ export async function POST(req: NextRequest) {
 
 						const isScheduleToEnd = subscription.cancel_at_period_end
 
-						DB.collection('pages')
-							.doc(slug)
-							.update({
-								subscriptionEndedAt: isScheduleToEnd
-									? subscription.current_period_end * 1000
-									: null,
-							})
+						await updateStripeWebhook({
+							slug,
+							subscriptionEndedAt: isScheduleToEnd
+								? subscription.current_period_end * 1000
+								: null,
+						})
 
 						if (slug) {
 							revalidateTag(`get-page-by-slug-${slug}`)

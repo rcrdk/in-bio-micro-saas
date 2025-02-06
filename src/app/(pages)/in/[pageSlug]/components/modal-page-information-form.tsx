@@ -15,11 +15,11 @@ import { FormImage } from '@/components/ui/form-image'
 import { Label } from '@/components/ui/form-label'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import type { PageDTO } from '@/dtos/page'
 import { useFormState } from '@/hooks/form-state'
-import type { PageData } from '@/http/types/get-page'
 
 type Props = {
-	initialData: Pick<PageData, 'name' | 'description' | 'imagePath'>
+	initialData: Pick<PageDTO, 'name' | 'description' | 'imagePath'>
 	currentAvatar?: string
 }
 

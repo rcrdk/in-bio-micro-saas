@@ -34,7 +34,7 @@ export default function RootLayout({
 						unstyled: true,
 						classNames: {
 							toast:
-								'text-center justify-center flex items-center py-3 px-6 gap-6 text-white shadow-toast text-balance h-[var(--initial-height)] rounded-xl',
+								'text-center justify-center flex items-center py-3 px-6 gap-6 text-white shadow-toast text-balance h-[var(--initial-height)] rounded-xl select-none',
 							title: 'text-sm font-medium',
 							icon: '!size-6 !m-0',
 							description: 'text-sm',

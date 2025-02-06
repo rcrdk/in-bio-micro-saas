@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
 	Facebook,
 	Github,
@@ -16,22 +17,22 @@ import { ModalPageSocialLinksForm } from '@/app/(pages)/in/[pageSlug]/components
 import { ShareButton } from '@/app/(pages)/in/[pageSlug]/components/share-button'
 import { Button } from '@/components/ui/button'
 import { Text } from '@/components/ui/text'
-import type { PageData, PageSocialNetworks } from '@/http/types/get-page'
+import type { PageDTO, PageSocialMediaLinks } from '@/dtos/page'
 import { getDownloadUrlFromPath } from '@/lib/firebase'
 import { httpUrlParser } from '@/utils/http-url-parser'
 
+type SocialMediaEntries = Array<[keyof PageSocialMediaLinks, string]>
+
 type Props = {
-	data: PageData
+	data: PageDTO
 	isOwner: boolean
 }
 
 export async function UserCard({ data, isOwner }: Props) {
-	// eslint-disable-next-line prettier/prettier
-	const customLinks = data.customLinks && Object.values(data.customLinks).filter(({ title, url }) => title && url)
-	// eslint-disable-next-line prettier/prettier
-	const socialMedia = data.socialMedia && Object.entries(data.socialMedia).filter(([, value]) => value) as [PageSocialNetworks, string][]
+	const customLinks = Object.values(data.customLinks).filter(({ title, url }) => title && url)
+	const socialMedia = (Object.entries(data.socialMedia) as SocialMediaEntries).filter(([, value]) => value)
 
-	function renderSocialNetwork(socialNetwork: PageSocialNetworks) {
+	function renderSocialNetwork(socialNetwork: keyof PageSocialMediaLinks) {
 		switch (socialNetwork) {
 			case 'github':
 				return { icon: <Github />, url: 'https://github.com' }

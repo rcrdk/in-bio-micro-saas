@@ -2,22 +2,12 @@
 
 import { randomUUID } from 'node:crypto'
 
-import { Timestamp } from 'firebase-admin/firestore'
 import { revalidateTag } from 'next/cache'
-import sharp from 'sharp'
-import { z } from 'zod'
 
+import { createProject } from '@/http/create-project'
 import { auth } from '@/lib/auth'
-import { DB, Storage } from '@/lib/firebase'
+import { createProjectSchema } from '@/schemas/create-project'
 import { actionsMessages } from '@/utils/actions-messages'
-
-const createProjectSchema = z.object({
-	pageSlug: z.string().min(1, 'Informe o link da página'),
-	name: z.string().min(1, 'Informe um nome'),
-	description: z.string().min(1, 'Informe uma descrição'),
-	url: z.string().min(1, 'Informe um link').url('Informe um link válido'),
-	file: z.custom<File>().optional(),
-})
 
 export async function createProjectAction(data: FormData) {
 	const result = createProjectSchema.safeParse(Object.fromEntries(data))
@@ -43,41 +33,17 @@ export async function createProjectAction(data: FormData) {
 	}
 
 	const { name, description, url, pageSlug: slug, file } = result.data
-	const generateId = randomUUID()
 
 	try {
-		let imagePath = null
-
-		const hasImageFileSelected = file && file.size > 0
-
-		if (hasImageFileSelected) {
-			// eslint-disable-next-line prettier/prettier
-			const storageRef = Storage.file(`projects/${slug}/${generateId}-${file.name}`)
-			const arrayBuffer = await file.arrayBuffer()
-			const buffer = Buffer.from(arrayBuffer)
-
-			const compressImage = await sharp(buffer).resize(1024).jpeg().toBuffer()
-
-			await storageRef.save(compressImage)
-
-			imagePath = storageRef.name
-		}
-
-		await DB.collection('pages')
-			.doc(slug)
-			.collection('projects')
-			.doc(generateId)
-			.set({
-				id: generateId,
-				userId: session.user.id,
-				name,
-				description,
-				url,
-				...(hasImageFileSelected && { imagePath }),
-				totalClicks: 0,
-				createdAt: Timestamp.now().toMillis(),
-				updatedAt: Timestamp.now().toMillis(),
-			})
+		await createProject({
+			slug,
+			userId: session.user.id!,
+			id: randomUUID(),
+			name,
+			description,
+			url,
+			file,
+		})
 
 		revalidateTag(`get-projects-${slug}`)
 	} catch (error) {
