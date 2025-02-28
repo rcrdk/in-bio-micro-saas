@@ -1,5 +1,5 @@
-import { loadStripe, type Stripe } from '@stripe/stripe-js'
 import { useEffect, useState } from 'react'
+import { loadStripe, type Stripe } from '@stripe/stripe-js'
 
 import { env } from '@/lib/env'
 
@@ -20,10 +20,7 @@ export function useStripe() {
 		loadStripeAsync()
 	}, [])
 
-	async function createStripeCheckout({
-		metadata,
-		isSubscription,
-	}: CreateStripeCheckout) {
+	async function createStripeCheckout({ metadata, isSubscription }: CreateStripeCheckout) {
 		try {
 			const response = await fetch('/api/stripe/create-checkout', {
 				method: 'POST',

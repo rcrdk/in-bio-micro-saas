@@ -12,8 +12,7 @@ export function useTrialDays(trialEndsAt: number) {
 	} else if (trialRemainingDays > 0) {
 		trialMessage = 'Seu período de teste termina em poucas horas.'
 	} else {
-		trialMessage =
-			'Seu período de teste terminou e a página é visível apenas para você.'
+		trialMessage = 'Seu período de teste terminou e a página é visível apenas para você.'
 	}
 
 	return {

@@ -50,11 +50,7 @@ export default async function CreateNow({ searchParams }: Props) {
 							termos de uso
 						</a>{' '}
 						e{' '}
-						<a
-							href="/politica-de-privacidade"
-							target="_blank"
-							className="underline"
-						>
+						<a href="/politica-de-privacidade" target="_blank" className="underline">
 							política de privacidade
 						</a>
 						.

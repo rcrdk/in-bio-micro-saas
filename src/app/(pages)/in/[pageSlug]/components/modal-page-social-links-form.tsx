@@ -1,16 +1,8 @@
 'use client'
 
-import {
-	Facebook,
-	Github,
-	Instagram,
-	Linkedin,
-	Settings,
-	Twitter,
-	Youtube,
-} from 'lucide-react'
-import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { Facebook, Github, Instagram, Linkedin, Settings, Twitter, Youtube } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { updatePageSocialMediaAction } from '@/app/actions/update-page-social-media'
@@ -32,15 +24,12 @@ export function ModalPageSocialLinksForm({ socialMedia }: Props) {
 		setOpen((prev) => !prev)
 	}
 
-	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
-		updatePageSocialMediaAction,
-		{
-			onSuccess() {
-				handleToggleModal()
-			},
-			resetStateMessage: true,
+	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(updatePageSocialMediaAction, {
+		onSuccess() {
+			handleToggleModal()
 		},
-	)
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -53,12 +42,7 @@ export function ModalPageSocialLinksForm({ socialMedia }: Props) {
 
 	return (
 		<>
-			<Button
-				variant="ghost"
-				onClick={handleToggleModal}
-				aria-label="Configurar redes sociais"
-				icon
-			>
+			<Button variant="ghost" onClick={handleToggleModal} aria-label="Configurar redes sociais" icon>
 				<Settings />
 			</Button>
 

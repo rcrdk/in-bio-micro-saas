@@ -1,8 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'
@@ -30,8 +30,8 @@ export function Hero() {
 				</Text>
 
 				<Text variant="body-lg" className="mt-6 max-w-(--breakpoint-md)">
-					Mostre seu trabalho de forma profissional e simplifique sua presença
-					online com uma plataforma fácil e personalizável.
+					Mostre seu trabalho de forma profissional e simplifique sua presença online com uma plataforma fácil e
+					personalizável.
 				</Text>
 
 				<Button
@@ -39,9 +39,7 @@ export function Hero() {
 					size="lg"
 					href="/crie-sua-pagina"
 					className="mt-10 w-full sm:mt-12 sm:w-auto"
-					onClick={() =>
-						sendGTMEvent({ event: 'cta_home_clicks', slug: 'home' })
-					}
+					onClick={() => sendGTMEvent({ event: 'cta_home_clicks', slug: 'home' })}
 				>
 					Quero fazer minha Bio
 					<ArrowRight />

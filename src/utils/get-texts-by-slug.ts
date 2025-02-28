@@ -1,12 +1,6 @@
 import 'server-only'
 
-export const socialMedias = [
-	'instagram',
-	'facebook',
-	'x',
-	'linkedin',
-	'youtube',
-]
+export const socialMedias = ['instagram', 'facebook', 'x', 'linkedin', 'youtube']
 
 export async function getTextsBySlug(slug: string) {
 	const fullSlug = `link-na-bio-para-${slug}`

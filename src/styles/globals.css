@@ -169,11 +169,7 @@
 		background-color: var(--color-accent-purple);
 		color: var(--color-white);
 	}
-
-	textarea {
-		field-sizing: content;
-	}
-
+	
 	input:-webkit-autofill,
 	input:-webkit-autofill:hover,
 	input:-webkit-autofill:focus,

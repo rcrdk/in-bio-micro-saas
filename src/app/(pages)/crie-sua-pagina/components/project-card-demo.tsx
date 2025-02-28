@@ -26,14 +26,10 @@ export function ProjectCardDemo({ variant = '1' }: Props) {
 				</span>
 
 				<div className="flex flex-col gap-1">
-					<span className="font-bold text-white">
-						{variant === '1' ? 'BugTracer' : 'CodeLink'}
-					</span>
+					<span className="font-bold text-white">{variant === '1' ? 'BugTracer' : 'CodeLink'}</span>
 
 					<span className="text-content-body text-sm">
-						{variant === '1'
-							? 'Rastreador simples de bugs.'
-							: 'Integração de GitHub e GitLab.'}
+						{variant === '1' ? 'Rastreador simples de bugs.' : 'Integração de GitHub e GitLab.'}
 					</span>
 				</div>
 			</div>

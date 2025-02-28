@@ -1,6 +1,4 @@
-export function getPageTrackParams(params: {
-	[key: string]: string | string[] | undefined
-}) {
+export function getPageTrackParams(params: { [key: string]: string | string[] | undefined }) {
 	const utmTags: Record<string, string> = {}
 
 	const paramsFilter = [

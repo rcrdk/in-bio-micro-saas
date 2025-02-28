@@ -40,7 +40,7 @@ export async function updatePageSocialMediaAction(data: FormData) {
 
 		revalidateTag(`get-page-by-slug-${slug}`)
 		revalidateTag(`get-page-by-user-id-${session.user.id}`)
-	} catch (error) {
+	} catch {
 		return {
 			success: false,
 			message: actionsMessages.errors.UNEXPECTED,

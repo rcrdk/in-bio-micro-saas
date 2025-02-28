@@ -1,5 +1,5 @@
-import { Play } from 'lucide-react'
 import Image from 'next/image'
+import { Play } from 'lucide-react'
 
 import videoThumbnail from '@/assets/video-thumbnail.png'
 import { Container } from '@/components/ui/container'

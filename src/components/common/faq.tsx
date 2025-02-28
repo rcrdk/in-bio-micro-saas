@@ -57,10 +57,7 @@ export function Faq() {
 						<Accordion.Item key={index} value={`item-${index}`}>
 							<Accordion.Trigger className="focus-themed flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left sm:gap-6 sm:px-6 sm:py-4 [&[data-state=open]_svg]:rotate-180">
 								<Text variant="heading-sm">{item.title}</Text>
-								<ChevronDown
-									className="shrink-0 transition-transform"
-									size={28}
-								/>
+								<ChevronDown className="shrink-0 transition-transform" size={28} />
 							</Accordion.Trigger>
 
 							<Accordion.Content className="data-[state=closed]:animate-accordion-close data-[state=open]:animate-accordion-open overflow-hidden">

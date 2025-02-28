@@ -28,24 +28,12 @@ export function TotalVisits({ counter = 0, slug }: Props) {
 				</Button>
 			</div>
 
-			<span
-				className={cn(
-					'font-bold text-white',
-					isCounterLarger ? 'xs:text-base text-sm' : 'text-base',
-				)}
-			>
+			<span className={cn('font-bold text-white', isCounterLarger ? 'xs:text-base text-sm' : 'text-base')}>
 				Total de visitas
 			</span>
 
 			<div className="text-accent-green xs:gap-2 flex items-center gap-1">
-				<span
-					className={cn(
-						'font-bold',
-						isCounterLarger
-							? 'xs:text-2xl text-xl sm:text-3xl'
-							: 'text-2xl sm:text-3xl',
-					)}
-				>
+				<span className={cn('font-bold', isCounterLarger ? 'xs:text-2xl text-xl sm:text-3xl' : 'text-2xl sm:text-3xl')}>
 					{counter.toLocaleString('pt-br')}
 				</span>
 				<TrendingUp />

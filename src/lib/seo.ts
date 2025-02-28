@@ -10,13 +10,7 @@ type Props = {
 	extraTags?: Metadata
 }
 
-export function getSeoTags({
-	title,
-	description,
-	keywords,
-	canonicalUrlRelative,
-	extraTags,
-}: Props): Metadata {
+export function getSeoTags({ title, description, keywords, canonicalUrlRelative, extraTags }: Props): Metadata {
 	return {
 		title,
 		description,

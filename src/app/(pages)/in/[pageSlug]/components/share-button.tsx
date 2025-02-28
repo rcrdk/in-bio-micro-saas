@@ -14,8 +14,7 @@ type Props = {
 
 export function ShareButton({ pageSlug: slug, mode }: Props) {
 	const shareLink = `${env.NEXT_PUBLIC_APP_URL}/in/${slug}`
-	const toastMessage =
-		'O link da página foi copiado para área de transferiencia.'
+	const toastMessage = 'O link da página foi copiado para área de transferiencia.'
 
 	const clipboard = useClipboard({ timeout: 500 })
 	const userDevice = useDeviceOS()
@@ -29,7 +28,7 @@ export function ShareButton({ pageSlug: slug, mode }: Props) {
 
 		try {
 			await navigator.share({ url: shareLink })
-		} catch (err) {
+		} catch {
 			clipboard.copy(shareLink)
 
 			if (clipboard.copied) {

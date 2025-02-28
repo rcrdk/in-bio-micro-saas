@@ -54,11 +54,7 @@ export default async function Resources({ params, searchParams }: Props) {
 		<>
 			<Header />
 
-			<Hero
-				title={content.title}
-				description={content.description}
-				slug={slug}
-			/>
+			<Hero title={content.title} description={content.description} slug={slug} />
 
 			<VideoPresentation />
 			<Pricing />

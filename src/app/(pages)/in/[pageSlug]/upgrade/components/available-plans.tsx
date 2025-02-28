@@ -1,8 +1,8 @@
 'use client'
 
-import { sendGTMEvent } from '@next/third-parties/google'
-import { useParams } from 'next/navigation'
 import { useState } from 'react'
+import { useParams } from 'next/navigation'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { toast } from 'sonner'
 
 import { PricingCard } from '@/components/common/pricing-card'
@@ -29,11 +29,9 @@ export function AvailablePlans() {
 				},
 				isSubscription: mode === 'subscription',
 			})
-		} catch (error) {
+		} catch {
 			setIsSubmitting(null)
-			toast.error(
-				'Ocorreu um erro ao tentar fazer o upgrade. Tente mais tarde.',
-			)
+			toast.error('Ocorreu um erro ao tentar fazer o upgrade. Tente mais tarde.')
 		}
 	}
 

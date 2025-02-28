@@ -1,7 +1,6 @@
 'use server'
 
 import { randomUUID } from 'node:crypto'
-
 import { revalidateTag } from 'next/cache'
 
 import { createProject } from '@/http/create-project'
@@ -46,7 +45,7 @@ export async function createProjectAction(data: FormData) {
 		})
 
 		revalidateTag(`get-projects-${slug}`)
-	} catch (error) {
+	} catch {
 		return {
 			success: false,
 			message: actionsMessages.errors.UNEXPECTED,

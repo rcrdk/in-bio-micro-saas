@@ -1,8 +1,8 @@
 'use client'
 
-import { UserPen } from 'lucide-react'
-import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { UserPen } from 'lucide-react'
 import { useWindowSize } from 'react-haiku'
 import { toast } from 'sonner'
 
@@ -23,10 +23,7 @@ type Props = {
 	currentAvatar?: string
 }
 
-export function ModalPageInformationForm({
-	initialData,
-	currentAvatar,
-}: Props) {
+export function ModalPageInformationForm({ initialData, currentAvatar }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const [open, setOpen] = useState(false)
@@ -38,13 +35,12 @@ export function ModalPageInformationForm({
 		setOpen((prev) => !prev)
 	}
 
-	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(updatePageInformationAction, {
-			onSuccess() {
-				handleToggleModal()
-			},
-			resetStateMessage: true,
-		})
+	const [{ success, message, errors }, handleSubmit, isSubmitting] = useFormState(updatePageInformationAction, {
+		onSuccess() {
+			handleToggleModal()
+		},
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -74,11 +70,7 @@ export function ModalPageInformationForm({
 				open={open}
 				onOpenChange={handleToggleModal}
 			>
-				<form
-					onSubmit={handleSubmit}
-					className="flex flex-col gap-8 sm:flex-row"
-					ref={formRef}
-				>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-8 sm:flex-row" ref={formRef}>
 					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
 					<FormImage mode="user" currentImage={currentAvatar} />

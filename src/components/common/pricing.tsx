@@ -16,12 +16,9 @@ export function Pricing() {
 					</Text>
 
 					<Text variant="body-lg">
-						Junte-se à comunidade de criadores e profissionais que já estão
-						elevando sua presença online. Teste gratuitamente por{' '}
-						<strong className="text-accent-pink">
-							{env.NEXT_PUBLIC_TRIAL_DAYS} dias
-						</strong>
-						, sem compromisso!
+						Junte-se à comunidade de criadores e profissionais que já estão elevando sua presença online. Teste
+						gratuitamente por <strong className="text-accent-pink">{env.NEXT_PUBLIC_TRIAL_DAYS} dias</strong>, sem
+						compromisso!
 					</Text>
 				</div>
 

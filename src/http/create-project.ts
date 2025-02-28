@@ -35,21 +35,17 @@ export async function createProject({
 		imagePath = storageRef.name
 	}
 
-	const response = await DB.collection('pages')
-		.doc(slug)
-		.collection('projects')
-		.doc(id)
-		.set({
-			id,
-			userId,
-			name,
-			description,
-			url,
-			imagePath,
-			totalClicks: 0,
-			createdAt: Timestamp.now().toMillis(),
-			updatedAt: Timestamp.now().toMillis(),
-		})
+	const response = await DB.collection('pages').doc(slug).collection('projects').doc(id).set({
+		id,
+		userId,
+		name,
+		description,
+		url,
+		imagePath,
+		totalClicks: 0,
+		createdAt: Timestamp.now().toMillis(),
+		updatedAt: Timestamp.now().toMillis(),
+	})
 
 	return response
 }

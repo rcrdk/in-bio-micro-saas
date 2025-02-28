@@ -11,12 +11,7 @@ type CreatePageRequest = {
 
 type CreatePageResponse = WriteResult
 
-export async function createPage({
-	slug,
-	userId,
-	name,
-	trialEndsAt,
-}: CreatePageRequest): Promise<CreatePageResponse> {
+export async function createPage({ slug, userId, name, trialEndsAt }: CreatePageRequest): Promise<CreatePageResponse> {
 	const response = await DB.collection('pages')
 		.doc(slug)
 		.set({

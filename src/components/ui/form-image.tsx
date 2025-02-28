@@ -1,6 +1,6 @@
-import { ImageIcon, Upload, User } from 'lucide-react'
-import Image from 'next/image'
 import { useState } from 'react'
+import Image from 'next/image'
+import { ImageIcon, Upload, User } from 'lucide-react'
 
 import { cn } from '@/utils/tailwind-cn'
 
@@ -38,23 +38,11 @@ export function FormImage({ mode, currentImage }: Props) {
 				)}
 			>
 				{selectedImage && (
-					<Image
-						src={selectedImage}
-						width={500}
-						height={500}
-						alt=""
-						className="size-full object-cover object-center"
-					/>
+					<Image src={selectedImage} width={500} height={500} alt="" className="size-full object-cover object-center" />
 				)}
 
 				{!selectedImage && currentImage && (
-					<Image
-						src={currentImage}
-						width={500}
-						height={500}
-						alt=""
-						className="size-full object-cover object-center"
-					/>
+					<Image src={currentImage} width={500} height={500} alt="" className="size-full object-cover object-center" />
 				)}
 
 				{!selectedImage && !currentImage && (

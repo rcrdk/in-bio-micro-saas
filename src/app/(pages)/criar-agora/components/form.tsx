@@ -1,8 +1,8 @@
 'use client'
 
-import { sendGTMEvent } from '@next/third-parties/google'
-import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { sendGTMEvent } from '@next/third-parties/google'
 import { toast } from 'sonner'
 
 import { createPageAction } from '@/app/actions/create-page'
@@ -29,17 +29,14 @@ export function FinishCreateSlugForm() {
 		setSlug(sanitizeValue)
 	}
 
-	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
-		createPageAction,
-		{
-			onSuccess() {
-				sendGTMEvent({ event: 'create_page_effective', slug })
+	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(createPageAction, {
+		onSuccess() {
+			sendGTMEvent({ event: 'create_page_effective', slug })
 
-				router.push(`/in/${slug}`)
-			},
-			resetStateMessage: true,
+			router.push(`/in/${slug}`)
 		},
-	)
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -68,20 +65,10 @@ export function FinishCreateSlugForm() {
 
 	return (
 		<>
-			<form
-				onSubmit={handleSubmit}
-				className="mt-8 flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-1"
-			>
+			<form onSubmit={handleSubmit} className="mt-8 flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-1">
 				<div className="relative grow">
-					<div
-						ref={labelRef}
-						className="pointer-events-none absolute top-0 flex h-full items-center pl-4 select-none"
-					>
-						<Text
-							variant="body-md"
-							as="span"
-							className="text-nowrap whitespace-nowrap"
-						>
+					<div ref={labelRef} className="pointer-events-none absolute top-0 flex h-full items-center pl-4 select-none">
+						<Text variant="body-md" as="span" className="text-nowrap whitespace-nowrap">
 							{env.NEXT_PUBLIC_APP_URL}/in/
 						</Text>
 					</div>
@@ -100,11 +87,7 @@ export function FinishCreateSlugForm() {
 					/>
 				</div>
 
-				<Button
-					className="w-full min-w-36 sm:ml-1 sm:w-auto"
-					disabled={isSubmitting}
-					loading={isSubmitting}
-				>
+				<Button className="w-full min-w-36 sm:ml-1 sm:w-auto" disabled={isSubmitting} loading={isSubmitting}>
 					Criar agora
 				</Button>
 			</form>

@@ -1,5 +1,5 @@
 import { revalidateTag } from 'next/cache'
-import { type NextRequest, NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import type StripePackage from 'stripe'
 
 import { updateStripeWebhook } from '@/http/update-stripe-webhook'
@@ -40,17 +40,10 @@ export async function POST(req: NextRequest) {
 						}
 					}
 
-					if (
-						subscription.payment_status === 'unpaid' &&
-						subscription.payment_intent
-					) {
-						const paymentIntend = await Stripe.paymentIntents.retrieve(
-							subscription.payment_intent.toString(),
-						)
+					if (subscription.payment_status === 'unpaid' && subscription.payment_intent) {
+						const paymentIntend = await Stripe.paymentIntents.retrieve(subscription.payment_intent.toString())
 
-						const hostedVoucherUrl =
-							paymentIntend.next_action?.boleto_display_details
-								?.hosted_voucher_url
+						const hostedVoucherUrl = paymentIntend.next_action?.boleto_display_details?.hosted_voucher_url
 
 						const userEmail = subscription.customer_details?.email
 
@@ -76,9 +69,7 @@ export async function POST(req: NextRequest) {
 					const customerId = subscription.customer?.toString()
 
 					if (customerId) {
-						const customer = (await Stripe.customers.retrieve(
-							customerId,
-						)) as StripePackage.Customer
+						const customer = (await Stripe.customers.retrieve(customerId)) as StripePackage.Customer
 
 						if (customer && customer.metadata.pageSlug) {
 							const slug = customer.metadata.pageSlug
@@ -103,9 +94,7 @@ export async function POST(req: NextRequest) {
 					const customerId = subscription.customer.toString()
 
 					if (customerId) {
-						const customer = (await Stripe.customers.retrieve(
-							customerId,
-						)) as StripePackage.Customer
+						const customer = (await Stripe.customers.retrieve(customerId)) as StripePackage.Customer
 
 						if (customer && customer.metadata.pageSlug) {
 							const slug = customer.metadata.pageSlug
@@ -129,9 +118,7 @@ export async function POST(req: NextRequest) {
 				const customerId = subscription.customer.toString()
 
 				if (customerId && subscription.current_period_end) {
-					const customer = (await Stripe.customers.retrieve(
-						customerId,
-					)) as StripePackage.Customer
+					const customer = (await Stripe.customers.retrieve(customerId)) as StripePackage.Customer
 
 					if (customer && customer.metadata.pageSlug) {
 						const slug = customer.metadata.pageSlug
@@ -140,9 +127,7 @@ export async function POST(req: NextRequest) {
 
 						await updateStripeWebhook({
 							slug,
-							subscriptionEndedAt: isScheduleToEnd
-								? subscription.current_period_end * 1000
-								: null,
+							subscriptionEndedAt: isScheduleToEnd ? subscription.current_period_end * 1000 : null,
 						})
 
 						if (slug) {

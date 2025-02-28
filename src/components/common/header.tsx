@@ -1,7 +1,7 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { CirclePlus, CircleUserRound, LogOut, Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { CirclePlus, CircleUserRound, LogOut, Menu } from 'lucide-react'
 
 import { authAction } from '@/app/actions/auth'
 import brandImage from '@/assets/brand.svg'
@@ -17,48 +17,26 @@ type Props = {
 export async function Header({ hidePageButton = false }: Props) {
 	const session = await auth()
 
-	// eslint-disable-next-line prettier/prettier
 	const page = session?.user?.id && (await getPageByUserId(session.user.id))
 
 	return (
 		<Container className="absolute top-0 right-0 left-0 z-50">
 			<header className="flex items-center justify-between py-6 sm:py-8 xl:py-10">
-				<Link
-					href="/"
-					className="focus-themed block w-[167px] select-none sm:w-[187px]"
-				>
-					<Image
-						src={brandImage}
-						width={187}
-						height={157}
-						alt="ProjectInBio"
-						className="h-auto w-full"
-					/>
+				<Link href="/" className="focus-themed block w-[167px] select-none sm:w-[187px]">
+					<Image src={brandImage} width={187} height={157} alt="ProjectInBio" className="h-auto w-full" />
 				</Link>
 
 				<div className="flex flex-1 grow justify-end gap-4">
 					{session?.user && !hidePageButton && (
-						<Button
-							as={Link}
-							size="sm"
-							href={page ? `/in/${page.slug}` : '/criar-agora'}
-							className="hidden sm:flex"
-						>
+						<Button as={Link} size="sm" href={page ? `/in/${page.slug}` : '/criar-agora'} className="hidden sm:flex">
 							{page ? <CircleUserRound /> : <CirclePlus />}
 							{page ? 'Minha página' : 'Criar uma página'}
 						</Button>
 					)}
 
-					<form
-						action={authAction}
-						className={session ? 'hidden sm:block' : undefined}
-					>
+					<form action={authAction} className={session ? 'hidden sm:block' : undefined}>
 						<Button size="sm" variant="tranluscent">
-							{session ? (
-								<LogOut strokeWidth={1.5} />
-							) : (
-								<CircleUserRound strokeWidth={1.5} />
-							)}
+							{session ? <LogOut strokeWidth={1.5} /> : <CircleUserRound strokeWidth={1.5} />}
 
 							{session ? 'Sair' : 'Entrar'}
 						</Button>
@@ -68,12 +46,7 @@ export async function Header({ hidePageButton = false }: Props) {
 				{session?.user && (
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild>
-							<Button
-								variant="tranluscent"
-								icon
-								aria-label="Menu"
-								className="flex sm:hidden"
-							>
+							<Button variant="tranluscent" icon aria-label="Menu" className="flex sm:hidden">
 								<Menu />
 							</Button>
 						</DropdownMenu.Trigger>

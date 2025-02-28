@@ -39,7 +39,7 @@ export async function deleteProjectAction(data: FormData) {
 		})
 
 		revalidateTag(`get-projects-${slug}`)
-	} catch (error) {
+	} catch {
 		return {
 			success: false,
 			message: actionsMessages.errors.UNEXPECTED,

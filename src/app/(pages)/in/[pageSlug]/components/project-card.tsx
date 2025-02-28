@@ -1,10 +1,10 @@
 'use client'
 
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Edit, ImageIcon, Settings, Trash } from 'lucide-react'
+import { useCallback, useState } from 'react'
 import Image from 'next/image'
 import { useParams } from 'next/navigation'
-import { useCallback, useState } from 'react'
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Edit, ImageIcon, Settings, Trash } from 'lucide-react'
 
 import { ModalProjectDelete } from '@/app/(pages)/in/[pageSlug]/components/modal-project-delete'
 import { ModalProjectForm } from '@/app/(pages)/in/[pageSlug]/components/modal-project-form'
@@ -48,13 +48,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 			>
 				<div className="bg-image-background flex size-24 shrink-0 overflow-hidden rounded-md">
 					{image ? (
-						<Image
-							src={image}
-							width={460}
-							height={460}
-							alt=""
-							className="size-full object-cover"
-						/>
+						<Image src={image} width={460} height={460} alt="" className="size-full object-cover" />
 					) : (
 						<ImageIcon className="m-auto size-6 opacity-25" />
 					)}
@@ -63,19 +57,13 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 				<div className="flex flex-col gap-2">
 					{isOwner && (
 						<span className="text-accent-green text-xs font-bold uppercase">
-							{data.totalClicks === 1
-								? '1 clique'
-								: `${data.totalClicks ?? 0} cliques`}
+							{data.totalClicks === 1 ? '1 clique' : `${data.totalClicks ?? 0} cliques`}
 						</span>
 					)}
 
 					<div className="flex flex-col gap-2">
-						<span className="block leading-5 font-bold text-pretty text-white">
-							{data.name}
-						</span>
-						<span className="text-content-body block text-sm text-pretty">
-							{data.description}
-						</span>
+						<span className="block leading-5 font-bold text-pretty text-white">{data.name}</span>
+						<span className="text-content-body block text-sm text-pretty">{data.description}</span>
 					</div>
 				</div>
 			</a>
@@ -88,7 +76,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 								icon="rounded"
 								variant="secondary"
 								aria-label="Opções"
-								className="absolute top-0 right-0 size-8 -translate-y-1/4 translate-x-1/4 text-white/75"
+								className="absolute top-0 right-0 size-8 translate-x-1/4 -translate-y-1/4 text-white/75"
 							>
 								<Settings size={20} />
 							</Button>
@@ -125,11 +113,7 @@ export function ProjectCard({ data, image, isOwner }: Props) {
 						initialImage={image}
 					/>
 
-					<ModalProjectDelete
-						open={openRemove}
-						onOpenChange={handleToggleRemoveModal}
-						project={data}
-					/>
+					<ModalProjectDelete open={openRemove} onOpenChange={handleToggleRemoveModal} project={data} />
 				</>
 			)}
 		</div>

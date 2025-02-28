@@ -1,8 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/ui/container'

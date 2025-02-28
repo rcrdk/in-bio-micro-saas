@@ -10,9 +10,7 @@ export const env = createEnv({
 		AUTH_GOOGLE_SECRET: z.string(),
 		FIREBASE_PROJECT_ID: z.string(),
 		FIREBASE_CLIENT_EMAIL: z.string(),
-		FIREBASE_PRIVATE_KEY: z
-			.string()
-			.transform((value) => value.split(String.raw`\n`).join('\n')),
+		FIREBASE_PRIVATE_KEY: z.string().transform((value) => value.split(String.raw`\n`).join('\n')),
 		FIREBASE_STORAGE_BUCKET: z.string(),
 		STRIPE_SECRET_KEY: z.string(),
 		STRIPE_WEBHOOK_SECRET: z.string(),

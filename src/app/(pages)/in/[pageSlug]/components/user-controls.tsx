@@ -1,8 +1,8 @@
 'use client'
 
+import Link from 'next/link'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import { Home, LogOut, Settings } from 'lucide-react'
-import Link from 'next/link'
 
 import { UserControlsPortalButton } from '@/app/(pages)/in/[pageSlug]/components/user-controls-portal-button'
 import { authAction } from '@/app/actions/auth'

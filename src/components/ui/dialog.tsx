@@ -63,13 +63,7 @@ export function Dialog({
 
 								{!hideCloseButton && (
 									<RadixDialog.Close asChild>
-										<Button
-											size="sm"
-											variant="ghost"
-											aria-label="Fechar"
-											className="hidden sm:flex"
-											icon
-										>
+										<Button size="sm" variant="ghost" aria-label="Fechar" className="hidden sm:flex" icon>
 											<X />
 										</Button>
 									</RadixDialog.Close>
@@ -80,9 +74,7 @@ export function Dialog({
 
 							<div className="flex flex-col-reverse justify-end gap-2 sm:flex-row sm:gap-4">
 								<RadixDialog.Close type="button" asChild>
-									<Button variant="ghost">
-										{submmitButton ? 'Cancelar' : 'Voltar'}
-									</Button>
+									<Button variant="ghost">{submmitButton ? 'Cancelar' : 'Voltar'}</Button>
 								</RadixDialog.Close>
 
 								{submmitButton && (

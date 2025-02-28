@@ -1,8 +1,8 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import dayjs from 'dayjs'
 import { Timestamp } from 'firebase-admin/firestore'
-import { revalidateTag } from 'next/cache'
 
 import { createPage } from '@/http/create-page'
 import { verifyPageSlugExistence } from '@/http/verify-page-slug-existence'
@@ -48,9 +48,7 @@ export async function createPageAction(data: FormData) {
 			}
 		}
 
-		const trialEndsAt = dayjs(Timestamp.now().toMillis())
-			.add(env.NEXT_PUBLIC_TRIAL_DAYS, 'days')
-			.valueOf()
+		const trialEndsAt = dayjs(Timestamp.now().toMillis()).add(env.NEXT_PUBLIC_TRIAL_DAYS, 'days').valueOf()
 
 		await createPage({
 			slug,
@@ -64,7 +62,7 @@ export async function createPageAction(data: FormData) {
 		})
 
 		revalidateTag(`get-page-by-user-id-${session.user.id}`)
-	} catch (error) {
+	} catch {
 		return {
 			success: false,
 			message: actionsMessages.errors.PAGE_SLUG_CREATE,

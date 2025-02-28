@@ -1,8 +1,8 @@
 'use client'
 
-import { Settings } from 'lucide-react'
-import { useParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { Settings } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { updatePageCustomLinksAction } from '@/app/actions/update-page-custom-links'
@@ -27,13 +27,12 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 		setOpen((prev) => !prev)
 	}
 
-	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(updatePageCustomLinksAction, {
-			onSuccess() {
-				handleToggleModal()
-			},
-			resetStateMessage: true,
-		})
+	const [{ success, message, errors }, handleSubmit, isSubmitting] = useFormState(updatePageCustomLinksAction, {
+		onSuccess() {
+			handleToggleModal()
+		},
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -46,12 +45,7 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 
 	return (
 		<>
-			<Button
-				variant="ghost"
-				onClick={handleToggleModal}
-				aria-label="Adicionar link"
-				className="w-full"
-			>
+			<Button variant="ghost" onClick={handleToggleModal} aria-label="Adicionar link" className="w-full">
 				<Settings />
 				Configurar links
 			</Button>
@@ -67,11 +61,7 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 				open={open}
 				onOpenChange={handleToggleModal}
 			>
-				<form
-					onSubmit={handleSubmit}
-					className="sm::gap-4 flex flex-col gap-2"
-					ref={formRef}
-				>
+				<form onSubmit={handleSubmit} className="sm::gap-4 flex flex-col gap-2" ref={formRef}>
 					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
 					<div className="flex flex-col gap-2 sm:flex-row sm:items-start">
@@ -80,12 +70,7 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 						</Text>
 
 						<FormGroup>
-							<Input
-								placeholder="Informe um nome"
-								name="title1"
-								id="title1"
-								defaultValue={customLinks.link1.title}
-							/>
+							<Input placeholder="Informe um nome" name="title1" id="title1" defaultValue={customLinks.link1.title} />
 						</FormGroup>
 
 						<FormGroup className="grow">
@@ -106,12 +91,7 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 						</Text>
 
 						<FormGroup>
-							<Input
-								placeholder="Informe um nome"
-								name="title2"
-								id="title2"
-								defaultValue={customLinks.link2.title}
-							/>
+							<Input placeholder="Informe um nome" name="title2" id="title2" defaultValue={customLinks.link2.title} />
 						</FormGroup>
 
 						<FormGroup className="grow">
@@ -132,12 +112,7 @@ export function ModalPageCustomLinksForm({ customLinks }: Props) {
 						</Text>
 
 						<FormGroup>
-							<Input
-								placeholder="Informe um nome"
-								name="title3"
-								id="title3"
-								defaultValue={customLinks.link3.title}
-							/>
+							<Input placeholder="Informe um nome" name="title3" id="title3" defaultValue={customLinks.link3.title} />
 						</FormGroup>
 
 						<FormGroup className="grow">

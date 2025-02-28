@@ -6,11 +6,7 @@ import type { ProjectDTO } from '@/dtos/projects'
 import { DB } from '@/lib/firebase'
 
 async function getProjectsFn(slug: string) {
-	const snapshot = await DB.collection('pages')
-		.doc(slug)
-		.collection('projects')
-		.orderBy('createdAt', 'desc')
-		.get()
+	const snapshot = await DB.collection('pages').doc(slug).collection('projects').orderBy('createdAt', 'desc').get()
 
 	return snapshot.docs.map((docs) => docs.data()) as ProjectDTO[]
 }

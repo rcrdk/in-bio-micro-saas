@@ -11,7 +11,6 @@ export async function POST(req: Request) {
 
 	const session = await auth()
 
-	// eslint-disable-next-line prettier/prettier
 	if (!session?.user || !session.user.id || !session.user.email || !session.user.name) {
 		return new NextResponse('Unauthorized.', { status: 401 })
 	}
@@ -25,9 +24,7 @@ export async function POST(req: Request) {
 		email,
 	})
 
-	const price = isSubscription
-		? env.STRIPE_SUBSCRIPTION_PRICE_ID
-		: env.STRIPE_PAYMENT_PRICE_ID
+	const price = isSubscription ? env.STRIPE_SUBSCRIPTION_PRICE_ID : env.STRIPE_PAYMENT_PRICE_ID
 
 	const stripeSession = await Stripe.checkout.sessions.create({
 		customer: customerId,

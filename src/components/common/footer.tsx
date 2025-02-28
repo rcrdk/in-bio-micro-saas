@@ -12,17 +12,8 @@ export function Footer() {
 			<Container>
 				<div className="grid grid-cols-1 justify-between gap-12 text-center sm:grid-cols-2 sm:text-left md:grid-cols-3 lg:flex">
 					<div className="order-3 flex flex-col items-center justify-between gap-12 sm:items-start md:order-1">
-						<Link
-							href="/"
-							className="focus-themed block w-[167px] select-none sm:w-[187px]"
-						>
-							<Image
-								src={brandImage}
-								width={187}
-								height={157}
-								alt="ProjectInBio"
-								className="h-auto w-full"
-							/>
+						<Link href="/" className="focus-themed block w-[167px] select-none sm:w-[187px]">
+							<Image src={brandImage} width={187} height={157} alt="ProjectInBio" className="h-auto w-full" />
 						</Link>
 
 						<Text variant="body-sm" className="text-gray-500">
@@ -83,9 +74,7 @@ export function Footer() {
 								alt="ProjectInBio"
 								className="size-6 rounded-full"
 							/>
-							<span className="block text-sm leading-none font-medium">
-								Feito por rcrdk.dev
-							</span>
+							<span className="block text-sm leading-none font-medium">Feito por rcrdk.dev</span>
 						</a>
 					</div>
 				</div>

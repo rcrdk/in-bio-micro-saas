@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export const actionsMessages = {
 	errors: {
 		UNAUTHORIZED: 'Você não tem permissão para realizar esta acão.',

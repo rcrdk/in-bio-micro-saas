@@ -1,9 +1,5 @@
 import type { FormEvent } from 'react'
-import {
-	startTransition as startTransitionFn,
-	useState,
-	useTransition,
-} from 'react'
+import { startTransition as startTransitionFn, useState, useTransition } from 'react'
 import { requestFormReset } from 'react-dom'
 
 interface FormState {
@@ -29,9 +25,7 @@ export function useFormState(
 ) {
 	const [isPending, startTransition] = useTransition()
 
-	const [formState, setFormState] = useState(
-		options?.initialState ?? { success: false, message: null, errors: null },
-	)
+	const [formState, setFormState] = useState(options?.initialState ?? { success: false, message: null, errors: null })
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()

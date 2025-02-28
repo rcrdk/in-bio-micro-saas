@@ -6,10 +6,7 @@ type DeleteProjectRequest = {
 }
 
 export async function deleteProject({ slug, projectId }: DeleteProjectRequest) {
-	const ref = DB.collection('pages')
-		.doc(slug)
-		.collection('projects')
-		.doc(projectId)
+	const ref = DB.collection('pages').doc(slug).collection('projects').doc(projectId)
 
 	const imagePath = (await ref.get()).data()?.imagePath
 

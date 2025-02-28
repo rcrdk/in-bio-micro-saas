@@ -1,5 +1,5 @@
-import { Github, Instagram, Linkedin, Twitter } from 'lucide-react'
 import Image from 'next/image'
+import { Github, Instagram, Linkedin, Twitter } from 'lucide-react'
 
 import placeholderUserPicture from '@/assets/demo-user.jpg'
 import { Button } from '@/components/ui/button'
@@ -24,9 +24,7 @@ export function UserCardDemo() {
 						John Doe
 					</Text>
 
-					<Text className="text-white opacity-40">
-						Eu crio produtos para a internet
-					</Text>
+					<Text className="text-white opacity-40">Eu crio produtos para a internet</Text>
 				</div>
 
 				<div className="from-card-background via-card-border to-card-background h-px bg-linear-to-r" />

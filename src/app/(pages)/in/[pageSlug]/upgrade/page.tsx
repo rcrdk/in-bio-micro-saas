@@ -35,10 +35,7 @@ export default async function Upgrade({ params }: Props) {
 							Mantenha sua página ativa
 						</Text>
 
-						<Text variant="body-lg">
-							Faça o upgrade para que as pessoas possam continuar visitando sua
-							página.
-						</Text>
+						<Text variant="body-lg">Faça o upgrade para que as pessoas possam continuar visitando sua página.</Text>
 					</div>
 
 					<div className="flex flex-row flex-wrap items-end justify-center gap-8 md:gap-9">

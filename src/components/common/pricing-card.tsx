@@ -10,14 +10,7 @@ type Props = {
 	button: React.ReactNode
 }
 
-export function PricingCard({
-	name,
-	description,
-	isRecommend = false,
-	price,
-	priceLabel,
-	button,
-}: Props) {
+export function PricingCard({ name, description, isRecommend = false, price, priceLabel, button }: Props) {
 	return (
 		<div
 			className={cn(
@@ -27,17 +20,10 @@ export function PricingCard({
 					: 'border-background-card-divider bg-background-primary border p-6 sm:p-8',
 			)}
 		>
-			{isRecommend && (
-				<span className="p-2 text-xs font-bold text-white uppercase">
-					Recomendado
-				</span>
-			)}
+			{isRecommend && <span className="p-2 text-xs font-bold text-white uppercase">Recomendado</span>}
 
 			<div
-				className={cn(
-					'bg-background-primary flex w-full flex-col gap-7 rounded-b-2xl',
-					isRecommend && 'p-6 sm:p-8',
-				)}
+				className={cn('bg-background-primary flex w-full flex-col gap-7 rounded-b-2xl', isRecommend && 'p-6 sm:p-8')}
 			>
 				<div className="flex flex-col">
 					<Text as="span" variant="heading-sm">
@@ -56,11 +42,7 @@ export function PricingCard({
 					<Text variant="heading-lg" as="span">
 						{price}
 					</Text>
-					<Text
-						variant="body-lg"
-						as="span"
-						className="text-content-headline xs:text-2xl text-xl"
-					>
+					<Text variant="body-lg" as="span" className="text-content-headline xs:text-2xl text-xl">
 						{priceLabel}
 					</Text>
 				</div>

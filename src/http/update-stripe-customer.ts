@@ -8,12 +8,7 @@ type Props = {
 	email: string
 }
 
-export async function updateStripeCustomer({
-	userId,
-	slug,
-	name,
-	email,
-}: Props) {
+export async function updateStripeCustomer({ userId, slug, name, email }: Props) {
 	const ref = DB.collection('users').doc(userId)
 	const data = await ref.get()
 

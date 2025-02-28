@@ -6,9 +6,7 @@ export function TotalVisitsDemo() {
 			<span className="font-bold text-white">Total de visitas</span>
 
 			<div className="text-accent-green flex items-center gap-2">
-				<span className="text-2xl font-bold sm:text-3xl">
-					{(12453).toLocaleString('pt-br')}
-				</span>
+				<span className="text-2xl font-bold sm:text-3xl">{(12453).toLocaleString('pt-br')}</span>
 				<TrendingUp />
 			</div>
 		</div>

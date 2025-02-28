@@ -2,9 +2,9 @@
 
 import '@/styles/globals.css'
 
+import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { CircleAlert, CircleCheck, Info } from 'lucide-react'
-import { Red_Hat_Display as RedHatDisplay } from 'next/font/google'
 import { Toaster } from 'sonner'
 
 import Cookies from '@/components/ui/cookies'
@@ -22,9 +22,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-br" translate="no" className="bg-background-primary">
-			<body
-				className={`bg-background-primary text-content-body antialiased ${redHatDisplay.className}`}
-			>
+			<body className={`bg-background-primary text-content-body antialiased ${redHatDisplay.className}`}>
 				{children}
 
 				<Toaster
@@ -55,13 +53,9 @@ export default function RootLayout({
 
 			{process.env.NODE_ENV === 'production' && (
 				<>
-					{env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-						<GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-					)}
+					{env.NEXT_PUBLIC_GOOGLE_ANALYTICS && <GoogleAnalytics gaId={env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />}
 
-					{env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER && (
-						<GoogleTagManager gtmId={env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER} />
-					)}
+					{env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER && <GoogleTagManager gtmId={env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER} />}
 				</>
 			)}
 		</html>

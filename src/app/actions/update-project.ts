@@ -30,14 +30,7 @@ export async function updateProjectAction(data: FormData) {
 		}
 	}
 
-	const {
-		name,
-		description,
-		url,
-		pageSlug: slug,
-		projectId,
-		file,
-	} = result.data
+	const { name, description, url, pageSlug: slug, projectId, file } = result.data
 
 	try {
 		updateProject({
@@ -50,7 +43,7 @@ export async function updateProjectAction(data: FormData) {
 		})
 
 		revalidateTag(`get-projects-${slug}`)
-	} catch (error) {
+	} catch {
 		return {
 			success: false,
 			message: actionsMessages.errors.UNEXPECTED,

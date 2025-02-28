@@ -1,7 +1,4 @@
-export type PageCustomLinks = Record<
-	'link1' | 'link2' | 'link3',
-	{ title: string; url: string }
->
+export type PageCustomLinks = Record<'link1' | 'link2' | 'link3', { title: string; url: string }>
 
 export type PageSocialMediaLinks = Record<
 	'github' | 'linkedin' | 'twitter' | 'instagram' | 'youtube' | 'facebook',

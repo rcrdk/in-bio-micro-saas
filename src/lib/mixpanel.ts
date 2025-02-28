@@ -5,19 +5,10 @@ import { auth } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { getHeadersData } from '@/lib/headers-data'
 
-const mixpanelEvent = env.MIXPANEL_SECRET
-	? Mixpanel.init(env.MIXPANEL_SECRET)
-	: undefined
+const mixpanelEvent = env.MIXPANEL_SECRET ? Mixpanel.init(env.MIXPANEL_SECRET) : undefined
 
-export async function trackServerEvent(
-	eventName: string,
-	properties: Record<string, string | number | boolean>,
-) {
-	if (
-		process.env.NODE_ENV !== 'production' ||
-		!env.MIXPANEL_SECRET ||
-		!mixpanelEvent
-	) {
+export async function trackServerEvent(eventName: string, properties: Record<string, string | number | boolean>) {
+	if (process.env.NODE_ENV !== 'production' || !env.MIXPANEL_SECRET || !mixpanelEvent) {
 		return
 	}
 
@@ -39,9 +30,7 @@ export async function trackServerEvent(
 		$referrer: headersData.$referrer,
 		isBot: headersData.isBot,
 		...properties,
-		$current_url: properties.url
-			? `${env.NEXT_PUBLIC_APP_URL}${properties.url}`
-			: undefined,
+		$current_url: properties.url ? `${env.NEXT_PUBLIC_APP_URL}${properties.url}` : undefined,
 		url: undefined,
 	})
 

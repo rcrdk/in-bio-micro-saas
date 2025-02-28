@@ -1,8 +1,8 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { sendGTMEvent } from '@next/third-parties/google'
 import { signIn } from 'next-auth/react'
-import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
@@ -33,10 +33,8 @@ export function CreateSlugForm() {
 			setIsSubmitting(true)
 
 			return await signIn('google', { redirectTo: `/criar-agora?slug=${slug}` })
-		} catch (error) {
-			toast.error(
-				'Ocorreu um erro ao tentar prosseguir com a ação. Tente mais tarde.',
-			)
+		} catch {
+			toast.error('Ocorreu um erro ao tentar prosseguir com a ação. Tente mais tarde.')
 			setIsSubmitting(false)
 		}
 	}
@@ -47,20 +45,10 @@ export function CreateSlugForm() {
 	}, [])
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-1"
-		>
+		<form onSubmit={handleSubmit} className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-1">
 			<div className="relative grow">
-				<div
-					ref={labelRef}
-					className="pointer-events-none absolute top-0 flex h-full items-center pl-4 select-none"
-				>
-					<Text
-						variant="body-md"
-						as="span"
-						className="text-nowrap whitespace-nowrap"
-					>
+				<div ref={labelRef} className="pointer-events-none absolute top-0 flex h-full items-center pl-4 select-none">
+					<Text variant="body-md" as="span" className="text-nowrap whitespace-nowrap">
 						{env.NEXT_PUBLIC_APP_URL}/in/
 					</Text>
 				</div>
@@ -78,11 +66,7 @@ export function CreateSlugForm() {
 				/>
 			</div>
 
-			<Button
-				className="w-full min-w-36 sm:ml-1 sm:w-auto"
-				disabled={isSubmitting}
-				loading={isSubmitting}
-			>
+			<Button className="w-full min-w-36 sm:ml-1 sm:w-auto" disabled={isSubmitting} loading={isSubmitting}>
 				Criar agora
 			</Button>
 		</form>

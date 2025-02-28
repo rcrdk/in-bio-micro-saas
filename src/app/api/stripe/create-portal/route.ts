@@ -17,8 +17,7 @@ export async function POST(request: Request) {
 		})
 
 		return NextResponse.json({ url: portalSession.url }, { status: 200 })
-	} catch (error) {
-		console.error(error)
+	} catch {
 		return new NextResponse('Internal server error.', { status: 500 })
 	}
 }

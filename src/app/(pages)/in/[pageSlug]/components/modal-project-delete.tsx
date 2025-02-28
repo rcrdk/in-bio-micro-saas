@@ -1,7 +1,7 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { useParams } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { deleteProjectAction } from '@/app/actions/delete-project'
@@ -20,15 +20,12 @@ export function ModalProjectDelete({ open, onOpenChange, project }: Props) {
 
 	const { pageSlug: slug } = useParams()
 
-	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(
-		deleteProjectAction,
-		{
-			onSuccess() {
-				onOpenChange()
-			},
-			resetStateMessage: true,
+	const [{ success, message }, handleSubmit, isSubmitting] = useFormState(deleteProjectAction, {
+		onSuccess() {
+			onOpenChange()
 		},
-	)
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -53,11 +50,7 @@ export function ModalProjectDelete({ open, onOpenChange, project }: Props) {
 			hideCloseButton
 			dialogActions
 		>
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col gap-8 sm:flex-row"
-				ref={formRef}
-			>
+			<form onSubmit={handleSubmit} className="flex flex-col gap-8 sm:flex-row" ref={formRef}>
 				<input type="hidden" name="pageSlug" defaultValue={slug} />
 				<input type="hidden" name="projectId" defaultValue={project.id} />
 			</form>

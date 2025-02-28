@@ -1,7 +1,7 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { useParams } from 'next/navigation'
 import { useWindowSize } from 'react-haiku'
 import { toast } from 'sonner'
 
@@ -25,28 +25,20 @@ type Props = {
 	initialImage?: string
 }
 
-export function ModalProjectForm({
-	open,
-	onOpenChange,
-	mode,
-	initialData,
-	initialImage,
-}: Props) {
+export function ModalProjectForm({ open, onOpenChange, mode, initialData, initialImage }: Props) {
 	const formRef = useRef<HTMLFormElement>(null)
 
 	const { pageSlug: slug } = useParams()
 	const { width } = useWindowSize()
 
-	const formActionByMode =
-		mode === 'create' ? createProjectAction : updateProjectAction
+	const formActionByMode = mode === 'create' ? createProjectAction : updateProjectAction
 
-	const [{ success, message, errors }, handleSubmit, isSubmitting] =
-		useFormState(formActionByMode, {
-			onSuccess() {
-				onOpenChange()
-			},
-			resetStateMessage: true,
-		})
+	const [{ success, message, errors }, handleSubmit, isSubmitting] = useFormState(formActionByMode, {
+		onSuccess() {
+			onOpenChange()
+		},
+		resetStateMessage: true,
+	})
 
 	useEffect(() => {
 		if (!success && message) {
@@ -70,20 +62,10 @@ export function ModalProjectForm({
 				open={open}
 				onOpenChange={onOpenChange}
 			>
-				<form
-					onSubmit={handleSubmit}
-					className="flex flex-col gap-8 sm:flex-row"
-					ref={formRef}
-				>
+				<form onSubmit={handleSubmit} className="flex flex-col gap-8 sm:flex-row" ref={formRef}>
 					<input type="hidden" name="pageSlug" defaultValue={slug} />
 
-					{mode === 'edit' && initialData && (
-						<input
-							type="hidden"
-							name="projectId"
-							defaultValue={initialData.id}
-						/>
-					)}
+					{mode === 'edit' && initialData && <input type="hidden" name="projectId" defaultValue={initialData.id} />}
 
 					<FormImage mode="project" currentImage={initialImage} />
 
